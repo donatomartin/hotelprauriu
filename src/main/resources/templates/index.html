@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head}"></head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav th:replace="~{fragments/nav}"></nav>
+
+    <!-- Highlight Section with Improved Design -->
+    <section
+        class="highlight-section position-relative text-center text-white d-flex justify-content-center align-items-center"
+        style="background-image: url('/images/hotel/fotohabitacion1.jpg'); height: 80vh; background-size: cover; background-position: center;">
+        <!-- Overlay -->
+        <div class="overlay position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0, 0, 0, 0.25);"></div>
+
+        <div class="container position-relative">
+            <h1 class="display-3 fw-bold"
+                style="font-family: 'Poppins', sans-serif; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);">Hotel Prau Ríu
+            </h1>
+            <a href="#about" class="btn btn-primary btn-lg"
+                style="padding: 10px 25px; font-size: 1rem; border-radius: 50px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);"
+                th:text="#{index.learn-more}"></a>
+        </div>
+    </section>
+
+
+    <!-- Hero Section -->
+    <header class="hero-section text-center text-white d-flex justify-content-center align-items-center"
+        style="background-image: url('/images/hero.jpg'); height: 100vh; background-size: cover; background-position: center;">
+        <div class="container">
+            <h1 class="display-4 text-black">Welcome to Hotel Prauriu</h1>
+            <p class="lead text-black">Experience luxury and comfort at its finest</p>
+            <a href="#services" class="btn btn-primary btn-lg" th:text="#{index.discover-more}"></a>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">About Us</h2>
+            <p>Prau Ríu es el primer Hotel Hyundai de España, 100% eléctrico y sostenible. Generamos nuestra propia
+                energía fotovoltaica y con el apoyo de un Hyundai Ioniq 5 logramos la desconexión total de la red
+                eléctrica a voluntad. En Hotel Prau Riu Hyundai-Asturdai, disfrutarás de una estancia inmejorable a la
+                par que reduces la huella de carbono de tu viaje. Además podrás asistir a eventos culturales 100%
+                sostenibles, cuya energía es directamente suministrada por nuestro vehículo Hyundai.</p>
+            <!-- Gallery of photos -->
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <img src="/images/hotel/fotohotel1.jpg" class="img-fluid rounded shadow-sm" alt="Hotel Image 1">
+                </div>
+                <div class="col-md-4">
+                    <img src="/images/hotel/fotohotel2.jpg" class="img-fluid rounded shadow-sm" alt="Hotel Image 2">
+                </div>
+                <div class="col-md-4">
+                    <img src="/images/hotel/fotohotel3.jpg" class="img-fluid rounded shadow-sm" alt="Hotel Image 3">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">Our Services</h2>
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <i class="bi bi-house-door display-4 mb-3"></i>
+                            <h5 class="card-title">Ambiente limpio y tranquilo</h5>
+                            <p class="card-text">Enjoy our elegantly designed rooms with top-notch facilities.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <i class="bi bi-cup-straw display-4 mb-3"></i>
+                            <h5 class="card-title">Habitaciones Temáticas</h5>
+                            <p class="card-text">Savor delicious meals prepared by our world-class chefs.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <i class="bi bi-spa display-4 mb-3"></i>
+                            <h5 class="card-title">Emisiones 0</h5>
+                            <p class="card-text">Relax and rejuvenate with our spa and wellness services.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">Contact Us</h2>
+            <p>Have questions or need assistance? Get in touch with us!</p>
+            <form>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control" placeholder="Your Name" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input type="email" class="form-control" placeholder="Your Email" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer th:replace="~{fragments/footer}"></footer>
+</body>
+
+</html>
