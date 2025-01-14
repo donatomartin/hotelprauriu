@@ -1,0 +1,55 @@
+<section id="reservation" class="py-5">
+    <div class="container text-center">
+        <h2 class="mb-4" th:text="#{reservation.title}">Make a Reservation placholder</h2>
+        <p th:text="#{reservation.description}">Book your stay with us for an unforgettable experience! placeholder</p>
+        <form>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <input type="text" class="form-control" th:placeholder="#{reservation.first-name}" placeholder="First Name" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <input type="text" class="form-control" th:placeholder="#{reservation.last-name}" placeholder="Last Name" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <input type="email" class="form-control" th:placeholder="#{reservation.email}" placeholder="Email Address" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <input type="tel" class="form-control" th:placeholder="#{reservation.phone}" placeholder="Phone Number" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <input type="date" class="form-control" th:placeholder="#{reservation.check-in}" placeholder="Check-in Date" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <input type="date" class="form-control" th:placeholder="#{reservation.check-out}" placeholder="Check-out Date" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <select class="form-control" required>
+                        <option value="" th:text="#{reservation.number-of-guests}">Number of Guests</option>
+                        <option value="1" th:text="#{reservation.one-guest}">1 Guest</option>
+                        <option value="2" th:text="#{reservation.two-guests}">2 Guests</option>
+                        <option value="3" th:text="#{reservation.three-guests}">3 Guests</option>
+                        <option value="4" th:text="#{reservation.four-guests}">4 Guests</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <select class="form-control" required>
+                        <option value="" th:text="#{reservation.number-of-dogs}">Number of Dogs</option>
+                        <option value="0" th:text="#{reservation.no-dogs}">0 Dogs</option>
+                        <option value="1" th:text="#{reservation.one-dog}">1 Dog</option>
+                        <option value="2" th:text="#{reservation.two-dogs}">2 Dogs</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3">
+                <textarea class="form-control" rows="3" th:placeholder="#{reservation.special-requests}" placeholder="Special Requests (Optional)"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg" th:text="#{reservation.book-now}">Book Now</button>
+        </form>
+    </div>
+</section>

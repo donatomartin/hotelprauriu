@@ -1,0 +1,20 @@
+<section id="contact" class="py-5">
+    <div class="container text-center">
+        <h2 class="mb-4" th:text="#{contact.title}"></h2>
+        <p>Have questions or need assistance? Get in touch with us!</p>
+        <form>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <input type="text" class="form-control" placeholder="Your Name" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <input type="email" class="form-control" placeholder="Your Email" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+    </div>
+</section>
