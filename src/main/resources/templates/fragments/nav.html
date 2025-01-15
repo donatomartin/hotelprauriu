@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light position-fixed top-0 start-0 w-100 bg-white shadow-sm">
     <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/index#">
             <img src="/images/hotel/logo.png" alt="Hotel Prauriu Logo" height="30" class="d-inline-block align-text-top me-2">
             Hotel Prauriu
         </a>
@@ -11,16 +11,22 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#" th:text="#&#123;nav.home&#125;">Home</a>
+                    <a class="nav-link active" href="/index#" th:text="#{nav.home}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#about" th:text="#&#123;nav.about&#125;">About</a>
+                    <a class="nav-link" href="/index#reservation" th:text="#{nav.reservation}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#services" th:text="#&#123;nav.services&#125;">Services</a>
+                    <a class="nav-link" href="/index#about" th:text="#{nav.about}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#contact" th:text="#&#123;nav.contact&#125;">Contact</a>
+                    <a class="nav-link" href="/index#services" th:text="#{nav.services}">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/index#contact" th:text="#{nav.contact}">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/index#otherPages" th:text="#{nav.other}">Other</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="btnLanguage" role="button" data-toggle="dropdown"
@@ -29,12 +35,12 @@
                     </a>
                     <div id="languageDropdownMenuButton" class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" id="btnEnglish" value="EN">
-                            <img th:src="@&#123;/images/flags/uk_flag.png&#125;" class="flag"/>
-                            <span th:text="#&#123;language.en&#125;"></span>
+                            <img th:src="@{/images/flags/uk_flag.png}" class="flag"/>
+                            <span th:text="#{language.en}"></span>
                         </a>
                         <a class="dropdown-item" id="btnSpanish" value="ES">
-                            <img th:src="@&#123;/images/flags/spain_flag.png&#125;" class="flag"/>
-                            <span th:text="#&#123;language.es&#125;"></span>
+                            <img th:src="@{/images/flags/spain_flag.png}" class="flag"/>
+                            <span th:text="#{language.es}"></span>
                         </a>
                     </div>
                 </li>

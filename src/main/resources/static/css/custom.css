@@ -18,11 +18,16 @@
 
 #highlight,
 #slogan,
+#reservation,
 #about,
 #services,
 #contact
 {
     scroll-margin-top: 10vh;
+}
+
+#rules {
+    margin-top: 12vh;
 }
 
 .transparent-black-background {

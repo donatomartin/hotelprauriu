@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/main}">
+<body>
+    <main id="rules" layout:fragment="content">
+      <div class="container mt-4" style="max-width: 1000px; margin: auto;">
+        <div class="px-4">
+            <h1 class="mb-4 text-center">Normas del Hotel</h1>
+
+            <div class="card mb-4 shadow-sm">
+              <div class="card-header">
+                <h2 class="h5 mb-0">Horarios Check-in/Check-out</h2>
+              </div>
+              <div class="card-body">
+                <ul class="list-unstyled">
+                    <li>Check-in: A partir de las 15:00h (antes de las 23:00h)</li>
+                    <li>Check-out: Antes de las 12:00h</li>
+                    <li class="text-warning">Suplemento de 15€ por late check-out hasta las 14:00h</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="row justify-content-center">
+              <div class="col-md-6">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                      <h2 class="h5 mb-0">Política de Cancelación</h2>
+                    </div>
+                    <div class="card-body">
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Reservas Standard: Cancelación gratuita hasta 7 días antes</li>
+                        <li class="list-group-item">Reservas No Reembolsables: Sin cambios ni cancelaciones</li>
+                        <li class="list-group-item">Ofertas especiales: Se tratan como no reembolsables</li>
+                      </ul>
+                    </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                      <h2 class="h5 mb-0">Servicios</h2>
+                    </div>
+                    <div class="card-body">
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Desayunos: 09:30h - 11:00h (reserva necesaria)</li>
+                        <li class="list-group-item">Limpieza: 10:00h - 12:00h</li>
+                        <li class="list-group-item">Terraza: 17:00h - 22:00h</li>
+                      </ul>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card mb-4 shadow-sm">
+              <div class="card-header">
+                <h2 class="h5 mb-0">Política de Mascotas</h2>
+              </div>
+              <div class="card-body">
+                <p>Mascotas bienvenidas con suplemento de 15€/noche/mascota. No pueden quedarse solas en la habitación.</p>
+              </div>
+            </div>
+
+            <div class="alert alert-warning shadow-sm"> 
+              <h4 class="alert-heading">Espacio libre de humo</h4>
+              <p class="mb-0">Prohibido fumar en habitaciones y espacios comunes. Penalización: 100€</p>
+            </div>
+
+            <div class="card mb-4 shadow-sm">
+              <div class="card-header">
+                <h2 class="h5 mb-0">Contacto</h2>
+              </div>
+              <div class="card-body">
+                <p class="mb-0 text-center">
+                    <i class="bi bi-envelope"></i> Email: <a href="mailto:hotelprauriu@gmail.com">hotelprauriu@gmail.com</a><br>
+                    <i class="bi bi-whatsapp"></i> WhatsApp: <a href="tel:+34684605074">+34684605074</a>
+                </p>
+              </div>
+            </div>
+        </div>
+      </div>
+    </main>
+</body>
+</html>

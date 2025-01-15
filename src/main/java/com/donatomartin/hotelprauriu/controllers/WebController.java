@@ -10,7 +10,12 @@ public class WebController {
     
     @RequestMapping(value={"/index", "/"}, method=RequestMethod.GET)
     public String getIndex() {
-        return "index";
+        return "pages/index";
+    }
+
+    @RequestMapping(value={"/rules"}, method=RequestMethod.GET)
+    public String getRules() {
+        return "pages/rules";
     }
     
     
