@@ -63,17 +63,16 @@
                     <nav>
                         <ul class="pagination">
                             <li class="page-item" th:classappend="${reservationList.first ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{/admin(reservation_page=${reservationList.number - 1})}">&laquo;</a>
+                                <a class="page-link" th:href="@{/admin(reservation_page=${reservationList.number - 1}, question_page=${questionList.number})}">&laquo;</a>
                             </li>
                             <li class="page-item" 
                                 th:each="pageNumber : ${#numbers.sequence(0, reservationList.totalPages - 1)}"
                                 th:classappend="${pageNumber == reservationList.number ? 'active' : ''}">
-                                <a class="page-link" th:href="@{/admin(reservation_page=${pageNumber})}"
-                                    th:text="${pageNumber + 1}"></a>
+                                <a class="page-link" th:href="@{/admin(reservation_page=${pageNumber}, question_page=${questionList.number})}" th:text="${pageNumber + 1}"></a>
                             </li>
                             <li class="page-item" th:classappend="${reservationList.last ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{/admin(reservation_page=${reservationList.number + 1})}">&raquo;</a>
-                            </li>
+                                <a class="page-link" th:href="@{/admin(reservation_page=${reservationList.number + 1}, question_page=${questionList.number})}">&raquo;</a>
+                            </li> 
                         </ul>
                     </nav>
                 </div>
@@ -118,16 +117,15 @@
                     <nav>
                         <ul class="pagination">
                             <li class="page-item" th:classappend="${questionList.first ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{/admin(question_page=${questionList.number - 1})}">&laquo;</a>
+                                <a class="page-link" th:href="@{/admin(reservation_page=${reservationList.number}, question_page=${questionList.number - 1})}">&laquo;</a>
                             </li>
                             <li class="page-item"
                                 th:each="pageNumber : ${#numbers.sequence(0, questionList.totalPages - 1)}"
                                 th:classappend="${pageNumber == questionList.number ? 'active' : ''}">
-                                <a class="page-link" th:href="@{/admin(question_page=${pageNumber})}"
-                                    th:text="${pageNumber + 1}"></a>
+                                <a class="page-link" th:href="@{/admin(reservation_page=${reservationList.number}, question_page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
                             </li>
                             <li class="page-item" th:classappend="${questionList.last ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{/admin(question_page=${questionList.number + 1})}">&raquo;</a>
+                                <a class="page-link" th:href="@{/admin(reservation_page=${reservationList.number}, question_page=${questionList.number + 1})}">&raquo;</a>
                             </li>
                         </ul>
                     </nav>
