@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layouts/main}">
+    layout:decorate="~{guest/layouts/main}">
 <body>
     <main id="rules" layout:fragment="content">
       <div class="container mt-4" style="max-width: 1000px; margin: auto;">
@@ -16,7 +16,7 @@
                 <ul class="list-unstyled">
                     <li>Check-in: A partir de las 15:00h (antes de las 23:00h)</li>
                     <li>Check-out: Antes de las 12:00h</li>
-                    <li class="text-warning">Suplemento de 15€ por late check-out hasta las 14:00h</li>
+                    <li class="text-danger">Suplemento de 15€ por late check-out hasta las 14:00h</li>
                 </ul>
               </div>
             </div>
@@ -62,7 +62,7 @@
               </div>
             </div>
 
-            <div class="alert alert-warning shadow-sm"> 
+            <div class="alert alert-warning shadow-sm mb-4"> 
               <h4 class="alert-heading">Espacio libre de humo</h4>
               <p class="mb-0">Prohibido fumar en habitaciones y espacios comunes. Penalización: 100€</p>
             </div>

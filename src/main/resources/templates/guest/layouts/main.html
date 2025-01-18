@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="~{guest/fragments/partials/head}"></head>
+<body>
+    <!-- Fixed parts -->
+    <nav th:replace="~{guest/fragments/partials/nav}"></nav>
+    
+    <!-- Main content placeholder -->
+    <main layout:fragment="content">
+        <!-- Page-specific content will go here -->
+    </main>
+    
+    <footer th:replace="~{guest/fragments/partials/footer}"></footer>
+</body>
+</html>

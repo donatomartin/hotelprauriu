@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{admin/layouts/main}">
+
+<body>
+    <main layout:fragment="content">
+
+        <div class="container mt-4">
+            <h1 class="text-center mb-4">Admin Panel</h1>
+
+            <h2 id="reservations" class="mt-5">Reservas</h2>
+
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered" id="reservationTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">CheckIn</th>
+                            <th scope="col">Checkout</th>
+                            <th scope="col">Nombre Completo</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Teléfono</th>
+                            <th scope="col">Numero de Personas</th>
+                            <th scope="col">Numero de Perros</th>
+                            <th scope="col">Mensaje</th>
+                            <th scope="col">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="reservation : ${reservationList}">
+                            <td th:text="${reservation.checkIn}"></td>
+                            <td th:text="${reservation.checkOut}"></td>
+                            <td th:text="${reservation.guestFullName}"></td>
+                            <td th:text="${reservation.guestEmail}"></td>
+                            <td th:text="${reservation.guestPhoneNumber}"></td>
+                            <td th:text="${reservation.numberOfGuests}"></td>
+                            <td th:text="${reservation.numberOfDogs}"></td>
+                            <td>
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" 
+                                    data-bs-target="#messageModal" th:if="${reservation.guestMessage}"
+                                    th:data-bs-message="${reservation.guestMessage}" 
+                                    th:data-bs-name="${reservation.guestFullName}" 
+                                    th:data-bs-email="${reservation.guestEmail}" 
+                                    th:data-bs-phone="${reservation.guestPhoneNumber}">
+                                    Ver Mensaje
+                                </button>
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-around">
+                                    <button class="btn btn-success btn-sm" title="Accept">
+                                        ✓
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" title="Decline">
+                                        ✗
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 id="questions" class="mt-5">Preguntas</h2>
+
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered" id="questionTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Mensaje</th>
+                            <th scope="col">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="question : ${questionList}">
+                            <td th:text="${question.guestFullName}"></td>
+                            <td th:text="${question.guestEmail}"></td>
+                            <td>
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" 
+                                    data-bs-target="#messageModal" th:if="${question.guestMessage}"
+                                    th:data-bs-message="${question.guestMessage}" 
+                                    th:data-bs-name="${question.guestFullName}" 
+                                    th:data-bs-email="${question.guestEmail}">
+                                    Ver Mensaje
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger btn-sm w-100" title="Delete">Borrar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="messageModalLabel">Mensaje del Cliente</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Nombre:</strong> <span id="modalName"></span></p>
+                        <p><strong>Email:</strong> <span id="modalEmail"></span></p>
+                        <p><strong>Teléfono:</strong> <span id="modalPhone"></span></p>
+                        <hr>
+                        <p id="modalMessageContent"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">Responder</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const messageModal = document.getElementById('messageModal');
+            messageModal.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+                const messageContent = button.getAttribute('data-bs-message');
+                const name = button.getAttribute('data-bs-name');
+                const email = button.getAttribute('data-bs-email');
+                const phone = button.getAttribute('data-bs-phone');
+
+                document.getElementById('modalMessageContent').textContent = messageContent;
+                document.getElementById('modalName').textContent = name;
+                document.getElementById('modalEmail').textContent = email;
+                document.getElementById('modalPhone').textContent = phone;
+            });
+        </script>
+
+    </main>
+
+</body>
+
+</html>

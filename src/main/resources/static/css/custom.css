@@ -1,9 +1,8 @@
 #highlight {
     background-image: url('/images/hotel/room1.jpg');
-    height: 80vh;
+    height: 85vh;
     background-size: cover;
     background-position: center;
-    margin-top: 12vh;
 }
 
 #slogan {
@@ -21,12 +20,18 @@
 #reservation,
 #about,
 #services,
-#contact
+#contact,
+#reservations,
+#questions
 {
     scroll-margin-top: 10vh;
 }
 
 #rules {
+    margin-top: 12vh;
+}
+
+main {
     margin-top: 12vh;
 }
 
@@ -52,9 +57,9 @@
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-#slogan h1 {
+#highlight h1 {
     font-family: 'Poppins',sans-serif;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 }
 
 nav {
@@ -64,4 +69,28 @@ nav {
 .btn-primary {
     background-color: #34792b;
     border-color: #34792b;  
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* For Admin Dashboard */
+
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+table {
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    
+    h1, h2 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .btn {
+        font-size: 0.875rem;
+    }
 }
