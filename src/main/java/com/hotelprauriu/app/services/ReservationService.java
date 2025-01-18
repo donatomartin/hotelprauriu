@@ -1,7 +1,7 @@
 package com.hotelprauriu.app.services;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.hotelprauriu.app.entities.Reservation;
@@ -16,8 +16,8 @@ public class ReservationService {
         this.reservationRepository = reservationRepository;
     }
 
-    public List<Reservation> findAll() {
-        return reservationRepository.findAll();
+    public Page<Reservation> findAll(Pageable pageable) {
+        return reservationRepository.findAll(pageable);
     }
 
 }

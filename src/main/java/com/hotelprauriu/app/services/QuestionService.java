@@ -1,7 +1,7 @@
 package com.hotelprauriu.app.services;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.hotelprauriu.app.entities.Question;
@@ -16,8 +16,8 @@ public class QuestionService {
         this.questionRepository = questionRepository;
     }
 
-    public List<Question> findAll() {
-        return questionRepository.findAll();
+    public Page<Question> findAll(Pageable pageable) {
+        return questionRepository.findAll(pageable);
     }
     
 }

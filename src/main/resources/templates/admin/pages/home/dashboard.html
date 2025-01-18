@@ -35,11 +35,11 @@
                             <td th:text="${reservation.numberOfGuests}"></td>
                             <td th:text="${reservation.numberOfDogs}"></td>
                             <td>
-                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" 
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#messageModal" th:if="${reservation.guestMessage}"
-                                    th:data-bs-message="${reservation.guestMessage}" 
-                                    th:data-bs-name="${reservation.guestFullName}" 
-                                    th:data-bs-email="${reservation.guestEmail}" 
+                                    th:data-bs-message="${reservation.guestMessage}"
+                                    th:data-bs-name="${reservation.guestFullName}"
+                                    th:data-bs-email="${reservation.guestEmail}"
                                     th:data-bs-phone="${reservation.guestPhoneNumber}">
                                     Ver Mensaje
                                 </button>
@@ -57,7 +57,29 @@
                         </tr>
                     </tbody>
                 </table>
+
+                <!-- Add after reservationTable -->
+                <div class="d-flex justify-content-center" th:if="${reservationList.totalPages > 0}">
+                    <nav>
+                        <ul class="pagination">
+                            <li class="page-item" th:classappend="${reservationList.first ? 'disabled' : ''}">
+                                <a class="page-link" th:href="@{/admin(reservation_page=${reservationList.number - 1})}">&laquo;</a>
+                            </li>
+                            <li class="page-item" 
+                                th:each="pageNumber : ${#numbers.sequence(0, reservationList.totalPages - 1)}"
+                                th:classappend="${pageNumber == reservationList.number ? 'active' : ''}">
+                                <a class="page-link" th:href="@{/admin(reservation_page=${pageNumber})}"
+                                    th:text="${pageNumber + 1}"></a>
+                            </li>
+                            <li class="page-item" th:classappend="${reservationList.last ? 'disabled' : ''}">
+                                <a class="page-link" th:href="@{/admin(reservation_page=${reservationList.number + 1})}">&raquo;</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
+
+
 
             <h2 id="questions" class="mt-5">Preguntas</h2>
 
@@ -76,10 +98,10 @@
                             <td th:text="${question.guestFullName}"></td>
                             <td th:text="${question.guestEmail}"></td>
                             <td>
-                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" 
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#messageModal" th:if="${question.guestMessage}"
-                                    th:data-bs-message="${question.guestMessage}" 
-                                    th:data-bs-name="${question.guestFullName}" 
+                                    th:data-bs-message="${question.guestMessage}"
+                                    th:data-bs-name="${question.guestFullName}"
                                     th:data-bs-email="${question.guestEmail}">
                                     Ver Mensaje
                                 </button>
@@ -90,6 +112,26 @@
                         </tr>
                     </tbody>
                 </table>
+
+                <!-- Add after questionTable -->
+                <div class="d-flex justify-content-center" th:if="${questionList.totalPages > 0}">
+                    <nav>
+                        <ul class="pagination">
+                            <li class="page-item" th:classappend="${questionList.first ? 'disabled' : ''}">
+                                <a class="page-link" th:href="@{/admin(question_page=${questionList.number - 1})}">&laquo;</a>
+                            </li>
+                            <li class="page-item"
+                                th:each="pageNumber : ${#numbers.sequence(0, questionList.totalPages - 1)}"
+                                th:classappend="${pageNumber == questionList.number ? 'active' : ''}">
+                                <a class="page-link" th:href="@{/admin(question_page=${pageNumber})}"
+                                    th:text="${pageNumber + 1}"></a>
+                            </li>
+                            <li class="page-item" th:classappend="${questionList.last ? 'disabled' : ''}">
+                                <a class="page-link" th:href="@{/admin(question_page=${questionList.number + 1})}">&raquo;</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
 

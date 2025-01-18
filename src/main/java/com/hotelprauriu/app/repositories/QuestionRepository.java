@@ -1,16 +1,13 @@
 package com.hotelprauriu.app.repositories;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.lang.NonNull;
 
 import com.hotelprauriu.app.entities.Question;
 
 public interface QuestionRepository extends CrudRepository<Question, Long> {
-    
-    @Override
-    @NonNull
-    List<Question> findAll();
+
+    Page<Question> findAll(Pageable pageable);
     
 }
