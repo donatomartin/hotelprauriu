@@ -1,4 +1,4 @@
-package com.donatomartin.hotelprauriu;
+package com.hotelprauriu.app;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

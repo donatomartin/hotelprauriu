@@ -9,11 +9,11 @@
 		<version>3.4.1</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.donatomartin</groupId>
-	<artifactId>hotelprauriu</artifactId>
+	<groupId>com.hotelprauriu</groupId>
+	<artifactId>app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>hotelprauriu</name>
-	<description>Demo project for Spring Boot</description>
+	<name>app</name>
+	<description>Official Website of Hotel Prau Riu</description>
 	<url />
 	<licenses>
 		<license />

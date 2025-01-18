@@ -1,4 +1,4 @@
-package com.donatomartin.hotelprauriu.controllers;
+package com.hotelprauriu.app.controllers;
 
 import java.util.List;
 
@@ -7,11 +7,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.donatomartin.hotelprauriu.entities.Reservation;
-import com.donatomartin.hotelprauriu.entities.Question;
+import com.hotelprauriu.app.entities.Reservation;
+import com.hotelprauriu.app.entities.Question;
 
-import com.donatomartin.hotelprauriu.services.QuestionService;
-import com.donatomartin.hotelprauriu.services.ReservationService;
+import com.hotelprauriu.app.services.QuestionService;
+import com.hotelprauriu.app.services.ReservationService;
 
 
 @Controller

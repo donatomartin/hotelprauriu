@@ -1,4 +1,4 @@
-package com.donatomartin.hotelprauriu;
+package com.hotelprauriu.app;
 
 import java.util.Locale;
 import org.springframework.lang.NonNull;

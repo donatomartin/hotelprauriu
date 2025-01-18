@@ -1,4 +1,4 @@
-package com.donatomartin.hotelprauriu.entities;
+package com.hotelprauriu.app.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

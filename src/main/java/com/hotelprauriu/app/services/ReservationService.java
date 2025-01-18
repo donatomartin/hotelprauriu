@@ -1,11 +1,11 @@
-package com.donatomartin.hotelprauriu.services;
+package com.hotelprauriu.app.services;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.donatomartin.hotelprauriu.entities.Reservation;
-import com.donatomartin.hotelprauriu.repositories.ReservationRepository;
+import com.hotelprauriu.app.entities.Reservation;
+import com.hotelprauriu.app.repositories.ReservationRepository;
 
 @Service
 public class ReservationService {

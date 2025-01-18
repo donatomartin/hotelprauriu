@@ -1,4 +1,4 @@
-package com.donatomartin.hotelprauriu.entities;
+package com.hotelprauriu.app.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
