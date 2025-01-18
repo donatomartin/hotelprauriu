@@ -37,4 +37,9 @@ public class AdminController {
         return "admin/pages/home/dashboard";
     }
 
+    @RequestMapping(value={"/login"}, method=RequestMethod.GET)
+    public String getLogin() {
+        return "admin/pages/auth/login";
+    }
+
 }
