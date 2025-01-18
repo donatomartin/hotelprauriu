@@ -5,67 +5,74 @@
 <body>
     <main layout:fragment="content">
         <div class="container mt-4">
-            <h1 class="text-center mb-4">Admin Panel</h1>
+            <h1 class="text-center mb-4">Administración</h1>
 
             <!-- Reservations Section -->
             <h2 id="reservations" class="mt-5">Reservas</h2>
-            <div class="table-responsive" id="reservationTableContainer">
+            <div class="table-fragment" id="reservationTableContainer">
                 <table th:replace="admin/fragments/tables/reservations" id="reservationTable"></table>
-            </div>
-            <div class="d-flex justify-content-center" th:if="${reservationList.totalPages > 0}">
-                <ul class="pagination">
-                    <li class="page-item" th:classappend="${reservationList.first ? 'disabled' : ''}">
-                        <a class="page-link" th:attr="data-page=${reservationList.number - 1}" href="#">«</a>
-                    </li>
-                    <li class="page-item" th:each="pageNumber : ${#numbers.sequence(0, reservationList.totalPages - 1)}"
-                        th:classappend="${pageNumber == reservationList.number ? 'active' : ''}">
-                        <a class="page-link" th:attr="data-page=${pageNumber}" href="#" th:text="${pageNumber + 1}"></a>
-                    </li>
-                    <li class="page-item" th:classappend="${reservationList.last ? 'disabled' : ''}">
-                        <a class="page-link" th:attr="data-page=${reservationList.number + 1}" href="#">»</a>
-                    </li>
-                </ul>
             </div>
 
             <!-- Questions Section -->
             <h2 id="questions" class="mt-5">Preguntas</h2>
-            <div class="table-responsive" id="questionTableContainer">
+            <div class="table-fragment" id="questionTableContainer">
                 <table th:replace="admin/fragments/tables/questions" id="questionTable"></table>
-            </div>
-            <div class="d-flex justify-content-center" th:if="${questionList.totalPages > 0}">
-                <ul class="pagination">
-                    <li class="page-item" th:classappend="${questionList.first ? 'disabled' : ''}">
-                        <a class="page-link" th:attr="data-page=${questionList.number - 1}" href="#">«</a>
-                    </li>
-                    <li class="page-item" th:each="pageNumber : ${#numbers.sequence(0, questionList.totalPages - 1)}"
-                        th:classappend="${pageNumber == questionList.number ? 'active' : ''}">
-                        <a class="page-link" th:attr="data-page=${pageNumber}" href="#" th:text="${pageNumber + 1}"></a>
-                    </li>
-                    <li class="page-item" th:classappend="${questionList.last ? 'disabled' : ''}">
-                        <a class="page-link" th:attr="data-page=${questionList.number + 1}" href="#">»</a>
-                    </li>
-                </ul>
             </div>
         </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <!-- Modal Reservation -->
+        <div class="modal fade" id="messageModalReservation" tabindex="-1" aria-labelledby="messageModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="messageModalLabel">Mensaje del Cliente</h5>
+                        <h5 class="modal-title" id="messageModalLabel">Reserva del Cliente</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p><strong>Nombre:</strong> <span id="modalName"></span></p>
-                        <p><strong>Email:</strong> <span id="modalEmail"></span></p>
-                        <p><strong>Teléfono:</strong> <span id="modalPhone"></span></p>
+                        <p><strong>Nombre:</strong> <span id="modalNameReservation"></span></p>
+                        <p><strong>Email:</strong> <span id="modalEmailReservation"></span></p>
+                        <p><strong>Teléfono:</strong> <span id="modalPhoneReservation"></span></p>
                         <hr>
-                        <p id="modalMessageContent"></p>
+                        <p id="modalMessageContentReservation"></p>
+                        <hr>
+                        <h6>Tu respuesta:</h6>
+                        <textarea class="form-control" id="modalResponseReservation" rows="3"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-success" title="Aceptar"><i
+                                class="fas fa-check">✓</i></button>
+                        <button type="button" class="btn btn-danger" title="Rechazar"><i
+                                class="fas fa-times">✗</i></button>
+                        <button type="button" class="btn btn-warning" title="Borrar">🗑️</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Question -->
+        <div class="modal fade" id="messageModalQuestion" tabindex="-1" aria-labelledby="messageModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="messageModalLabel">Mensaje</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Nombre:</strong> <span id="modalNameQuestion"></span></p>
+                        <p><strong>Email:</strong> <span id="modalEmailQuestion"></span></p>
+                        <hr>
+                        <p id="modalMessageContentQuestion"></p>
+                        <hr>
+                        <h6>Tu respuesta:</h6>
+                        <textarea class="form-control" id="modalResponseQuestion" rows="3"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         <button type="button" class="btn btn-primary">Responder</button>
+                        <button type="button" class="btn btn-warning" title="Borrar">🗑️</button>
                     </div>
                 </div>
             </div>
@@ -73,26 +80,40 @@
 
         <!-- JavaScript -->
         <script>
-            // Modal for displaying client messages
-            const messageModal = document.getElementById('messageModal');
-            messageModal.addEventListener('show.bs.modal', function (event) {
+            // Modal for displaying client reservations
+            const messageModalReservation = document.getElementById('messageModalReservation');
+            messageModalReservation.addEventListener('show.bs.modal', function (event) {
                 const button = event.relatedTarget;
                 const messageContent = button.getAttribute('data-bs-message');
                 const name = button.getAttribute('data-bs-name');
                 const email = button.getAttribute('data-bs-email');
                 const phone = button.getAttribute('data-bs-phone');
 
-                document.getElementById('modalMessageContent').textContent = messageContent;
-                document.getElementById('modalName').textContent = name;
-                document.getElementById('modalEmail').textContent = email;
-                document.getElementById('modalPhone').textContent = phone;
+                document.getElementById('modalMessageContentReservation').textContent = messageContent;
+                document.getElementById('modalNameReservation').textContent = name;
+                document.getElementById('modalEmailReservation').textContent = email;
+                document.getElementById('modalPhoneReservation').textContent = phone;
             });
+
+            // Modal for displaying client questions
+            const messageModalQuestion = document.getElementById('messageModalQuestion');
+            messageModalQuestion.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+                const messageContent = button.getAttribute('data-bs-message');
+                const name = button.getAttribute('data-bs-name');
+                const email = button.getAttribute('data-bs-email');
+
+                document.getElementById('modalMessageContentQuestion').textContent = messageContent;
+                document.getElementById('modalNameQuestion').textContent = name;
+                document.getElementById('modalEmailQuestion').textContent = email;
+            });
+
+
 
             // Function to load table content dynamically
             function loadTableContent(containerId, endpoint, params) {
                 const queryParams = new URLSearchParams(params).toString();
                 const fullUrl = `${endpoint}?${queryParams}`;
-                console.log('Fetching data from:', fullUrl);
 
                 fetch(fullUrl, {
                     method: 'GET',
@@ -114,11 +135,9 @@
                 if (e.target.classList.contains('page-link')) {
                     e.preventDefault();
 
-                    // Find the parent .table-responsive container
-                    const container = e.target.closest('.pagination').parentElement.previousElementSibling;
-
-                    if (!container || !container.classList.contains('table-responsive')) {
-                        console.error('No .table-responsive container found for the clicked element.');
+                    const container = e.target.closest('.table-fragment');
+                    if (!container) {
+                        console.error('No container found for the clicked element.');
                         return;
                     }
 
@@ -127,14 +146,12 @@
                         ? '/admin/reservations'
                         : '/admin/questions';
 
-                    // Get the page number from the data-page attribute
                     const pageNumber = e.target.getAttribute('data-page');
-                    if (!pageNumber) {
+                    if (pageNumber === null) {
                         console.error('No data-page attribute found on the clicked element.');
                         return;
                     }
 
-                    // Load updated table content
                     loadTableContent(containerId, endpoint, { page: pageNumber });
                 }
             });
