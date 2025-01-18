@@ -1,0 +1,27 @@
+
+    <table class="table table-hover table-bordered" id="questionTable">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Email</th>
+                <th scope="col">Mensaje</th>
+                <th scope="col">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="question : ${questionList.content}">
+                <td th:text="${question.guestFullName}"></td>
+                <td th:text="${question.guestEmail}"></td>
+                <td>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#messageModal"
+                        th:if="${question.guestMessage}" th:data-bs-message="${question.guestMessage}"
+                        th:data-bs-name="${question.guestFullName}" th:data-bs-email="${question.guestEmail}">
+                        Ver Mensaje
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-danger btn-sm w-100" title="Delete">Borrar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>

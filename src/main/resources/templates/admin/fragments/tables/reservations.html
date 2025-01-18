@@ -1,0 +1,41 @@
+
+    <table class="table table-hover table-bordered" id="reservationTable">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">CheckIn</th>
+                <th scope="col">Checkout</th>
+                <th scope="col">Nombre Completo</th>
+                <th scope="col">Email</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Número de Personas</th>
+                <th scope="col">Número de Perros</th>
+                <th scope="col">Mensaje</th>
+                <th scope="col">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="reservation : ${reservationList.content}">
+                <td th:text="${reservation.checkIn}"></td>
+                <td th:text="${reservation.checkOut}"></td>
+                <td th:text="${reservation.guestFullName}"></td>
+                <td th:text="${reservation.guestEmail}"></td>
+                <td th:text="${reservation.guestPhoneNumber}"></td>
+                <td th:text="${reservation.numberOfGuests}"></td>
+                <td th:text="${reservation.numberOfDogs}"></td>
+                <td>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#messageModal"
+                        th:if="${reservation.guestMessage}" th:data-bs-message="${reservation.guestMessage}"
+                        th:data-bs-name="${reservation.guestFullName}" th:data-bs-email="${reservation.guestEmail}"
+                        th:data-bs-phone="${reservation.guestPhoneNumber}">
+                        Ver Mensaje
+                    </button>
+                </td>
+                <td>
+                    <div class="d-flex justify-content-around">
+                        <button class="btn btn-success btn-sm" title="Accept">✓</button>
+                        <button class="btn btn-danger btn-sm" title="Decline">✗</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>

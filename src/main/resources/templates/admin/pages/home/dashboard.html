@@ -4,132 +4,47 @@
 
 <body>
     <main layout:fragment="content">
-
         <div class="container mt-4">
             <h1 class="text-center mb-4">Admin Panel</h1>
 
+            <!-- Reservations Section -->
             <h2 id="reservations" class="mt-5">Reservas</h2>
-
-            <div class="table-responsive">
-                <table class="table table-hover table-bordered" id="reservationTable">
-                    <thead class="table-light">
-                        <tr>
-                            <th scope="col">CheckIn</th>
-                            <th scope="col">Checkout</th>
-                            <th scope="col">Nombre Completo</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Teléfono</th>
-                            <th scope="col">Numero de Personas</th>
-                            <th scope="col">Numero de Perros</th>
-                            <th scope="col">Mensaje</th>
-                            <th scope="col">Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="reservation : ${reservationList}">
-                            <td th:text="${reservation.checkIn}"></td>
-                            <td th:text="${reservation.checkOut}"></td>
-                            <td th:text="${reservation.guestFullName}"></td>
-                            <td th:text="${reservation.guestEmail}"></td>
-                            <td th:text="${reservation.guestPhoneNumber}"></td>
-                            <td th:text="${reservation.numberOfGuests}"></td>
-                            <td th:text="${reservation.numberOfDogs}"></td>
-                            <td>
-                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#messageModal" th:if="${reservation.guestMessage}"
-                                    th:data-bs-message="${reservation.guestMessage}"
-                                    th:data-bs-name="${reservation.guestFullName}"
-                                    th:data-bs-email="${reservation.guestEmail}"
-                                    th:data-bs-phone="${reservation.guestPhoneNumber}">
-                                    Ver Mensaje
-                                </button>
-                            </td>
-                            <td>
-                                <div class="d-flex justify-content-around">
-                                    <button class="btn btn-success btn-sm" title="Accept">
-                                        ✓
-                                    </button>
-                                    <button class="btn btn-danger btn-sm" title="Decline">
-                                        ✗
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <!-- Add after reservationTable -->
-                <div class="d-flex justify-content-center" th:if="${reservationList.totalPages > 0}">
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item" th:classappend="${reservationList.first ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{/admin(reservation_page=${reservationList.number - 1}, question_page=${questionList.number})}">&laquo;</a>
-                            </li>
-                            <li class="page-item" 
-                                th:each="pageNumber : ${#numbers.sequence(0, reservationList.totalPages - 1)}"
-                                th:classappend="${pageNumber == reservationList.number ? 'active' : ''}">
-                                <a class="page-link" th:href="@{/admin(reservation_page=${pageNumber}, question_page=${questionList.number})}" th:text="${pageNumber + 1}"></a>
-                            </li>
-                            <li class="page-item" th:classappend="${reservationList.last ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{/admin(reservation_page=${reservationList.number + 1}, question_page=${questionList.number})}">&raquo;</a>
-                            </li> 
-                        </ul>
-                    </nav>
-                </div>
+            <div class="table-responsive" id="reservationTableContainer">
+                <table th:replace="admin/fragments/tables/reservations" id="reservationTable"></table>
+            </div>
+            <div class="d-flex justify-content-center" th:if="${reservationList.totalPages > 0}">
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${reservationList.first ? 'disabled' : ''}">
+                        <a class="page-link" th:attr="data-page=${reservationList.number - 1}" href="#">«</a>
+                    </li>
+                    <li class="page-item" th:each="pageNumber : ${#numbers.sequence(0, reservationList.totalPages - 1)}"
+                        th:classappend="${pageNumber == reservationList.number ? 'active' : ''}">
+                        <a class="page-link" th:attr="data-page=${pageNumber}" href="#" th:text="${pageNumber + 1}"></a>
+                    </li>
+                    <li class="page-item" th:classappend="${reservationList.last ? 'disabled' : ''}">
+                        <a class="page-link" th:attr="data-page=${reservationList.number + 1}" href="#">»</a>
+                    </li>
+                </ul>
             </div>
 
-
-
+            <!-- Questions Section -->
             <h2 id="questions" class="mt-5">Preguntas</h2>
-
-            <div class="table-responsive">
-                <table class="table table-hover table-bordered" id="questionTable">
-                    <thead class="table-light">
-                        <tr>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Mensaje</th>
-                            <th scope="col">Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="question : ${questionList}">
-                            <td th:text="${question.guestFullName}"></td>
-                            <td th:text="${question.guestEmail}"></td>
-                            <td>
-                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#messageModal" th:if="${question.guestMessage}"
-                                    th:data-bs-message="${question.guestMessage}"
-                                    th:data-bs-name="${question.guestFullName}"
-                                    th:data-bs-email="${question.guestEmail}">
-                                    Ver Mensaje
-                                </button>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger btn-sm w-100" title="Delete">Borrar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <!-- Add after questionTable -->
-                <div class="d-flex justify-content-center" th:if="${questionList.totalPages > 0}">
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item" th:classappend="${questionList.first ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{/admin(reservation_page=${reservationList.number}, question_page=${questionList.number - 1})}">&laquo;</a>
-                            </li>
-                            <li class="page-item"
-                                th:each="pageNumber : ${#numbers.sequence(0, questionList.totalPages - 1)}"
-                                th:classappend="${pageNumber == questionList.number ? 'active' : ''}">
-                                <a class="page-link" th:href="@{/admin(reservation_page=${reservationList.number}, question_page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
-                            </li>
-                            <li class="page-item" th:classappend="${questionList.last ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{/admin(reservation_page=${reservationList.number}, question_page=${questionList.number + 1})}">&raquo;</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+            <div class="table-responsive" id="questionTableContainer">
+                <table th:replace="admin/fragments/tables/questions" id="questionTable"></table>
+            </div>
+            <div class="d-flex justify-content-center" th:if="${questionList.totalPages > 0}">
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${questionList.first ? 'disabled' : ''}">
+                        <a class="page-link" th:attr="data-page=${questionList.number - 1}" href="#">«</a>
+                    </li>
+                    <li class="page-item" th:each="pageNumber : ${#numbers.sequence(0, questionList.totalPages - 1)}"
+                        th:classappend="${pageNumber == questionList.number ? 'active' : ''}">
+                        <a class="page-link" th:attr="data-page=${pageNumber}" href="#" th:text="${pageNumber + 1}"></a>
+                    </li>
+                    <li class="page-item" th:classappend="${questionList.last ? 'disabled' : ''}">
+                        <a class="page-link" th:attr="data-page=${questionList.number + 1}" href="#">»</a>
+                    </li>
+                </ul>
             </div>
         </div>
 
@@ -156,7 +71,9 @@
             </div>
         </div>
 
+        <!-- JavaScript -->
         <script>
+            // Modal for displaying client messages
             const messageModal = document.getElementById('messageModal');
             messageModal.addEventListener('show.bs.modal', function (event) {
                 const button = event.relatedTarget;
@@ -170,10 +87,60 @@
                 document.getElementById('modalEmail').textContent = email;
                 document.getElementById('modalPhone').textContent = phone;
             });
+
+            // Function to load table content dynamically
+            function loadTableContent(containerId, endpoint, params) {
+                const queryParams = new URLSearchParams(params).toString();
+                const fullUrl = `${endpoint}?${queryParams}`;
+                console.log('Fetching data from:', fullUrl);
+
+                fetch(fullUrl, {
+                    method: 'GET',
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.text();
+                    })
+                    .then(html => {
+                        document.getElementById(containerId).innerHTML = html;
+                    })
+                    .catch(error => console.error('Error fetching table content:', error));
+            }
+
+            document.addEventListener('click', function (e) {
+                if (e.target.classList.contains('page-link')) {
+                    e.preventDefault();
+
+                    // Find the parent .table-responsive container
+                    const container = e.target.closest('.pagination').parentElement.previousElementSibling;
+
+                    if (!container || !container.classList.contains('table-responsive')) {
+                        console.error('No .table-responsive container found for the clicked element.');
+                        return;
+                    }
+
+                    const containerId = container.id;
+                    const endpoint = containerId === 'reservationTableContainer'
+                        ? '/admin/reservations'
+                        : '/admin/questions';
+
+                    // Get the page number from the data-page attribute
+                    const pageNumber = e.target.getAttribute('data-page');
+                    if (!pageNumber) {
+                        console.error('No data-page attribute found on the clicked element.');
+                        return;
+                    }
+
+                    // Load updated table content
+                    loadTableContent(containerId, endpoint, { page: pageNumber });
+                }
+            });
+
         </script>
-
     </main>
-
 </body>
 
 </html>
