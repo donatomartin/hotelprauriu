@@ -4,17 +4,16 @@
 
 <body>
     <main layout:fragment="content">
-        <div class="container mt-4">
-            <h1 class="text-center mb-4">Administración</h1>
+        <div class="container">
 
             <!-- Reservations Section -->
-            <h2 id="reservations" class="mt-5">Reservas</h2>
+            <h2 id="reservations">Reservas</h2>
             <div class="table-fragment" id="reservationTableContainer">
                 <table th:replace="admin/fragments/tables/reservations" id="reservationTable"></table>
             </div>
 
             <!-- Messages Section -->
-            <h2 id="messages" class="mt-5">Mensajes</h2>
+            <h2 id="messages">Mensajes</h2>
             <div class="table-fragment" id="messageTableContainer">
                 <table th:replace="admin/fragments/tables/messages" id="messageTable"></table>
             </div>

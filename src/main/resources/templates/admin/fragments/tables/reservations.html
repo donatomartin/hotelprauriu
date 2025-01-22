@@ -36,7 +36,7 @@
             </tbody>
         </table>
     </div>
-    <div class="d-flex justify-content-center mt-3" th:if="${reservationList.totalPages > 0}">
+    <div class="d-flex justify-content-center" th:if="${reservationList.totalPages > 0}">
         <ul class="pagination">
             <li class="page-item" th:classappend="${reservationList.first ? 'disabled' : ''}">
                 <a class="page-link" th:attr="data-page=${reservationList.number - 1}" href="#">«</a>

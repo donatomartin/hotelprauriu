@@ -16,6 +16,10 @@ public class MessageService {
         this.messageRepository = messageRepository;
     }
 
+    public void deleteAll() {
+        messageRepository.deleteAll();
+    }
+
     public Page<Message> findAll(Pageable pageable) {
         return messageRepository.findAll(pageable);
     }

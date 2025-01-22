@@ -50,9 +50,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         // Comprueba su rol y redirige a la página correspondiente
         for (GrantedAuthority authority : authorities) {
             if (authority.getAuthority().equals("ROLE_ADMIN")) {
-                path = "/user/list";
+                path = "/admin/dashboard";
             } else if (authority.getAuthority().equals("ROLE_USER")) {
-                path = "/user/list/users";
+                path = "/user/dashboard";
             } else {
                 throw new IllegalStateException();
             }

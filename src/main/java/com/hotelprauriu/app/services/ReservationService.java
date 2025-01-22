@@ -16,8 +16,16 @@ public class ReservationService {
         this.reservationRepository = reservationRepository;
     }
 
+    public void deleteAll() {
+        reservationRepository.deleteAll();
+    }
+
     public Page<Reservation> findAll(Pageable pageable) {
         return reservationRepository.findAll(pageable);
+    }
+
+    public Iterable<Reservation> findAll() {
+        return reservationRepository.findAll();
     }
 
     public void addReservation(Reservation reservation) {
