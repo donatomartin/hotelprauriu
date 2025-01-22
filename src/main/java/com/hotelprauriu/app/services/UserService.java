@@ -10,14 +10,14 @@ import com.hotelprauriu.app.repositories.UserRepository;
 @Service
 public class UserService {
 
-  private UserRepository userRepository;
+    private UserRepository userRepository;
 
-  public UserService(UserRepository userRepository) {
-    this.userRepository = userRepository;
-  }
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-  public Page<User> findAll(Pageable pageable) {
-    return userRepository.findAll(pageable);
-  }
+    public Page<User> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
 
 }

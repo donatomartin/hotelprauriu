@@ -13,21 +13,21 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 @Configuration
 public class CustomConfiguration implements WebMvcConfigurer {
 
-  @Bean
-  LocaleResolver localeResolver() {
-    SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-    localeResolver.setDefaultLocale(Locale.of("es", "ES"));
-    return localeResolver;
-  }
+    @Bean
+    LocaleResolver localeResolver() {
+        SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+        localeResolver.setDefaultLocale(Locale.of("es", "ES"));
+        return localeResolver;
+    }
 
-  @Bean
-  LocaleChangeInterceptor localeChangeInterceptor() {
-    LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-    localeChangeInterceptor.setParamName("lang");
-    return localeChangeInterceptor;
-  }
+    @Bean
+    LocaleChangeInterceptor localeChangeInterceptor() {
+        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName("lang");
+        return localeChangeInterceptor;
+    }
 
-  public void addInterceptors(@NonNull InterceptorRegistry registry) {
-    registry.addInterceptor(localeChangeInterceptor());
-  }
+    public void addInterceptors(@NonNull InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor());
+    }
 }

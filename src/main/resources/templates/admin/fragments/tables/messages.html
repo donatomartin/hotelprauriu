@@ -1,36 +1,36 @@
 <div class="messages-container">
-  <div class="table-responsive">
-    <table class="table table-hover table-bordered" id="messageTable">
-      <thead class="table-light">
-        <tr>
-          <th scope="col">Nombre</th>
-          <th scope="col">Email 📧</th>
-          <th scope="col">Message ⭐</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="message : ${messageList.content}" data-bs-toggle="modal" data-bs-target="#messageModalMessage"
-          th:data-bs-message="${message.guestMessage}" th:data-bs-name="${message.guestFullName}"
-          th:data-bs-email="${message.guestEmail}">
-          <td th:text="${message.guestFullName}"></td>
-          <td th:text="${message.guestEmail}"></td>
-          <td th:text="${message.guestMessage}"></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="d-flex justify-content-center mt-3" th:if="${messageList.totalPages > 0}">
-    <ul class="pagination">
-      <li class="page-item" th:classappend="${messageList.first ? 'disabled' : ''}">
-        <a class="page-link" th:attr="data-page=${messageList.number - 1}" href="#">«</a>
-      </li>
-      <li class="page-item" th:each="pageNumber : ${#numbers.sequence(0, messageList.totalPages - 1)}"
-        th:classappend="${pageNumber == messageList.number ? 'active' : ''}">
-        <a class="page-link" th:attr="data-page=${pageNumber}" href="#" th:text="${pageNumber + 1}"></a>
-      </li>
-      <li class="page-item" th:classappend="${messageList.last ? 'disabled' : ''}">
-        <a class="page-link" th:attr="data-page=${messageList.number + 1}" href="#">»</a>
-      </li>
-    </ul>
-  </div>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered" id="messageTable">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Email 📧</th>
+                    <th scope="col">Message ⭐</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="message : ${messageList.content}" data-bs-toggle="modal"
+                    data-bs-target="#messageModalMessage" th:data-bs-message="${message.guestMessage}"
+                    th:data-bs-name="${message.guestFullName}" th:data-bs-email="${message.guestEmail}">
+                    <td th:text="${message.guestFullName}"></td>
+                    <td th:text="${message.guestEmail}"></td>
+                    <td th:text="${message.guestMessage}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-center mt-3" th:if="${messageList.totalPages > 0}">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${messageList.first ? 'disabled' : ''}">
+                <a class="page-link" th:attr="data-page=${messageList.number - 1}" href="#">«</a>
+            </li>
+            <li class="page-item" th:each="pageNumber : ${#numbers.sequence(0, messageList.totalPages - 1)}"
+                th:classappend="${pageNumber == messageList.number ? 'active' : ''}">
+                <a class="page-link" th:attr="data-page=${pageNumber}" href="#" th:text="${pageNumber + 1}"></a>
+            </li>
+            <li class="page-item" th:classappend="${messageList.last ? 'disabled' : ''}">
+                <a class="page-link" th:attr="data-page=${messageList.number + 1}" href="#">»</a>
+            </li>
+        </ul>
+    </div>
 </div>

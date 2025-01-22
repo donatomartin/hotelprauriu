@@ -1,161 +1,163 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{admin/layouts/main}">
+    layout:decorate="~{admin/layouts/main}">
 
 <body>
-  <main layout:fragment="content">
-    <div class="container mt-4">
-      <h1 class="text-center mb-4">Administración</h1>
+    <main layout:fragment="content">
+        <div class="container mt-4">
+            <h1 class="text-center mb-4">Administración</h1>
 
-      <!-- Reservations Section -->
-      <h2 id="reservations" class="mt-5">Reservas</h2>
-      <div class="table-fragment" id="reservationTableContainer">
-        <table th:replace="admin/fragments/tables/reservations" id="reservationTable"></table>
-      </div>
+            <!-- Reservations Section -->
+            <h2 id="reservations" class="mt-5">Reservas</h2>
+            <div class="table-fragment" id="reservationTableContainer">
+                <table th:replace="admin/fragments/tables/reservations" id="reservationTable"></table>
+            </div>
 
-      <!-- Messages Section -->
-      <h2 id="messages" class="mt-5">Mensajes</h2>
-      <div class="table-fragment" id="messageTableContainer">
-        <table th:replace="admin/fragments/tables/messages" id="messageTable"></table>
-      </div>
-    </div>
-
-    <!-- Modal Reservation -->
-    <div class="modal fade" id="messageModalReservation" tabindex="-1" aria-labelledby="messageModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="messageModalLabel">Reserva del Cliente</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p><strong>Nombre:</strong> <span id="modalNameReservation"></span></p>
-            <p><strong>Email:</strong> <span id="modalEmailReservation"></span></p>
-            <p><strong>Teléfono:</strong> <span id="modalPhoneReservation"></span></p>
-            <hr>
-            <p id="modalMessageContentReservation"></p>
-            <hr>
-            <h6>Tu respuesta:</h6>
-            <textarea class="form-control" id="modalResponseReservation" rows="3"></textarea>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-success" title="Aceptar"><i class="fas fa-check">✓</i></button>
-            <button type="button" class="btn btn-danger" title="Rechazar"><i class="fas fa-times">✗</i></button>
-            <button type="button" class="btn btn-warning" title="Borrar">🗑️</button>
-          </div>
+            <!-- Messages Section -->
+            <h2 id="messages" class="mt-5">Mensajes</h2>
+            <div class="table-fragment" id="messageTableContainer">
+                <table th:replace="admin/fragments/tables/messages" id="messageTable"></table>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Modal Message -->
-    <div class="modal fade" id="messageModalMessage" tabindex="-1" aria-labelledby="messageModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="messageModalLabel">Mensaje</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p><strong>Nombre:</strong> <span id="modalNameMessage"></span></p>
-            <p><strong>Email:</strong> <span id="modalEmailMessage"></span></p>
-            <hr>
-            <p id="modalMessageContentMessage"></p>
-            <hr>
-            <h6>Tu respuesta:</h6>
-            <textarea class="form-control" id="modalResponseMessage" rows="3"></textarea>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Responder</button>
-            <button type="button" class="btn btn-warning" title="Borrar">🗑️</button>
-          </div>
+        <!-- Modal Reservation -->
+        <div class="modal fade" id="messageModalReservation" tabindex="-1" aria-labelledby="messageModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="messageModalLabel">Reserva del Cliente</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Nombre:</strong> <span id="modalNameReservation"></span></p>
+                        <p><strong>Email:</strong> <span id="modalEmailReservation"></span></p>
+                        <p><strong>Teléfono:</strong> <span id="modalPhoneReservation"></span></p>
+                        <hr>
+                        <p id="modalMessageContentReservation"></p>
+                        <hr>
+                        <h6>Tu respuesta:</h6>
+                        <textarea class="form-control" id="modalResponseReservation" rows="3"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-success" title="Aceptar"><i
+                                class="fas fa-check">✓</i></button>
+                        <button type="button" class="btn btn-danger" title="Rechazar"><i
+                                class="fas fa-times">✗</i></button>
+                        <button type="button" class="btn btn-warning" title="Borrar">🗑️</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <!-- JavaScript -->
-    <script>
-      // Modal for displaying client reservations
-      const messageModalReservation = document.getElementById('messageModalReservation');
-      messageModalReservation.addEventListener('show.bs.modal', function (event) {
-        const button = event.relatedTarget;
-        const messageContent = button.getAttribute('data-bs-message');
-        const name = button.getAttribute('data-bs-name');
-        const email = button.getAttribute('data-bs-email');
-        const phone = button.getAttribute('data-bs-phone');
+        <!-- Modal Message -->
+        <div class="modal fade" id="messageModalMessage" tabindex="-1" aria-labelledby="messageModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="messageModalLabel">Mensaje</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Nombre:</strong> <span id="modalNameMessage"></span></p>
+                        <p><strong>Email:</strong> <span id="modalEmailMessage"></span></p>
+                        <hr>
+                        <p id="modalMessageContentMessage"></p>
+                        <hr>
+                        <h6>Tu respuesta:</h6>
+                        <textarea class="form-control" id="modalResponseMessage" rows="3"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">Responder</button>
+                        <button type="button" class="btn btn-warning" title="Borrar">🗑️</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        document.getElementById('modalMessageContentReservation').textContent = messageContent;
-        document.getElementById('modalNameReservation').textContent = name;
-        document.getElementById('modalEmailReservation').textContent = email;
-        document.getElementById('modalPhoneReservation').textContent = phone;
-      });
+        <!-- JavaScript -->
+        <script>
+            // Modal for displaying client reservations
+            const messageModalReservation = document.getElementById('messageModalReservation');
+            messageModalReservation.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+                const messageContent = button.getAttribute('data-bs-message');
+                const name = button.getAttribute('data-bs-name');
+                const email = button.getAttribute('data-bs-email');
+                const phone = button.getAttribute('data-bs-phone');
 
-      // Modal for displaying client messages
-      const messageModalMessage = document.getElementById('messageModalMessage');
-      messageModalMessage.addEventListener('show.bs.modal', function (event) {
-        const button = event.relatedTarget;
-        const messageContent = button.getAttribute('data-bs-message');
-        const name = button.getAttribute('data-bs-name');
-        const email = button.getAttribute('data-bs-email');
+                document.getElementById('modalMessageContentReservation').textContent = messageContent;
+                document.getElementById('modalNameReservation').textContent = name;
+                document.getElementById('modalEmailReservation').textContent = email;
+                document.getElementById('modalPhoneReservation').textContent = phone;
+            });
 
-        document.getElementById('modalMessageContentMessage').textContent = messageContent;
-        document.getElementById('modalNameMessage').textContent = name;
-        document.getElementById('modalEmailMessage').textContent = email;
-      });
+            // Modal for displaying client messages
+            const messageModalMessage = document.getElementById('messageModalMessage');
+            messageModalMessage.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+                const messageContent = button.getAttribute('data-bs-message');
+                const name = button.getAttribute('data-bs-name');
+                const email = button.getAttribute('data-bs-email');
+
+                document.getElementById('modalMessageContentMessage').textContent = messageContent;
+                document.getElementById('modalNameMessage').textContent = name;
+                document.getElementById('modalEmailMessage').textContent = email;
+            });
 
 
 
-      // Function to load table content dynamically
-      function loadTableContent(containerId, endpoint, params) {
-        const queryParams = new URLSearchParams(params).toString();
-        const fullUrl = `${endpoint}?${queryParams}`;
+            // Function to load table content dynamically
+            function loadTableContent(containerId, endpoint, params) {
+                const queryParams = new URLSearchParams(params).toString();
+                const fullUrl = `${endpoint}?${queryParams}`;
 
-        fetch(fullUrl, {
-          method: 'GET',
-          headers: { 'X-Requested-With': 'XMLHttpRequest' }
-        })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
+                fetch(fullUrl, {
+                    method: 'GET',
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.text();
+                    })
+                    .then(html => {
+                        document.getElementById(containerId).innerHTML = html;
+                    })
+                    .catch(error => console.error('Error fetching table content:', error));
             }
-            return response.text();
-          })
-          .then(html => {
-            document.getElementById(containerId).innerHTML = html;
-          })
-          .catch(error => console.error('Error fetching table content:', error));
-      }
 
-      document.addEventListener('click', function (e) {
-        if (e.target.classList.contains('page-link')) {
-          e.preventDefault();
+            document.addEventListener('click', function (e) {
+                if (e.target.classList.contains('page-link')) {
+                    e.preventDefault();
 
-          const container = e.target.closest('.table-fragment');
-          if (!container) {
-            console.error('No container found for the clicked element.');
-            return;
-          }
+                    const container = e.target.closest('.table-fragment');
+                    if (!container) {
+                        console.error('No container found for the clicked element.');
+                        return;
+                    }
 
-          const containerId = container.id;
-          const endpoint = containerId === 'reservationTableContainer'
-            ? '/admin/reservations'
-            : '/admin/messages';
+                    const containerId = container.id;
+                    const endpoint = containerId === 'reservationTableContainer'
+                        ? '/admin/reservations'
+                        : '/admin/messages';
 
-          const pageNumber = e.target.getAttribute('data-page');
-          if (pageNumber === null) {
-            console.error('No data-page attribute found on the clicked element.');
-            return;
-          }
+                    const pageNumber = e.target.getAttribute('data-page');
+                    if (pageNumber === null) {
+                        console.error('No data-page attribute found on the clicked element.');
+                        return;
+                    }
 
-          loadTableContent(containerId, endpoint, { page: pageNumber });
-        }
-      });
+                    loadTableContent(containerId, endpoint, { page: pageNumber });
+                }
+            });
 
-    </script>
-  </main>
+        </script>
+    </main>
 </body>
 
 </html>
