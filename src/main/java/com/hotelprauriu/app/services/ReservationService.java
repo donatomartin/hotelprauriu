@@ -20,4 +20,8 @@ public class ReservationService {
         return reservationRepository.findAll(pageable);
     }
 
+    public void addReservation(Reservation reservation) {
+        reservationRepository.save(reservation);
+    }
+
 }

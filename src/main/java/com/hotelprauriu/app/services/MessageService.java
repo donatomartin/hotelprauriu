@@ -19,5 +19,9 @@ public class MessageService {
     public Page<Message> findAll(Pageable pageable) {
         return messageRepository.findAll(pageable);
     }
+
+    public void addMessage(Message message) {
+        messageRepository.save(message);
+    }
     
 }

@@ -30,6 +30,9 @@ public class Reservation {
     @Email(message = "Please provide a valid email address")
     private String guestEmail;
 
+    @Transient
+    private String guestPhonePrefix;
+
     @Pattern(regexp = "^\\+?[1-9]\\d{1,14}$", message = "Please provide a valid phone number")
     private String guestPhoneNumber;
 

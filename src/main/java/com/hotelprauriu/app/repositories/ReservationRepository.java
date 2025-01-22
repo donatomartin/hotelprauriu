@@ -9,5 +9,5 @@ import com.hotelprauriu.app.entities.Reservation;
 public interface ReservationRepository extends CrudRepository<Reservation, Long> {
     
     Page<Reservation> findAll(Pageable pageable);
-    
+
 }
