@@ -10,23 +10,24 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="Messages")
-@Getter @Setter
+@Table(name = "Messages")
+@Getter
+@Setter
 public class Message {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @NotBlank(message = "Guest name is required")
-    @Size(min = 2, max = 100, message = "Guest full name must be between 2 and 100 characters")
-    private String guestFullName;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Email(message = "Please provide a valid email address")
-    private String guestEmail;
+  @NotBlank(message = "Guest name is required")
+  @Size(min = 2, max = 100, message = "Guest full name must be between 2 and 100 characters")
+  private String guestFullName;
 
-    @NotBlank(message = "Message is required")
-    @Size(min = 1, max = 511, message = "Message must be 1 and 511 characters")
-    private String guestMessage;
+  @Email(message = "Please provide a valid email address")
+  private String guestEmail;
+
+  @NotBlank(message = "Message is required")
+  @Size(min = 1, max = 511, message = "Message must be 1 and 511 characters")
+  private String guestMessage;
 
 }

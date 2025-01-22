@@ -1,53 +1,52 @@
 <div class="reservations-container">
-    <div class="table-responsive">
-        <table class="table table-hover table-bordered" id="reservationTable">
-            <thead class="table-light">
-                <tr>
-                    <th scope="col">CheckIn</th>
-                    <th scope="col">Checkout</th>
-                    <th scope="col">Nombre Completo</th>
-                    <th scope="col">Email 📧</th>
-                    <th scope="col">Teléfono 📞</th>
-                    <th scope="col">🚶🏻‍♂️‍➡️</th>
-                    <th scope="col">🐕‍🦺</th>
-                    <th scope="col">Extra</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="reservation : ${reservationList.content}" data-bs-toggle="modal"
-                    data-bs-target="#messageModalReservation" th:data-bs-message="${reservation.guestMessage}"
-                    th:data-bs-name="${reservation.guestFullName}" th:data-bs-email="${reservation.guestEmail}"
-                    th:data-bs-phone="${reservation.guestPhoneNumber}">
-                    <td th:text="${reservation.checkIn}"></td>
-                    <td th:text="${reservation.checkOut}"></td>
-                    <td th:text="${reservation.guestFullName}"></td>
-                    <td th:text="${reservation.guestEmail}"></td>
-                    <td th:text="${reservation.guestPhoneNumber}"></td>
-                    <td th:text="${reservation.numberOfGuests}"></td>
-                    <td th:text="${reservation.numberOfDogs}"></td>
-                    <td>
-                        <span class="badge bg-info text-white d-flex align-items-center gap-1"
-                            th:if="${reservation.guestMessage}">
-                            <i class="bi bi-envelope-fill"></i>
-                            <span>Incluye Mensaje</span>
-                        </span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="d-flex justify-content-center mt-3" th:if="${reservationList.totalPages > 0}">
-        <ul class="pagination">
-            <li class="page-item" th:classappend="${reservationList.first ? 'disabled' : ''}">
-                <a class="page-link" th:attr="data-page=${reservationList.number - 1}" href="#">«</a>
-            </li>
-            <li class="page-item" th:each="pageNumber : ${#numbers.sequence(0, reservationList.totalPages - 1)}"
-                th:classappend="${pageNumber == reservationList.number ? 'active' : ''}">
-                <a class="page-link" th:attr="data-page=${pageNumber}" href="#" th:text="${pageNumber + 1}"></a>
-            </li>
-            <li class="page-item" th:classappend="${reservationList.last ? 'disabled' : ''}">
-                <a class="page-link" th:attr="data-page=${reservationList.number + 1}" href="#">»</a>
-            </li>
-        </ul>
-    </div>
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered" id="reservationTable">
+      <thead class="table-light">
+        <tr>
+          <th scope="col">CheckIn</th>
+          <th scope="col">Checkout</th>
+          <th scope="col">Nombre Completo</th>
+          <th scope="col">Email 📧</th>
+          <th scope="col">Teléfono 📞</th>
+          <th scope="col">🚶🏻‍♂️‍➡️</th>
+          <th scope="col">🐕‍🦺</th>
+          <th scope="col">Extra</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="reservation : ${reservationList.content}" data-bs-toggle="modal"
+          data-bs-target="#messageModalReservation" th:data-bs-message="${reservation.guestMessage}"
+          th:data-bs-name="${reservation.guestFullName}" th:data-bs-email="${reservation.guestEmail}"
+          th:data-bs-phone="${reservation.guestPhoneNumber}">
+          <td th:text="${reservation.checkIn}"></td>
+          <td th:text="${reservation.checkOut}"></td>
+          <td th:text="${reservation.guestFullName}"></td>
+          <td th:text="${reservation.guestEmail}"></td>
+          <td th:text="${reservation.guestPhoneNumber}"></td>
+          <td th:text="${reservation.numberOfGuests}"></td>
+          <td th:text="${reservation.numberOfDogs}"></td>
+          <td>
+            <span class="badge bg-info text-white d-flex align-items-center gap-1" th:if="${reservation.guestMessage}">
+              <i class="bi bi-envelope-fill"></i>
+              <span>Incluye Mensaje</span>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex justify-content-center mt-3" th:if="${reservationList.totalPages > 0}">
+    <ul class="pagination">
+      <li class="page-item" th:classappend="${reservationList.first ? 'disabled' : ''}">
+        <a class="page-link" th:attr="data-page=${reservationList.number - 1}" href="#">«</a>
+      </li>
+      <li class="page-item" th:each="pageNumber : ${#numbers.sequence(0, reservationList.totalPages - 1)}"
+        th:classappend="${pageNumber == reservationList.number ? 'active' : ''}">
+        <a class="page-link" th:attr="data-page=${pageNumber}" href="#" th:text="${pageNumber + 1}"></a>
+      </li>
+      <li class="page-item" th:classappend="${reservationList.last ? 'disabled' : ''}">
+        <a class="page-link" th:attr="data-page=${reservationList.number + 1}" href="#">»</a>
+      </li>
+    </ul>
+  </div>
 </div>

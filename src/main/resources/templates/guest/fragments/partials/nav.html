@@ -1,50 +1,50 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light position-fixed top-0 start-0 w-100 bg-white shadow-sm">
-    <div class="container">
-        <a class="navbar-brand" href="/#">
-            <img src="/images/hotel/logo.png" alt="Hotel Prauriu Logo" height="30" class="d-inline-block align-text-top me-2">
-            Hotel Prau Ríu
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="/#" th:text="#{nav.home}"></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/reservation" th:text="#{nav.reservation}"></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/#about" th:text="#{nav.about}"></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/#services" th:text="#{nav.services}"></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/#contact" th:text="#{nav.contact}"></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/colabs" th:text="#{nav.colabs}"></a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="btnLanguage" role="button" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                        <img src="/images/icons/translation.png" class="translation-icon"/>
-                    </a>
-                    <div id="languageDropdownMenuButton" class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" id="btnEnglish" value="EN">
-                            <img th:src="@{/images/flags/uk_flag.png}" class="flag"/>
-                            <span th:text="#{language.en}"></span>
-                        </a>
-                        <a class="dropdown-item" id="btnSpanish" value="ES">
-                            <img th:src="@{/images/flags/spain_flag.png}" class="flag"/>
-                            <span th:text="#{language.es}"></span>
-                        </a>
-                    </div>
-                </li>
-            </ul>
-        </div>
+  <div class="container">
+    <a class="navbar-brand" href="/#">
+      <img src="/images/hotel/logo.png" alt="Hotel Prauriu Logo" height="30" class="d-inline-block align-text-top me-2">
+      Hotel Prau Ríu
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="/#" th:text="#{nav.home}"></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/reservation" th:text="#{nav.reservation}"></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/#about" th:text="#{nav.about}"></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/#services" th:text="#{nav.services}"></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/#contact" th:text="#{nav.contact}"></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/colabs" th:text="#{nav.colabs}"></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="btnLanguage" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <img src="/images/icons/translation.png" class="translation-icon" />
+          </a>
+          <div id="languageDropdownMenuButton" class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" id="btnEnglish" value="EN">
+              <img th:src="@{/images/flags/uk_flag.png}" class="flag" />
+              <span th:text="#{language.en}"></span>
+            </a>
+            <a class="dropdown-item" id="btnSpanish" value="ES">
+              <img th:src="@{/images/flags/spain_flag.png}" class="flag" />
+              <span th:text="#{language.es}"></span>
+            </a>
+          </div>
+        </li>
+      </ul>
     </div>
+  </div>
 </nav>

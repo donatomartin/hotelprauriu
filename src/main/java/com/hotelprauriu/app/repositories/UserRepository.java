@@ -8,10 +8,10 @@ import com.hotelprauriu.app.entities.User;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    Page<User> findAll(Pageable pageable);
+  Page<User> findAll(Pageable pageable);
 
-    User findByEmail(String email);
+  User findByEmail(String email);
 
-    User findByUsername(String username);
-    
+  User findByUsername(String username);
+
 }

@@ -8,6 +8,6 @@ import com.hotelprauriu.app.entities.Message;
 
 public interface MessageRepository extends CrudRepository<Message, Long> {
 
-    Page<Message> findAll(Pageable pageable);
-    
+  Page<Message> findAll(Pageable pageable);
+
 }

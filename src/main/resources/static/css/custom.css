@@ -1,37 +1,38 @@
 /* Add these styles at the end of the file */
-html, body {
-    height: 100%;
+html,
+body {
+  height: 100%;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 main {
-    flex: 1 0 auto;
+  flex: 1 0 auto;
 }
 
 footer {
-    flex-shrink: 0;
+  flex-shrink: 0;
 }
 
 #highlight {
-    background-image: url('/images/hotel/room1.jpg');
-    height: 85vh;
-    background-size: cover;
-    background-position: center;
+  background-image: url('/images/hotel/room1.jpg');
+  height: 85vh;
+  background-size: cover;
+  background-position: center;
 }
 
 #slogan {
-    height: 50vh;
-    background-size: cover;
-    background-position: center;
+  height: 50vh;
+  background-size: cover;
+  background-position: center;
 }
 
 #services {
-    margin-top: 5vh;
+  margin-top: 5vh;
 }
 
 #highlight,
@@ -41,80 +42,80 @@ footer {
 #services,
 #contact,
 #reservations,
-#messages
-{
-    scroll-margin-top: 10vh;
+#messages {
+  scroll-margin-top: 10vh;
 }
 
 #rules {
-    margin-top: 12vh;
+  margin-top: 12vh;
 }
 
 main {
-    margin-top: 12vh;
+  margin-top: 12vh;
 }
 
 .transparent-black-background {
-    background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.25);
 }
 
 .translation-icon {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
 
-.flag{
-    border: 0;
-    float: left;
-    margin-right: 15px;
+.flag {
+  border: 0;
+  float: left;
+  margin-right: 15px;
 }
 
 .learn-more-button {
-    padding: 10px 25px;
-    font-size: 1rem;
-    border-radius: 50px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 10px 25px;
+  font-size: 1rem;
+  border-radius: 50px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 #highlight h1 {
-    font-family: 'Poppins',sans-serif;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+  font-family: 'Poppins', sans-serif;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 }
 
 nav {
-    z-index: 1050;
+  z-index: 1050;
 }
 
 .btn-primary {
-    background-color: #34792b;
-    border-color: #34792b;  
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  background-color: #34792b;
+  border-color: #34792b;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .btn-primary:hover {
-    background-color: #1a4115;
-    border-color: #1a4115;
+  background-color: #1a4115;
+  border-color: #1a4115;
 }
 
 /* For Admin Dashboard */
 
 .table-responsive {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 table {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 @media (max-width: 768px) {
-    
-    h1, h2 {
-        font-size: 1.5rem;
-        text-align: center;
-    }
 
-    .btn {
-        font-size: 0.875rem;
-    }
+  h1,
+  h2 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .btn {
+    font-size: 0.875rem;
+  }
 }

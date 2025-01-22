@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{guest/layouts/main}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{guest/layouts/main}">
+
 <body>
-    <main layout:fragment="content">
-        <section th:replace="~{guest/fragments/sections/highlight}"></section>
-        <section th:replace="~{guest/fragments/sections/about}"></section>
-        <section th:replace="~{guest/fragments/sections/services}"></section>
-        <section th:replace="~{guest/fragments/sections/contact}"></section>
-    </main>
+  <main layout:fragment="content">
+    <section th:replace="~{guest/fragments/sections/highlight}"></section>
+    <section th:replace="~{guest/fragments/sections/about}"></section>
+    <section th:replace="~{guest/fragments/sections/services}"></section>
+    <section th:replace="~{guest/fragments/sections/contact}"></section>
+  </main>
 </body>
+
 </html>
