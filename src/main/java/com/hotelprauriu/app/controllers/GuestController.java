@@ -21,7 +21,7 @@ public class GuestController {
         this.messageService = messageService;
     }
 
-    @RequestMapping(value = { "/index", "/", "/home" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "*", "/home" }, method = RequestMethod.GET)
     public String getIndex() {
         return "guest/pages/home/index";
     }

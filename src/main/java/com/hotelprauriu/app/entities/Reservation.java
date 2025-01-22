@@ -28,6 +28,7 @@ public class Reservation {
     @Size(min = 2, max = 100, message = "Guest name must be between 2 and 100 characters")
     private String guestFullName;
 
+    @NotBlank(message = "Guest email is required")
     @Email(message = "Please provide a valid email address")
     private String guestEmail;
 

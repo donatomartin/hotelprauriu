@@ -1,5 +1,7 @@
 package com.hotelprauriu.app.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hotelprauriu.app.entities.Reservation;
+import com.hotelprauriu.app.entities.Log;
 import com.hotelprauriu.app.entities.Message;
+import com.hotelprauriu.app.services.LoggerService;
 import com.hotelprauriu.app.services.MessageService;
 import com.hotelprauriu.app.services.ReservationService;
 
@@ -22,10 +26,17 @@ public class AdminController {
 
     private final ReservationService reservationService;
     private final MessageService messageService;
+    private final LoggerService loggerService;
 
-    public AdminController(ReservationService reservationService, MessageService messageService) {
+    public AdminController(
+        ReservationService reservationService,
+        MessageService messageService,
+        LoggerService loggerService) {
+
         this.reservationService = reservationService;
         this.messageService = messageService;
+        this.loggerService = loggerService;
+        
     }
 
     // Full Admin Panel Page
@@ -85,6 +96,35 @@ public class AdminController {
 
         // Return the Thymeleaf fragment
         return "admin/fragments/tables/messages";
+    }
+
+    @RequestMapping("/log/list")
+    public String getLogs(Model model, @RequestParam(value = "action", required = false) String action) {
+        List<Log> logMessages;
+
+        // Si no hay ningún filtro
+        if (action != null && !action.isEmpty() && !action.equals("ALL")) {
+            logMessages = loggerService.findLogsByAction(action);
+        } else {
+            logMessages = loggerService.getLogs();
+        }
+
+        model.addAttribute("action", action);
+        model.addAttribute("logMessages", logMessages);
+
+        return "admin/pages/log/list";
+    }
+
+    @RequestMapping("/log/delete")
+    public String deleteLogs(Model model, @RequestParam(value = "action", required = false) String action) {
+        // Si no hay ningún filtro
+        if (action != null && !action.isEmpty() && !action.equals("ALL")) {
+            loggerService.deleteLogs(action);
+        } else {
+            loggerService.deleteLogs();
+        }
+
+        return "redirect:/log/list";
     }
 
 }
