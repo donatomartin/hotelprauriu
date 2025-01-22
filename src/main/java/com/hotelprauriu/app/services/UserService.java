@@ -12,8 +12,8 @@ public class UserService {
 
     private UserRepository userRepository;
 
-    public UserService(UserRepository questionRepository) {
-        this.userRepository = questionRepository;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public Page<User> findAll(Pageable pageable) {

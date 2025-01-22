@@ -13,10 +13,10 @@
                 <table th:replace="admin/fragments/tables/reservations" id="reservationTable"></table>
             </div>
 
-            <!-- Questions Section -->
-            <h2 id="questions" class="mt-5">Preguntas</h2>
-            <div class="table-fragment" id="questionTableContainer">
-                <table th:replace="admin/fragments/tables/questions" id="questionTable"></table>
+            <!-- Messages Section -->
+            <h2 id="messages" class="mt-5">Mensajes</h2>
+            <div class="table-fragment" id="messageTableContainer">
+                <table th:replace="admin/fragments/tables/messages" id="messageTable"></table>
             </div>
         </div>
 
@@ -51,8 +51,8 @@
             </div>
         </div>
 
-        <!-- Modal Question -->
-        <div class="modal fade" id="messageModalQuestion" tabindex="-1" aria-labelledby="messageModalLabel"
+        <!-- Modal Message -->
+        <div class="modal fade" id="messageModalMessage" tabindex="-1" aria-labelledby="messageModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -61,13 +61,13 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p><strong>Nombre:</strong> <span id="modalNameQuestion"></span></p>
-                        <p><strong>Email:</strong> <span id="modalEmailQuestion"></span></p>
+                        <p><strong>Nombre:</strong> <span id="modalNameMessage"></span></p>
+                        <p><strong>Email:</strong> <span id="modalEmailMessage"></span></p>
                         <hr>
-                        <p id="modalMessageContentQuestion"></p>
+                        <p id="modalMessageContentMessage"></p>
                         <hr>
                         <h6>Tu respuesta:</h6>
-                        <textarea class="form-control" id="modalResponseQuestion" rows="3"></textarea>
+                        <textarea class="form-control" id="modalResponseMessage" rows="3"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -95,17 +95,17 @@
                 document.getElementById('modalPhoneReservation').textContent = phone;
             });
 
-            // Modal for displaying client questions
-            const messageModalQuestion = document.getElementById('messageModalQuestion');
-            messageModalQuestion.addEventListener('show.bs.modal', function (event) {
+            // Modal for displaying client messages
+            const messageModalMessage = document.getElementById('messageModalMessage');
+            messageModalMessage.addEventListener('show.bs.modal', function (event) {
                 const button = event.relatedTarget;
                 const messageContent = button.getAttribute('data-bs-message');
                 const name = button.getAttribute('data-bs-name');
                 const email = button.getAttribute('data-bs-email');
 
-                document.getElementById('modalMessageContentQuestion').textContent = messageContent;
-                document.getElementById('modalNameQuestion').textContent = name;
-                document.getElementById('modalEmailQuestion').textContent = email;
+                document.getElementById('modalMessageContentMessage').textContent = messageContent;
+                document.getElementById('modalNameMessage').textContent = name;
+                document.getElementById('modalEmailMessage').textContent = email;
             });
 
 
@@ -144,7 +144,7 @@
                     const containerId = container.id;
                     const endpoint = containerId === 'reservationTableContainer'
                         ? '/admin/reservations'
-                        : '/admin/questions';
+                        : '/admin/messages';
 
                     const pageNumber = e.target.getAttribute('data-page');
                     if (pageNumber === null) {

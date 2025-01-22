@@ -17,6 +17,11 @@ public class GuestController {
         return "guest/pages/reservations/reservation";
     }
 
+    @RequestMapping(value={"/reservation"}, method=RequestMethod.POST)
+    public String postReservation() {
+        return "guest/pages/reservations/reservation";
+    }
+
     @RequestMapping(value={"/colabs"}, method=RequestMethod.GET)
     public String getColabs() {
         return "guest/pages/colabs/colabs";

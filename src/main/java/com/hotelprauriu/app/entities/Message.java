@@ -9,9 +9,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="Questions")
+@Table(name="Messages")
 @Getter @Setter
-public class Question {
+public class Message {
     
     @Id
     @GeneratedValue

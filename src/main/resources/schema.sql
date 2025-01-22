@@ -2,6 +2,8 @@
 DROP TABLE IF EXISTS RESERVATIONS;
 CREATE TABLE RESERVATIONS (
     ID BIGSERIAL PRIMARY KEY,
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     guest_full_name VARCHAR(255),
     guest_email VARCHAR(255),
     guest_phone_number VARCHAR(255),
@@ -9,20 +11,30 @@ CREATE TABLE RESERVATIONS (
     number_of_guests SMALLINT,
     check_in DATE,
     check_out DATE,
-    guest_message VARCHAR(511)
+    guest_message VARCHAR(511),
+    reply_message VARCHAR(511),
+    reservation_status VARCHAR(255) DEFAULT 'PENDING'
 );
--- QUESTIONS
-DROP TABLE IF EXISTS QUESTIONS;
-CREATE TABLE QUESTIONS (
+
+-- MESSAGES
+DROP TABLE IF EXISTS MESSAGES;
+CREATE TABLE MESSAGES (
     ID BIGSERIAL PRIMARY KEY,
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     guest_full_name VARCHAR(255),
     guest_email VARCHAR(255),
-    guest_message VARCHAR(511)
+    guest_message VARCHAR(511),
+    reply_message VARCHAR(511),
+    message_status VARCHAR(255) DEFAULT 'UNREAD'
 );
+
 -- USERS
 DROP TABLE IF EXISTS USERS;
 CREATE TABLE USERS (
     ID BIGSERIAL PRIMARY KEY,
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     username VARCHAR(255),
     email VARCHAR(255),
     PASSWORD VARCHAR(255),
@@ -129,7 +141,7 @@ VALUES (
         '2024-08-12',
         'Honeymoon stay'
     );
-INSERT INTO questions (guest_full_name, guest_email, guest_message)
+INSERT INTO messages (guest_full_name, guest_email, guest_message)
 VALUES (
         'Alice Johnson',
         'alice@example.com',

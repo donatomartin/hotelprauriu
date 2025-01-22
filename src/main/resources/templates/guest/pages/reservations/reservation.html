@@ -1,47 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{guest/layouts/main}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{guest/layouts/main}">
+
 <body>
     <main layout:fragment="content">
         <section id="reservation" class="py-3 mb-5">
             <div class="container text-center">
                 <h2 class="mb-4" th:text="#{reservation.title}">Make a Reservation placeholder</h2>
-                <p th:text="#{reservation.description}">Book your stay with us for an unforgettable experience! placeholder</p>
-                <form>
+                <p th:text="#{reservation.description}">Book your stay with us for an unforgettable experience!
+                    placeholder</p>
+                <form class="col-md-8 mx-auto mt-5" th:action="@{/reservation}" method="post"> 
                     <div class="row">
                         <div class="col-md-12 mb-3">
-                            <input type="text" class="form-control" th:placeholder="#{reservation.fullname}" placeholder="Full Name" required>
+                            <input type="text" class="form-control" th:placeholder="#{reservation.fullname}"
+                                placeholder="Full Name" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <div class="input-group">
-                                <select class="form-control w-auto" style="flex: 0 0 auto; width: auto; max-width: 80px;" required>
-                                    <option value="+1">+1</option>
-                                    <option value="+44">+44</option>
-                                    <option value="+91">+91</option>
-                                    <!-- Add more country codes as needed -->
+                                <select id="countryCodeSelect" class="form-control w-auto"
+                                    style="flex: 0 0 auto; width: auto; max-width: 20vh;" required>
+                                    <option value="" disabled selected>Select</option>
                                 </select>
-                                <input type="tel" class="form-control" th:placeholder="#{reservation.phone}" placeholder="Phone Number" required>
+                                <input type="tel" class="form-control" th:placeholder="#{reservation.phone}"
+                                    placeholder="Phone Number" required>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <input type="email" class="form-control" th:placeholder="#{reservation.email}" placeholder="Email Address" required>
+                            <input type="email" class="form-control" th:placeholder="#{reservation.email}"
+                                placeholder="Email Address" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6 col-sm-6 col-md-6 mb-3">
-                            <input type="date" class="form-control" th:placeholder="#{reservation.check-in}" placeholder="Check-in Date" required>
+                            <input type="date" class="form-control" th:placeholder="#{reservation.check-in}"
+                                placeholder="Check-in Date" required>
                         </div>
                         <div class="col-6 col-sm-6 col-md-6 mb-3">
-                            <input type="date" class="form-control" th:placeholder="#{reservation.check-out}" placeholder="Check-out Date" required>
+                            <input type="date" class="form-control" th:placeholder="#{reservation.check-out}"
+                                placeholder="Check-out Date" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <select class="form-control" required>
-                                <option value="" th:text="#{reservation.number-of-guests}">Number of Guests</option>
                                 <option value="1" th:text="#{reservation.one-guest}">1 Guest</option>
                                 <option value="2" th:text="#{reservation.two-guests}">2 Guests</option>
                                 <option value="3" th:text="#{reservation.three-guests}">3 Guests</option>
@@ -50,7 +53,6 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <select class="form-control" required>
-                                <option value="" th:text="#{reservation.number-of-dogs}">Number of Dogs</option>
                                 <option value="0" th:text="#{reservation.no-dogs}">0 Dogs</option>
                                 <option value="1" th:text="#{reservation.one-dog}">1 Dog</option>
                                 <option value="2" th:text="#{reservation.two-dogs}">2 Dogs</option>
@@ -58,12 +60,226 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <textarea class="form-control" rows="3" th:placeholder="#{reservation.special-requests}" placeholder="Special Requests (Optional)"></textarea>
+                        <textarea class="form-control" rows="3" th:placeholder="#{reservation.special-requests}"
+                            placeholder="Special Requests (Optional)"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg" th:text="#{reservation.book-now}">Book Now</button>
+                    <button type="submit" class="btn btn-primary btn-lg" th:text="#{reservation.book-now}">Book
+                        Now</button>
                 </form>
             </div>
         </section>
     </main>
 </body>
+
 </html>
+
+<script>
+    // List of all countries in the world with their dialing codes
+    const allCountries = [
+        { name: "Spain", code: "+34" },
+        { name: "Afghanistan", code: "+93" },
+        { name: "Albania", code: "+355" },
+        { name: "Algeria", code: "+213" },
+        { name: "Andorra", code: "+376" },
+        { name: "Angola", code: "+244" },
+        { name: "Antigua and Barbuda", code: "+1-268" },
+        { name: "Argentina", code: "+54" },
+        { name: "Armenia", code: "+374" },
+        { name: "Australia", code: "+61" },
+        { name: "Austria", code: "+43" },
+        { name: "Azerbaijan", code: "+994" },
+        { name: "Bahamas", code: "+1-242" },
+        { name: "Bahrain", code: "+973" },
+        { name: "Bangladesh", code: "+880" },
+        { name: "Barbados", code: "+1-246" },
+        { name: "Belarus", code: "+375" },
+        { name: "Belgium", code: "+32" },
+        { name: "Belize", code: "+501" },
+        { name: "Benin", code: "+229" },
+        { name: "Bhutan", code: "+975" },
+        { name: "Bolivia", code: "+591" },
+        { name: "Bosnia and Herzegovina", code: "+387" },
+        { name: "Botswana", code: "+267" },
+        { name: "Brazil", code: "+55" },
+        { name: "Brunei", code: "+673" },
+        { name: "Bulgaria", code: "+359" },
+        { name: "Burkina Faso", code: "+226" },
+        { name: "Burundi", code: "+257" },
+        { name: "Cabo Verde", code: "+238" },
+        { name: "Cambodia", code: "+855" },
+        { name: "Cameroon", code: "+237" },
+        { name: "Canada", code: "+1" },
+        { name: "Central African Republic", code: "+236" },
+        { name: "Chad", code: "+235" },
+        { name: "Chile", code: "+56" },
+        { name: "China", code: "+86" },
+        { name: "Colombia", code: "+57" },
+        { name: "Comoros", code: "+269" },
+        { name: "Congo (Congo-Brazzaville)", code: "+242" },
+        { name: "Costa Rica", code: "+506" },
+        { name: "Croatia", code: "+385" },
+        { name: "Cuba", code: "+53" },
+        { name: "Cyprus", code: "+357" },
+        { name: "Czech Republic", code: "+420" },
+        { name: "Denmark", code: "+45" },
+        { name: "Djibouti", code: "+253" },
+        { name: "Dominica", code: "+1-767" },
+        { name: "Dominican Republic", code: "+1-809" },
+        { name: "Ecuador", code: "+593" },
+        { name: "Egypt", code: "+20" },
+        { name: "El Salvador", code: "+503" },
+        { name: "Equatorial Guinea", code: "+240" },
+        { name: "Eritrea", code: "+291" },
+        { name: "Estonia", code: "+372" },
+        { name: "Eswatini", code: "+268" },
+        { name: "Ethiopia", code: "+251" },
+        { name: "Fiji", code: "+679" },
+        { name: "Finland", code: "+358" },
+        { name: "France", code: "+33" },
+        { name: "Gabon", code: "+241" },
+        { name: "Gambia", code: "+220" },
+        { name: "Georgia", code: "+995" },
+        { name: "Germany", code: "+49" },
+        { name: "Ghana", code: "+233" },
+        { name: "Greece", code: "+30" },
+        { name: "Grenada", code: "+1-473" },
+        { name: "Guatemala", code: "+502" },
+        { name: "Guinea", code: "+224" },
+        { name: "Guinea-Bissau", code: "+245" },
+        { name: "Guyana", code: "+592" },
+        { name: "Haiti", code: "+509" },
+        { name: "Honduras", code: "+504" },
+        { name: "Hungary", code: "+36" },
+        { name: "Iceland", code: "+354" },
+        { name: "India", code: "+91" },
+        { name: "Indonesia", code: "+62" },
+        { name: "Iran", code: "+98" },
+        { name: "Iraq", code: "+964" },
+        { name: "Ireland", code: "+353" },
+        { name: "Israel", code: "+972" },
+        { name: "Italy", code: "+39" },
+        { name: "Jamaica", code: "+1-876" },
+        { name: "Japan", code: "+81" },
+        { name: "Jordan", code: "+962" },
+        { name: "Kazakhstan", code: "+7" },
+        { name: "Kenya", code: "+254" },
+        { name: "Kiribati", code: "+686" },
+        { name: "Kuwait", code: "+965" },
+        { name: "Kyrgyzstan", code: "+996" },
+        { name: "Laos", code: "+856" },
+        { name: "Latvia", code: "+371" },
+        { name: "Lebanon", code: "+961" },
+        { name: "Lesotho", code: "+266" },
+        { name: "Liberia", code: "+231" },
+        { name: "Libya", code: "+218" },
+        { name: "Liechtenstein", code: "+423" },
+        { name: "Lithuania", code: "+370" },
+        { name: "Luxembourg", code: "+352" },
+        { name: "Madagascar", code: "+261" },
+        { name: "Malawi", code: "+265" },
+        { name: "Malaysia", code: "+60" },
+        { name: "Maldives", code: "+960" },
+        { name: "Mali", code: "+223" },
+        { name: "Malta", code: "+356" },
+        { name: "Marshall Islands", code: "+692" },
+        { name: "Mauritania", code: "+222" },
+        { name: "Mauritius", code: "+230" },
+        { name: "Mexico", code: "+52" },
+        { name: "Micronesia", code: "+691" },
+        { name: "Moldova", code: "+373" },
+        { name: "Monaco", code: "+377" },
+        { name: "Mongolia", code: "+976" },
+        { name: "Montenegro", code: "+382" },
+        { name: "Morocco", code: "+212" },
+        { name: "Mozambique", code: "+258" },
+        { name: "Myanmar", code: "+95" },
+        { name: "Namibia", code: "+264" },
+        { name: "Nauru", code: "+674" },
+        { name: "Nepal", code: "+977" },
+        { name: "Netherlands", code: "+31" },
+        { name: "New Zealand", code: "+64" },
+        { name: "Nicaragua", code: "+505" },
+        { name: "Niger", code: "+227" },
+        { name: "Nigeria", code: "+234" },
+        { name: "North Korea", code: "+850" },
+        { name: "North Macedonia", code: "+389" },
+        { name: "Norway", code: "+47" },
+        { name: "Oman", code: "+968" },
+        { name: "Pakistan", code: "+92" },
+        { name: "Palau", code: "+680" },
+        { name: "Palestine", code: "+970" },
+        { name: "Panama", code: "+507" },
+        { name: "Papua New Guinea", code: "+675" },
+        { name: "Paraguay", code: "+595" },
+        { name: "Peru", code: "+51" },
+        { name: "Philippines", code: "+63" },
+        { name: "Poland", code: "+48" },
+        { name: "Portugal", code: "+351" },
+        { name: "Qatar", code: "+974" },
+        { name: "Romania", code: "+40" },
+        { name: "Russia", code: "+7" },
+        { name: "Rwanda", code: "+250" },
+        { name: "Saint Kitts and Nevis", code: "+1-869" },
+        { name: "Saint Lucia", code: "+1-758" },
+        { name: "Saint Vincent and the Grenadines", code: "+1-784" },
+        { name: "Samoa", code: "+685" },
+        { name: "San Marino", code: "+378" },
+        { name: "Sao Tome and Principe", code: "+239" },
+        { name: "Saudi Arabia", code: "+966" },
+        { name: "Senegal", code: "+221" },
+        { name: "Serbia", code: "+381" },
+        { name: "Seychelles", code: "+248" },
+        { name: "Sierra Leone", code: "+232" },
+        { name: "Singapore", code: "+65" },
+        { name: "Slovakia", code: "+421" },
+        { name: "Slovenia", code: "+386" },
+        { name: "Solomon Islands", code: "+677" },
+        { name: "Somalia", code: "+252" },
+        { name: "South Africa", code: "+27" },
+        { name: "South Korea", code: "+82" },
+        { name: "South Sudan", code: "+211" },
+        { name: "Sri Lanka", code: "+94" },
+        { name: "Sudan", code: "+249" },
+        { name: "Suriname", code: "+597" },
+        { name: "Sweden", code: "+46" },
+        { name: "Switzerland", code: "+41" },
+        { name: "Syria", code: "+963" },
+        { name: "Taiwan", code: "+886" },
+        { name: "Tajikistan", code: "+992" },
+        { name: "Tanzania", code: "+255" },
+        { name: "Thailand", code: "+66" },
+        { name: "Timor-Leste", code: "+670" },
+        { name: "Togo", code: "+228" },
+        { name: "Tonga", code: "+676" },
+        { name: "Trinidad and Tobago", code: "+1-868" },
+        { name: "Tunisia", code: "+216" },
+        { name: "Turkey", code: "+90" },
+        { name: "Turkmenistan", code: "+993" },
+        { name: "Tuvalu", code: "+688" },
+        { name: "Uganda", code: "+256" },
+        { name: "Ukraine", code: "+380" },
+        { name: "United Arab Emirates", code: "+971" },
+        { name: "United Kingdom", code: "+44" },
+        { name: "United States", code: "+1" },
+        { name: "Uruguay", code: "+598" },
+        { name: "Uzbekistan", code: "+998" },
+        { name: "Vanuatu", code: "+678" },
+        { name: "Vatican City", code: "+39" },
+        { name: "Venezuela", code: "+58" },
+        { name: "Vietnam", code: "+84" },
+        { name: "Yemen", code: "+967" },
+        { name: "Zambia", code: "+260" },
+        { name: "Zimbabwe", code: "+263" }
+    ];
+
+    // Reference to the select element
+    const selectElement = document.getElementById("countryCodeSelect");
+
+    // Populate the select element with country options
+    allCountries.forEach(country => {
+        const option = document.createElement("option");
+        option.value = country.code;
+        option.textContent = `${country.code} ${country.name}`;
+        selectElement.appendChild(option);
+    });
+</script>
