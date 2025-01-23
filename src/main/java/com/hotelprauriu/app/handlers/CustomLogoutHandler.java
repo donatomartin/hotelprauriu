@@ -39,7 +39,7 @@ public class CustomLogoutHandler implements LogoutHandler {
         loggerService.log(log);
 
         try {
-            response.sendRedirect("/login?logout");
+            response.sendRedirect("/");
         } catch (IOException e) {
             e.printStackTrace();
         }

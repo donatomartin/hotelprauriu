@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="~{shared/fragments/partials/head}"></head>
+
+<body>
+    <!-- Fixed parts -->
+    <nav th:replace="~{shared/fragments/partials/nav}"></nav>
+
+    <div>
+        <p th:if="${error}" class="alert alert-danger" th:text="#{login.error}">Error message placeholder</p>
+        <p th:if="${logout}" class="alert alert-success" th:text="#{login.logout}">Success message placeholder</p>
+    </div>
+
+    <!-- Main content placeholder -->
+    <main layout:fragment="content">
+
+        <!-- Page-specific content will go here -->
+
+    </main>
+
+    <footer th:replace="~{shared/fragments/partials/footer}"></footer>
+</body>
+
+</html>

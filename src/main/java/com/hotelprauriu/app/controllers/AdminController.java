@@ -21,7 +21,6 @@ import com.hotelprauriu.app.services.MessageService;
 import com.hotelprauriu.app.services.ReservationService;
 
 @Controller
-@RequestMapping("/admin")
 public class AdminController {
 
     private final ReservationService reservationService;
@@ -40,12 +39,12 @@ public class AdminController {
     }
 
     // Full Admin Panel Page
-    @RequestMapping(value = { "*", "/dashboard" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/admin", "/admin/*" }, method = RequestMethod.GET)
     public String getAdminPanel() {
         return "admin/pages/home/dashboard";
     }
 
-    @RequestMapping(value = "/inbox", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/inbox", method = RequestMethod.GET)
     public String getInbox(
             Model model,
             @Qualifier("reservation") @PageableDefault(page = 0, size = 4) Pageable reservationPageable,
@@ -68,7 +67,7 @@ public class AdminController {
         return "admin/pages/home/inbox";
     }
 
-    @RequestMapping(value = "/reservations", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/reservations", method = RequestMethod.GET)
     public String getReservations(
             Model model,
             @RequestParam(defaultValue = "0") int page,
@@ -83,7 +82,7 @@ public class AdminController {
         return "admin/fragments/tables/reservations";
     }
 
-    @RequestMapping(value = "/messages", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/messages", method = RequestMethod.GET)
     public String getmessages(
             Model model,
             @RequestParam(defaultValue = "0") int page,
@@ -98,7 +97,7 @@ public class AdminController {
         return "admin/fragments/tables/messages";
     }
 
-    @RequestMapping("/log/list")
+    @RequestMapping("/admin/logs")
     public String getLogs(Model model, @RequestParam(value = "action", required = false) String action) {
         List<Log> logMessages;
 
@@ -112,10 +111,10 @@ public class AdminController {
         model.addAttribute("action", action);
         model.addAttribute("logMessages", logMessages);
 
-        return "admin/pages/log/list";
+        return "admin/pages/home/logs";
     }
 
-    @RequestMapping("/log/delete")
+    @RequestMapping("/admin/logs/delete")
     public String deleteLogs(Model model, @RequestParam(value = "action", required = false) String action) {
         // Si no hay ningún filtro
         if (action != null && !action.isEmpty() && !action.equals("ALL")) {
@@ -125,6 +124,21 @@ public class AdminController {
         }
 
         return "redirect:/log/list";
+    }
+
+    @RequestMapping("/admin/templates")
+    public String getTemplates() {
+        return "admin/pages/home/templates";
+    }
+
+    @RequestMapping("/admin/settings")
+    public String getSettings() {
+        return "admin/pages/home/settings";
+    }
+
+    @RequestMapping("/admin/users")
+    public String getUsers() {
+        return "admin/pages/home/users";
     }
 
 }
