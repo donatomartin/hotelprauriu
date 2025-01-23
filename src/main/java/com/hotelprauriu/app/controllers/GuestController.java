@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.hotelprauriu.app.entities.Message;
 import com.hotelprauriu.app.entities.Reservation;
+import com.hotelprauriu.app.services.MailService;
 import com.hotelprauriu.app.services.MessageService;
 import com.hotelprauriu.app.services.ReservationService;
 
@@ -15,10 +16,16 @@ public class GuestController {
 
     private final ReservationService reservationService;
     private final MessageService messageService;
+    private final MailService mailService;
 
-    public GuestController(ReservationService reservationService, MessageService messageService) {
+    public GuestController(
+        ReservationService reservationService, 
+        MessageService messageService,
+        MailService mailService
+        ) {
         this.reservationService = reservationService;
         this.messageService = messageService;
+        this.mailService = mailService;
     }
 
     @RequestMapping(value = { "*", "/home" }, method = RequestMethod.GET)
@@ -46,6 +53,11 @@ public class GuestController {
     public String postMessage(@Validated Message message) {
 
         messageService.addMessage(message);
+
+        mailService.sendEmail(
+            message.getGuestEmail(),
+            message.getGuestFullName()
+        );
 
         return "guest/pages/home/index";
     }

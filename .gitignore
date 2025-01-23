@@ -34,3 +34,6 @@ build/
 
 ### Schema files ###
 *.sql
+
+.env
+application-secrets.properties

@@ -11,14 +11,14 @@ import com.hotelprauriu.app.entities.User;
 import jakarta.annotation.PostConstruct;
 
 @Service
-public class SampleDataService {
+public class SampleDataInsertionService {
 
     public UserService userService;
     public ReservationService reservationService;
     public MessageService messageService;
     public RolesService rolesService;
 
-    public SampleDataService(
+    public SampleDataInsertionService(
         UserService userService,
         ReservationService reservationService,
         MessageService messageService,
@@ -136,18 +136,6 @@ public class SampleDataService {
         message4.setGuestMessage("What time is check-in?");
 
         messageService.addMessage(message4);
-
-
-        System.out.println("All RESERVATIONS:");
-        for (Reservation reservation : reservationService.findAll()) {
-            System.out.println(reservation.getGuestFullName());
-        }
-
-        System.out.println("All USERS:");
-        for (User user : userService.findAll()) {
-            System.out.println(user.getUsername());
-            System.out.println(user.getPassword());
-        }
 
     }
 

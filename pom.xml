@@ -143,14 +143,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Spring Boot Docker Support -->
-        <!-- Build and package Spring Boot applications as Docker images -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-docker-compose</artifactId>
-            <version>3.4.1</version>
-        </dependency>
-
     </dependencies>
 
     <build>
