@@ -1,6 +1,83 @@
 services:
-  postgres:
-    image: postgres:latest
-    env_file: .env
-    ports:
-      - 5432:5432
+
+    watchtower:
+        image: containrrr/watchtower
+        command:
+            - "--label-enable"
+            - "--interval"
+            - "30"
+            - "--rolling-restart"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        profiles:
+            - prod
+
+    traefik:
+        container_name: traefik-hotelprauriu
+        image: traefik:v3.3
+        command:
+            - "--api.insecure=true"
+            - "--providers.docker=true"
+            - "--providers.docker.exposedbydefault=false"
+            - "--entrypoints.web.address=:80"  # Define entrypoint for HTTP (web)
+            - "--entrypoints.websecure.address=:443"  # Define entrypoint for HTTPS (websecure)
+            - "--certificatesresolvers.myresolver.acme.email=${GMAIL_ADDRESS}"
+            - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+            - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+        ports:
+            - "80:80"
+            - "443:443"
+            # Web UI
+            - "8080:8080"
+        volumes:
+            # So that Traefik can listen to the Docker events
+            - "/var/run/docker.sock:/var/run/docker.sock"
+            # To store the SSL certificates
+            - "letsencrypt:/letsencrypt"
+        networks:
+            - hotelprauriu-network
+        profiles:
+            - prod
+            - dev
+    
+    database:
+        container_name: postgres-hotelprauriu
+        image: postgres:latest
+        env_file: .env
+        volumes:
+            - postgres-data:/var/lib/postgresql/data
+        networks:
+            - hotelprauriu-network
+        profiles:
+            - prod
+            - dev
+            - db-only
+
+    hotelprauriu:
+        image: ghcr.io/dononitram/hotelprauriu/app:latest
+        build: .
+        container_name: app-hotelprauriu            
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.hotelprauriu.rule=Host(`${DOMAIN}`)"
+            - "traefik.http.routers.hotelprauriu.entrypoints=websecure"
+            - "traefik.http.routers.hotelprauriu.tls.certresolver=myresolver"
+            - "traefik.http.services.hotelprauriu.loadbalancer.server.port=8080"  # Explicit port mapping
+        env_file: .env
+        depends_on:
+            - database
+        networks:
+            - hotelprauriu-network
+        profiles:
+            - prod
+            - dev
+
+networks:
+    hotelprauriu-network:
+        driver: bridge
+    
+volumes:
+    postgres-data:
+    letsencrypt:
+
+

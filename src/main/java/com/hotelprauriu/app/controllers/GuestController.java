@@ -44,6 +44,7 @@ public class GuestController {
         if (reservation.getGuestMessage().isBlank())
             reservation.setGuestMessage(null);
 
+        mailService.sendMailsAboutReservation(reservation);
         reservationService.addReservation(reservation);
 
         return "guest/pages/home/index";
@@ -52,12 +53,8 @@ public class GuestController {
     @RequestMapping(value = { "/message" }, method = RequestMethod.POST)
     public String postMessage(@Validated Message message) {
 
+        mailService.sendMailsAboutMessage(message);
         messageService.addMessage(message);
-
-        mailService.sendEmail(
-            message.getGuestEmail(),
-            message.getGuestFullName()
-        );
 
         return "guest/pages/home/index";
     }

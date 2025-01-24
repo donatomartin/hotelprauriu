@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.hotelprauriu.app.entities.User;
 import com.hotelprauriu.app.repositories.UserRepository;
 
+import jakarta.annotation.PostConstruct;
+
 @Service
 public class UserService {
 
@@ -17,6 +19,11 @@ public class UserService {
     public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
+    @PostConstruct
+    public void init() {
+
     }
 
     public void deleteAll() {
