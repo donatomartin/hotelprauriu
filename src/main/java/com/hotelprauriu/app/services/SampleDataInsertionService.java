@@ -2,15 +2,16 @@ package com.hotelprauriu.app.services;
 
 import java.time.LocalDate;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import com.hotelprauriu.app.entities.Message;
 import com.hotelprauriu.app.entities.Reservation;
-import com.hotelprauriu.app.entities.User;
 
 import jakarta.annotation.PostConstruct;
 
 @Service
+@Profile("dev")
 public class SampleDataInsertionService {
 
     public UserService userService;
@@ -33,17 +34,13 @@ public class SampleDataInsertionService {
     @PostConstruct
     public void init() {
 
+        System.out.println("SampleDataInsertionService: Inserting Data");
+
         userService.deleteAll();
         reservationService.deleteAll();
         messageService.deleteAll();
 
-        User admin = new User();
-        admin.setUsername("admin");
-        admin.setEmail("admin@admin.com");
-        admin.setPassword("admin");
-        admin.setRole(rolesService.getRoles()[0]);
-
-        userService.addUser(admin);
+        userService.ensureAdminExists();
 
         // Reservations
 

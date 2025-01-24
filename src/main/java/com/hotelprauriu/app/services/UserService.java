@@ -1,5 +1,6 @@
 package com.hotelprauriu.app.services;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,17 +14,42 @@ import jakarta.annotation.PostConstruct;
 @Service
 public class UserService {
 
+    private final RolesService rolesService;
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    @Value("${hotelprauriu.admin}")
+    private String adminUsername;
+
+    @Value("${hotelprauriu.password}")
+    private String adminPassword;
+
+    @Value("${hotelprauriu.adminemail}")
+    private String adminEmail;
+
+    public UserService(RolesService rolesService, UserRepository userRepository, BCryptPasswordEncoder 
+    bCryptPasswordEncoder) {
+        this.rolesService = rolesService;
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @PostConstruct
     public void init() {
+        ensureAdminExists();
+    }
 
+    public void ensureAdminExists() {
+        User admin = userRepository.findByUsername(adminUsername);
+        if (admin == null) {
+            System.out.println("ADMIN DIDN'T EXIST: CREATING PROFILE...");
+            admin = new User();
+            admin.setUsername(adminUsername);
+            admin.setPassword(adminPassword);
+            admin.setEmail(adminEmail);
+            admin.setRole(rolesService.getRoles()[0]);
+            addUser(admin);
+        }
     }
 
     public void deleteAll() {
