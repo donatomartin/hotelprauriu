@@ -18,13 +18,13 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Value("${hotelprauriu.admin}")
+    @Value("${hotelprauriu.admin.username}")
     private String adminUsername;
 
-    @Value("${hotelprauriu.password}")
+    @Value("${hotelprauriu.admin.password}")
     private String adminPassword;
 
-    @Value("${hotelprauriu.adminemail}")
+    @Value("${hotelprauriu.admin.email}")
     private String adminEmail;
 
     public UserService(RolesService rolesService, UserRepository userRepository, BCryptPasswordEncoder 

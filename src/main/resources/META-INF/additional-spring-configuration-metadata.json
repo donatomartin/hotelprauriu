@@ -1,0 +1,19 @@
+{
+    "properties": [
+        {
+            "name": "hotelprauriu.admin.email",
+            "type": "java.lang.String",
+            "description": "Admin's email"
+        },
+        {
+            "name": "hotelprauriu.admin.username",
+            "type": "java.lang.String",
+            "description": "Admin's username"
+        },
+        {
+            "name": "hotelprauriu.admin.password",
+            "type": "java.lang.String",
+            "description": "Admin's password"
+        }
+    ]
+}
