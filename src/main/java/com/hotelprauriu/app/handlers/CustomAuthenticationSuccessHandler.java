@@ -37,7 +37,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             Authentication authentication) {
 
         Log log = new Log();
-        log.setAction(Log.Action.LOGIN_EX);
+        log.setAction(Log.Action.LOGIN_SUCCESS);
         log.setMessage("Login success: " + authentication.getName());
         log.setDate(new Date());
 
@@ -50,7 +50,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         // Comprueba su rol y redirige a la página correspondiente
         for (GrantedAuthority authority : authorities) {
             if (authority.getAuthority().equals("ROLE_ADMIN")) {
-                path = "/admin";
+                path = "/admin/dashboard";
             } else if (authority.getAuthority().equals("ROLE_USER")) {
                 path = "/user";
             } else {

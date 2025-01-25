@@ -1,18 +1,18 @@
 <section id="contact" class="py-5 bg-light">
     <div class="container text-center">
-        <h2 class="mb-4">Contacto</h2>
+        <h2 class="mb-4" th:text="#{contact.title}"></h2>
         <form class="col-md-8 mx-auto mt-5" method="post" th:action="@{/message}" th:object="${message}">
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <input type="text" class="form-control" placeholder="Nombre" name="guestFullName" required>
+                    <input type="text" class="form-control" th:placeholder="#{contact.fullname}" name="guestFullName" required>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <input type="email" class="form-control" placeholder="Correo Electrónico" name="guestEmail"
+                    <input type="email" class="form-control" th:placeholder="#{contact.email}" name="guestEmail"
                         required>
                 </div>
             </div>
-            <textarea class="form-control mb-3" rows="4" placeholder="Mensaje" name="guestMessage" required></textarea>
-            <button type="submit" class="btn btn-primary" th:text="#{enviar_mensaje}">Enviar Mensaje</button>
+            <textarea class="form-control mb-3" rows="4" th:placeholder="#{contact.message}" name="guestMessage" required></textarea>
+            <button type="submit" class="btn btn-primary" th:text="#{enviar_mensaje}"></button>
         </form>
     </div>
 </section>

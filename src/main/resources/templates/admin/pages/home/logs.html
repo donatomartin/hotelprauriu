@@ -1,54 +1,107 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{shared/layouts/main}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prau Ríu Hotel Hyundai</title>
+
+    <!-- Logo -->
+    <link rel="icon" href="data:,">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- JQuery & Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
 
 <body>
     <main layout:fragment="content">
 
-        <h2 th:text="#{log.title}"></h2>
+        <h2>Logs</h2>
 
-    <form action="/log/list" class="form-inline mb-3">
+        <!-- Form Controller -->
+        <form action="/admin/logs" class="form-inline mb-3">
 
-        <div class="form-group">
-            <select name="action" id="action">
-                <option value="ALL" th:text="#{log.action.all}" th:selected="${action == 'ALL'}">Todas</option>
-                <option value="PET" th:text="#{log.action.pet}" th:selected="${action == 'PET'}">Pet</option>
-                <option value="ALTA" th:text="#{log.action.alta}" th:selected="${action == 'ALTA'}">Alt</option>
-                <option value="LOGIN_EX" th:text="#{log.action.login.ex}" th:selected="${action == 'LOGIN_EX'}">Ex</option>
-                <option value="LOGIN_ERR" th:text="#{log.action.login.err}" th:selected="${action == 'LOGIN_ERR'}">Err</option>
-                <option value="LOGOUT" th:text="#{log.action.logout}" th:selected="${action == 'LOGOUT'}">Out</option>
-            </select>
+            <div class="form-group">
+                <select name="action" id="action">
+                    <option value="ALL" th:selected="${action == 'ALL'}">Todas</option>
+                    <option value="PET" th:selected="${action == 'PET'}">Pet</option>
+                    <option value="SIGNUP" th:selected="${action == 'SIGNUP'}">Signups</option>
+                    <option value="LOGIN_SUCCESS" th:selected="${action == 'LOGIN_SUCCESS'}">Login Success</option>
+                    <option value="LOGIN_ERROR" th:selected="${action == 'LOGIN_ERROR'}">Login Error</option>
+                    <option value="LOGOUT" th:selected="${action == 'LOGOUT'}">Logout</option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary ml-3" type="submit">Buscar</button>
+            <button onclick="deleteLogs()" id="deleteButton" class="btn btn-danger ml-3" type="button">Delete</button>
+            <script>
+                function deleteLogs() {
+                    let selectedOption = document.getElementById('action').value;
+                    window.location.href = '/log/delete?action=' + selectedOption;
+                }
+            </script>
+
+        </form>
+
+
+        <div class="text-center">
+            <ul class="pagination justify-content-center">
+                
+                <!-- Primera -->
+                <li class="page-item" th:classappend="${page.getNumber() == 0} ? 'disabled'">
+                    <a class="page-link" th:href="@{'?action=' + ${action} + '&page=0'}" th:text="0" id="first_page"></a>
+                </li>
+
+                <!-- Siguiente -->
+                <li class="page-item"th:classappend="${1 > page.getNumber()} ? 'disabled'">
+                    <a class="page-link" th:href="@{'?action=' + ${action} + '&page=' + ${page.getNumber() - 1}}" th:text="${'-'}"></a>
+                </li>
+
+                <!-- Actual -->
+                <li class="page-item">
+                    <a class="page-link active" th:href="@{'?action=' + ${action} + '&page=' + ${page.getNumber()} }" th:text=${page.getNumber()}></a>
+                </li>
+
+                <!-- Siguiente -->
+                <li class="page-item" th:classappend="${page.getNumber() > page.getTotalPages() - 2} ? 'disabled'">
+                    <a class="page-link" th:href="@{'?action=' + ${action} + '&page=' + ${page.getNumber() + 1}}" th:text="${'+'}"></a>
+
+                </li>
+
+                <!-- Última -->
+                <li class="page-item" th:classappend="${page.getNumber() >= page.getTotalPages() - 1} ? 'disabled'">
+                    <a class="page-link" th:href="@{'?action=' + ${action} + '&page=' + ${page.getTotalPages() - 1}}" th:text="${page.getTotalPages() - 1}"></a>
+                </li>
+
+
+            </ul>
         </div>
 
-        <button class="btn btn-primary ml-3" th:text="#{log.search.button}" type="submit">Buscar</button>
-        <button onclick="deleteLogs()" id="deleteButton" class="btn btn-danger ml-3" type="button">Delete</button>
-        <script>
-            function deleteLogs() {
-                let selectedOption = document.getElementById('action').value;
-                window.location.href = '/log/delete?action=' + selectedOption;
-            }
-        </script>
-
-    </form>
-
-    <div class="table-responsive">
-        <table class="table table-hover" id="tableLogs">
-            <thead>
-            <tr>
-                <th scope="col" th:text="#{log.date}"></th>
-                <th scope="col" th:text="#{log.action}"></th>
-                <th scope="col" th:text="#{log.message}"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="log : ${logMessages}">
-                <td scope="row" th:text="${log.date}"></td>
-                <td scope="row" th:text="${log.action}"></td>
-                <td scope="row" th:text="${log.message}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+        <!-- Table -->
+        <div class=" table-responsive">
+            <table class="table table-hover" id="tableLogs">
+                <thead>
+                    <tr>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Acción</th>
+                        <th scope="col">Mensaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="log : ${page}">
+                        <td scope="row" th:text="${log.date}"></td>
+                        <td scope="row" th:text="${log.action}"></td>
+                        <td scope="row" th:text="${log.message}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
     </main>
 </body>

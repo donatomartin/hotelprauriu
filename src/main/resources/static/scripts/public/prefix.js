@@ -1,6 +1,9 @@
 // List of all countries in the world with their dialing codes
 const allCountries = [
     { name: "Spain", code: "+34" },
+    { name: "France", code: "+33" },
+    { name: "Germany", code: "+49" },
+    { name: "United Kingdom", code: "+44" },
     { name: "Afghanistan", code: "+93" },
     { name: "Albania", code: "+355" },
     { name: "Algeria", code: "+213" },
@@ -162,6 +165,7 @@ const allCountries = [
     { name: "South Africa", code: "+27" },
     { name: "South Korea", code: "+82" },
     { name: "South Sudan", code: "+211" },
+    { name: "Spain", code: "+34" },
     { name: "Sri Lanka", code: "+94" },
     { name: "Sudan", code: "+249" },
     { name: "Suriname", code: "+597" },

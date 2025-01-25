@@ -12,8 +12,8 @@ public class AuthController {
     
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(
-            @RequestParam(value = "error", required = false) String error,
-            @RequestParam(value = "logout", required = false) String logout,
+            @RequestParam(required = false) String error,
+            @RequestParam(required = false) String logout,
             Authentication authentication, Model model) {
 
         if (authentication != null && authentication.isAuthenticated()) {
@@ -21,7 +21,7 @@ public class AuthController {
         }
 
         if (error != null) {
-            model.addAttribute("error", true);
+            model.addAttribute("loginerror", true);
         }
 
         if (logout != null) {

@@ -1,7 +1,5 @@
 package com.hotelprauriu.app.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,14 +26,14 @@ public class AdminController {
     private final LoggerService loggerService;
 
     public AdminController(
-        ReservationService reservationService,
-        MessageService messageService,
-        LoggerService loggerService) {
+            ReservationService reservationService,
+            MessageService messageService,
+            LoggerService loggerService) {
 
         this.reservationService = reservationService;
         this.messageService = messageService;
         this.loggerService = loggerService;
-        
+
     }
 
     // Full Admin Panel Page
@@ -46,11 +44,14 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/inbox", method = RequestMethod.GET)
     public String getInbox(
+
             Model model,
             @Qualifier("reservation") @PageableDefault(page = 0, size = 4) Pageable reservationPageable,
             @Qualifier("message") @PageableDefault(page = 0, size = 4) Pageable messagePageable,
             @RequestParam(value = "reservation_page", defaultValue = "0") int reservationPage,
-            @RequestParam(value = "message_page", defaultValue = "0") int messagePage) {
+            @RequestParam(value = "message_page", defaultValue = "0") int messagePage
+
+    ) {
 
         // Create custom pageable for reservations and messages
         Pageable reservationPaging = PageRequest.of(reservationPage, reservationPageable.getPageSize());
@@ -67,55 +68,39 @@ public class AdminController {
         return "admin/pages/home/inbox";
     }
 
-    @RequestMapping(value = "/admin/reservations", method = RequestMethod.GET)
-    public String getReservations(
-            Model model,
-            @RequestParam(defaultValue = "0") int page,
-            @PageableDefault(size = 4) Pageable pageable) {
-
-        Pageable paging = PageRequest.of(page, pageable.getPageSize());
-        Page<Reservation> reservationList = reservationService.findAll(paging);
-
-        model.addAttribute("reservationList", reservationList);
-
-        // Return the Thymeleaf fragment
-        return "admin/fragments/tables/reservations";
-    }
-
-    @RequestMapping(value = "/admin/messages", method = RequestMethod.GET)
-    public String getmessages(
-            Model model,
-            @RequestParam(defaultValue = "0") int page,
-            @PageableDefault(size = 4) Pageable pageable) {
-
-        Pageable paging = PageRequest.of(page, pageable.getPageSize());
-        Page<Message> messageList = messageService.findAll(paging);
-
-        model.addAttribute("messageList", messageList);
-
-        // Return the Thymeleaf fragment
-        return "admin/fragments/tables/messages";
-    }
-
     @RequestMapping("/admin/logs")
-    public String getLogs(Model model, @RequestParam(value = "action", required = false) String action) {
-        List<Log> logMessages;
+    public String getLogs(
+
+            Model model,
+            @Qualifier("logs") @PageableDefault(page=0, size=12) Pageable pageable,
+            @RequestParam(required = false) String action,
+            @RequestParam(required = false) Integer page
+ 
+    ) {
+
+        if (page == null)
+            page = 0;
+
+        Pageable logsPageable = PageRequest.of(page, pageable.getPageSize());
+
+        Page<Log> logPage;
 
         // Si no hay ningún filtro
         if (action != null && !action.isEmpty() && !action.equals("ALL")) {
-            logMessages = loggerService.findLogsByAction(action);
+            logPage = loggerService.findLogsByAction(action, logsPageable);
         } else {
-            logMessages = loggerService.getLogs();
+            action = "ALL";
+            logPage = loggerService.getLogs(logsPageable);
         }
 
         model.addAttribute("action", action);
-        model.addAttribute("logMessages", logMessages);
+        model.addAttribute("page", logPage);
 
         return "admin/pages/home/logs";
     }
 
     @RequestMapping("/admin/logs/delete")
-    public String deleteLogs(Model model, @RequestParam(value = "action", required = false) String action) {
+    public String deleteLogs(Model model, @RequestParam(required = false) String action) {
         // Si no hay ningún filtro
         if (action != null && !action.isEmpty() && !action.equals("ALL")) {
             loggerService.deleteLogs(action);

@@ -1,0 +1,68 @@
+package com.hotelprauriu.app.controllers;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.hotelprauriu.app.entities.Reservation;
+import com.hotelprauriu.app.services.MailService;
+import com.hotelprauriu.app.services.ReservationService;
+
+@Controller
+public class ReservationController {
+
+    public ReservationService reservationService;
+    public MailService mailService;
+
+    public ReservationController(
+
+            ReservationService reservationService,
+            MailService mailService
+
+    ) {
+
+        this.reservationService = reservationService;
+        this.mailService = mailService;
+
+    }
+
+    @RequestMapping(value = { "/reservation" }, method = RequestMethod.GET)
+    public String getReservation() {
+        return "guest/pages/reservations/reservation";
+    }
+
+    @RequestMapping(value = { "/reservation" }, method = RequestMethod.POST)
+    public String postReservation(@Validated Reservation reservation) {
+
+        if (reservation.getGuestMessage().isBlank())
+            reservation.setGuestMessage(null);
+
+        mailService.sendMailsAboutReservation(reservation);
+        reservationService.addReservation(reservation);
+
+        return "guest/pages/home/index";
+    }
+
+    @RequestMapping(value = "/admin/partial/reservations", method = RequestMethod.GET)
+    public String getReservations(
+            Model model,
+            @RequestParam(defaultValue = "0") int page,
+            @PageableDefault(size = 4) Pageable pageable) {
+
+        Pageable paging = PageRequest.of(page, pageable.getPageSize());
+        Page<Reservation> reservationList = reservationService.findAll(paging);
+
+        model.addAttribute("reservationList", reservationList);
+
+        // Return the Thymeleaf fragment
+        return "admin/fragments/tables/reservations";
+    }
+
+}

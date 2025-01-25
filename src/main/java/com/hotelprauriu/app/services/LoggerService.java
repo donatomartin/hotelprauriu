@@ -3,8 +3,9 @@ package com.hotelprauriu.app.services;
 import com.hotelprauriu.app.entities.Log;
 import com.hotelprauriu.app.repositories.LoggerRepository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
 public class LoggerService {
@@ -19,12 +20,12 @@ public class LoggerService {
         loggerRepository.save(log);
     }
 
-    public List<Log> getLogs() {
-        return loggerRepository.findAllOrdered();
+    public Page<Log> getLogs(Pageable pageable) {
+        return loggerRepository.findAllOrdered(pageable);
     }
 
-    public List<Log> findLogsByAction(String searchText) {
-        return loggerRepository.findAllByAction(searchText);
+    public Page<Log> findLogsByAction(String searchText, Pageable pageable) {
+        return loggerRepository.findAllByAction(searchText, pageable);
     }
 
     public void deleteLogs() {

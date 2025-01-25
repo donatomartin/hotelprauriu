@@ -19,8 +19,8 @@ public class Log {
     public enum Action {
         PET,
         SIGNUP,
-        LOGIN_EX,
-        LOGIN_ERR,
+        LOGIN_SUCCESS,
+        LOGIN_ERROR,
         LOGOUT
     }
 

@@ -37,7 +37,7 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
         String username = request.getParameter("username");
 
         Log log = new Log();
-        log.setAction(Log.Action.LOGIN_ERR);
+        log.setAction(Log.Action.LOGIN_ERROR);
         log.setMessage("Login error: " + username + " - " + exception.getMessage());
         log.setDate(new Date());
 

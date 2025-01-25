@@ -79,6 +79,7 @@
 
         <!-- JavaScript -->
         <script>
+
             // Modal for displaying client reservations
             const messageModalReservation = document.getElementById('messageModalReservation');
             messageModalReservation.addEventListener('show.bs.modal', function (event) {
@@ -94,6 +95,7 @@
                 document.getElementById('modalPhoneReservation').textContent = phone;
             });
 
+
             // Modal for displaying client messages
             const messageModalMessage = document.getElementById('messageModalMessage');
             messageModalMessage.addEventListener('show.bs.modal', function (event) {
@@ -106,7 +108,6 @@
                 document.getElementById('modalNameMessage').textContent = name;
                 document.getElementById('modalEmailMessage').textContent = email;
             });
-
 
 
             // Function to load table content dynamically
@@ -130,6 +131,8 @@
                     .catch(error => console.error('Error fetching table content:', error));
             }
 
+
+            // 
             document.addEventListener('click', function (e) {
                 if (e.target.classList.contains('page-link')) {
                     e.preventDefault();
@@ -142,8 +145,8 @@
 
                     const containerId = container.id;
                     const endpoint = containerId === 'reservationTableContainer'
-                        ? '/admin/reservations'
-                        : '/admin/messages';
+                        ? '/admin/partial/reservations'
+                        : '/admin/partial/messages';
 
                     const pageNumber = e.target.getAttribute('data-page');
                     if (pageNumber === null) {
