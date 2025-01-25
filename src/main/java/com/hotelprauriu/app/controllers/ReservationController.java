@@ -41,9 +41,6 @@ public class ReservationController {
     @RequestMapping(value = { "/reservation" }, method = RequestMethod.POST)
     public String postReservation(@Validated Reservation reservation) {
 
-        if (reservation.getGuestMessage().isBlank())
-            reservation.setGuestMessage(null);
-
         mailService.sendMailsAboutReservation(reservation);
         reservationService.addReservation(reservation);
 

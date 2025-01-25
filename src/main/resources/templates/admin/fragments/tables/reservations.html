@@ -3,14 +3,14 @@
         <table class="table table-hover table-bordered" id="reservationTable">
             <thead class="table-light">
                 <tr>
-                    <th scope="col">CheckIn</th>
-                    <th scope="col">Checkout</th>
-                    <th scope="col">Nombre Completo</th>
-                    <th scope="col">Email 📧</th>
-                    <th scope="col">Teléfono 📞</th>
-                    <th scope="col">🚶🏻‍♂️‍➡️</th>
-                    <th scope="col">🐕‍🦺</th>
-                    <th scope="col">Extra</th>
+                    <th scope="col">Check In <i class="bi bi-calendar"></i></th>
+                    <th scope="col">Check Out <i class="bi bi-calendar"></i></th>
+                    <th scope="col">Nombre <i class="bi bi-person"></i></th>
+                    <th scope="col">Email <i class="bi bi-envelope"></i></th>
+                    <th scope="col">Teléfono <i class="bi bi-telephone"></i></th>
+                    <th scope="col"><i class="bi bi-people-fill"></i></th>
+                    <th scope="col"><i class="fa fa-paw" aria-hidden="true"></i></th>
+                    <th scope="col">Extra <i class="bi bi-chat-text"></i></th>
                 </tr>
             </thead>
             <tbody>
@@ -22,14 +22,16 @@
                     <td th:text="${reservation.checkOut}"></td>
                     <td th:text="${reservation.guestFullName}"></td>
                     <td th:text="${reservation.guestEmail}"></td>
-                    <td th:text="${reservation.guestPhoneNumber}"></td>
+                    <td th:text="${reservation.guestFullPhoneNumber}"></td>
                     <td th:text="${reservation.numberOfGuests}"></td>
-                    <td th:text="${reservation.numberOfDogs}"></td>
+                    <td th:text="${reservation.numberOfPets}"></td>
                     <td>
-                        <span class="badge bg-info text-white d-flex align-items-center gap-1"
-                            th:if="${reservation.guestMessage}">
-                            <i class="bi bi-envelope-fill"></i>
-                            <span>Incluye Mensaje</span>
+                        <span
+                            class="badge bg-opacity text-white py-1 px-2 d-inline-flex align-items-center gap-1"
+                            style="font-size: 0.8rem; background-color: rgb(105, 180, 118);"
+                            th:if="${reservation.guestMessage != null && !reservation.guestMessage.isBlank()}">
+                            <i class="bi bi-chat-quote-fill"></i>
+                            <span class="small">Message</span>
                         </span>
                     </td>
                 </tr>
@@ -39,15 +41,17 @@
     <div class="d-flex justify-content-center" th:if="${reservationList.totalPages > 0}">
         <ul class="pagination">
             <li class="page-item" th:classappend="${reservationList.first ? 'disabled' : ''}">
-                <a class="page-link" th:attr="data-page=${reservationList.number - 1}" href="#">«</a>
+                <a class="page-link bi bi-caret-left-fill" th:attr="data-page=${reservationList.number - 1}"
+                    href="#"></a>
             </li>
             <li class="page-item" th:each="pageNumber : ${#numbers.sequence(0, reservationList.totalPages - 1)}"
                 th:classappend="${pageNumber == reservationList.number ? 'active' : ''}">
                 <a class="page-link" th:attr="data-page=${pageNumber}" href="#" th:text="${pageNumber + 1}"></a>
             </li>
             <li class="page-item" th:classappend="${reservationList.last ? 'disabled' : ''}">
-                    <a class="page-link text-dark" style="background-color: #f5f5f5;" th:attr="data-page=${reservationList.number + 1}" href="#"><i class="bi bi-caret-right-fill"></i></a>
-                </li>
-            </ul>
+                <a class="page-link bi bi-caret-right-fill" th:attr="data-page=${reservationList.number + 1}"
+                    href="#"></a>
+            </li>
+        </ul>
     </div>
 </div>

@@ -3,9 +3,9 @@
         <table class="table table-hover table-bordered" id="messageTable">
             <thead class="table-light">
                 <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Email 📧</th>
-                    <th scope="col">Message ⭐</th>
+                    <th scope="col">Nombre <i class="bi bi-person"></i></th>
+                    <th scope="col">Email <i class="bi bi-envelope"></i></th>
+                    <th scope="col">Message <i class="bi bi-chat-text"></i></th>
                 </tr>
             </thead>
             <tbody>
@@ -22,14 +22,14 @@
     <div class="d-flex justify-content-center" th:if="${messageList.totalPages > 0}">
         <ul class="pagination">
             <li class="page-item" th:classappend="${messageList.first ? 'disabled' : ''}">
-                <a class="page-link" th:attr="data-page=${messageList.number - 1}" href="#">«</a>
+                <a class="page-link  bi bi-caret-left-fill" th:attr="data-page=${messageList.number - 1}" href="#"></a>
             </li>
             <li class="page-item" th:each="pageNumber : ${#numbers.sequence(0, messageList.totalPages - 1)}"
                 th:classappend="${pageNumber == messageList.number ? 'active' : ''}">
                 <a class="page-link" th:attr="data-page=${pageNumber}" href="#" th:text="${pageNumber + 1}"></a>
             </li>
             <li class="page-item" th:classappend="${messageList.last ? 'disabled' : ''}">
-                <a class="page-link" th:attr="data-page=${messageList.number + 1}" href="#">»</a>
+                <a class="page-link  bi bi-caret-right-fill" th:attr="data-page=${messageList.number + 1}" href="#"></a>
             </li>
         </ul>
     </div>

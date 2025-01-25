@@ -80,10 +80,10 @@
             </div>
 
             <!-- Language -->
-            <ul class="navbar-nav">
+            <ul class="navbar-nav" sec:authorize="isAnonymous()">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="btnLanguage" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="btnLanguage" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="/images/icons/translation.png" class="translation-icon" />
                     </a>
                     <div id="languageDropdownMenuButton" class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -98,6 +98,8 @@
                     </div>
                 </li>
             </ul>
+
+
 
         </div>
     </div>

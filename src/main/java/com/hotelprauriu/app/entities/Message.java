@@ -27,7 +27,10 @@ public class Message {
     private String guestEmail;
 
     @NotBlank(message = "Message is required")
-    @Size(min = 1, max = 511, message = "Message must be 1 and 511 characters")
+    @Size(min = 1, max = 511, message = "Message must be between 1 and 511 characters")
     private String guestMessage;
+
+    @Size(min = 1, max = 511, message = "Message must be between 1 and 511 characters")
+    private String reply;
 
 }

@@ -81,6 +81,16 @@ main {
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 }
 
+/* PAGINATION */
+.pagination > li > a{
+    color: rgb(74, 102, 112);
+    border-color: rgb(74, 102, 112);
+}
+.active > .page-link {
+    background-color: rgb(74, 102, 112);
+    border-color: rgb(74, 102, 112);
+}
+
 nav {
     z-index: 1050;
 }

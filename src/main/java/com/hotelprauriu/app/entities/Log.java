@@ -13,9 +13,6 @@ import java.util.Date;
 @Setter
 public class Log {
 
-    /**
-     * Enumeración que representa las acciones posibles para un mensaje de registro.
-     */
     public enum Action {
         PET,
         SIGNUP,

@@ -12,39 +12,114 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- JQuery & Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <style>
+        a.page-link.active {
+            background-color: #4A6670;
+            border-color: #4A6670;
+        }
+        a.page-link.semi-active {
+            background-color: #b7ccd3;
+            border-color: #4A6670;
+        }
+        .pagination>li>a {
+            color: #4A6670;
+            border-color: #4A6670;
+        }
+        li.page-item.disabled {
+            border-color: #4A6670;
+        }
+
+        .btn-danger {
+            background-color: rgb(139, 72, 72);
+            border-color: rgb(139, 72, 72);
+        }
+    </style>
 
 </head>
 
 <body>
     <main layout:fragment="content">
 
-        <h2>Logs</h2>
+        <nav
+            class="navbar navbar-expand-lg navbar-light bg-light position-fixed top-0 start-0 w-100 bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="/admin/logs">
+                    <span>Logs</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/inbox">Inbox</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/templates">Templates</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/admin/logs">Logs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/users">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="d-flex justify-content-between align-items-center py-4 mx-4 mt-5">
+            <a href="/admin/dashboard" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
+            <h2>Logs</h2>
+            <div style="width: 92px"></div> <!-- Spacer for balance -->
+        </div>
 
         <!-- Form Controller -->
         <form action="/admin/logs" class="form-inline mb-3">
 
-            <div class="form-group">
-                <select name="action" id="action">
-                    <option value="ALL" th:selected="${action == 'ALL'}">Todas</option>
-                    <option value="PET" th:selected="${action == 'PET'}">Pet</option>
-                    <option value="SIGNUP" th:selected="${action == 'SIGNUP'}">Signups</option>
-                    <option value="LOGIN_SUCCESS" th:selected="${action == 'LOGIN_SUCCESS'}">Login Success</option>
-                    <option value="LOGIN_ERROR" th:selected="${action == 'LOGIN_ERROR'}">Login Error</option>
-                    <option value="LOGOUT" th:selected="${action == 'LOGOUT'}">Logout</option>
-                </select>
+            <div class="form-group d-flex justify-content-center">
+                <div style="width: 300px;">
+                    <select class="form-select mb-2" name="action" id="action">
+                        <option value="ALL" th:selected="${action == 'ALL'}">Todos los logs</option>
+                        <option value="PET" th:selected="${action == 'PET'}">Peticiones</option>
+                        <option value="SIGNUP" th:selected="${action == 'SIGNUP'}">Registros</option>
+                        <option value="LOGIN_SUCCESS" th:selected="${action == 'LOGIN_SUCCESS'}">Inicios de Sesión
+                        </option>
+                        <option value="LOGIN_ERROR" th:selected="${action == 'LOGIN_ERROR'}">Inicios de Sesión Fallidos
+                        </option>
+                        <option value="LOGOUT" th:selected="${action == 'LOGOUT'}">Sesiones cerradas</option>
+                    </select>
+                    <button onclick="deleteLogs()" id="deleteButton" class="btn btn-danger w-100" type="button">
+                        <i class="bi bi-trash-fill"></i> Borrar
+                    </button>
+                </div>
             </div>
 
-            <button class="btn btn-primary ml-3" type="submit">Buscar</button>
-            <button onclick="deleteLogs()" id="deleteButton" class="btn btn-danger ml-3" type="button">Delete</button>
             <script>
+                document.getElementById('action').onchange = function update() {
+                    this.form.submit();
+                };
+
                 function deleteLogs() {
                     let selectedOption = document.getElementById('action').value;
-                    window.location.href = '/log/delete?action=' + selectedOption;
+                    window.location.href = '/admin/logs/delete?action=' + selectedOption;
                 }
+
             </script>
 
         </form>
@@ -52,31 +127,36 @@
 
         <div class="text-center">
             <ul class="pagination justify-content-center">
-                
+
                 <!-- Primera -->
                 <li class="page-item" th:classappend="${page.getNumber() == 0} ? 'disabled'">
-                    <a class="page-link" th:href="@{'?action=' + ${action} + '&page=0'}" th:text="0" id="first_page"></a>
+                    <a class="page-link" th:href="@{'?action=' + ${action} + '&page=0'}" th:text="0"
+                        id="first_page"></a>
                 </li>
 
                 <!-- Siguiente -->
-                <li class="page-item"th:classappend="${1 > page.getNumber()} ? 'disabled'">
-                    <a class="page-link" th:href="@{'?action=' + ${action} + '&page=' + ${page.getNumber() - 1}}" th:text="${'-'}"></a>
+                <li class="page-item" th:classappend="${1 > page.getNumber()} ? 'disabled'">
+                    <a class="page-link semi-active" th:href="@{'?action=' + ${action} + '&page=' + ${page.getNumber() - 1}}"
+                        th:text="${'-'}"></a>
                 </li>
 
                 <!-- Actual -->
                 <li class="page-item">
-                    <a class="page-link active" th:href="@{'?action=' + ${action} + '&page=' + ${page.getNumber()} }" th:text=${page.getNumber()}></a>
+                    <a class="page-link active" th:href="@{'?action=' + ${action} + '&page=' + ${page.getNumber()} }"
+                        th:text=${page.getNumber()}></a>
                 </li>
 
                 <!-- Siguiente -->
                 <li class="page-item" th:classappend="${page.getNumber() > page.getTotalPages() - 2} ? 'disabled'">
-                    <a class="page-link" th:href="@{'?action=' + ${action} + '&page=' + ${page.getNumber() + 1}}" th:text="${'+'}"></a>
+                    <a class="page-link semi-active" th:href="@{'?action=' + ${action} + '&page=' + ${page.getNumber() + 1}}"
+                        th:text="${'+'}"></a>
 
                 </li>
 
                 <!-- Última -->
                 <li class="page-item" th:classappend="${page.getNumber() >= page.getTotalPages() - 1} ? 'disabled'">
-                    <a class="page-link" th:href="@{'?action=' + ${action} + '&page=' + ${page.getTotalPages() - 1}}" th:text="${page.getTotalPages() - 1}"></a>
+                    <a class="page-link" th:href="@{'?action=' + ${action} + '&page=' + ${page.getTotalPages() - 1}}"
+                        th:text="${page.getTotalPages() - 1}"></a>
                 </li>
 
 

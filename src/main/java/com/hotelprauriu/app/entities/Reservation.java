@@ -12,6 +12,14 @@ import lombok.Setter;
 @Setter
 public class Reservation {
 
+    public enum Status {
+        PET,
+        SIGNUP,
+        LOGIN_SUCCESS,
+        LOGIN_ERROR,
+        LOGOUT
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,22 +40,40 @@ public class Reservation {
     @Email(message = "Please provide a valid email address")
     private String guestEmail;
 
-    @Transient
+    @NotBlank(message = "Guest phone prefix is required")
     private String guestPhonePrefix;
     
+    @NotBlank(message = "Guest phone number is required")
     private String guestPhoneNumber;
+
+    public void setGuestPhoneNumber(String guestPhoneNumber) {
+        this.guestPhoneNumber = guestPhoneNumber.replace(" ", "");
+    }
+
+    @Transient
+    private String guestFullPhoneNumber;
+
+    public String getGuestFullPhoneNumber() {
+        return guestPhonePrefix + " " + guestPhoneNumber;
+    }
 
     @NotNull(message = "Number of guests is required")
     @Min(value = 1, message = "At least 1 guest is required")
     @Max(value = 4, message = "Maximum 4 guests allowed")
     private int numberOfGuests;
 
-    @NotNull(message = "Number of dogs is required")
-    @Min(value = 0, message = "Number of dogs cannot be negative")
-    @Max(value = 2, message = "Maximum 2 dogs allowed")
-    private int numberOfDogs;
+    @NotNull(message = "Number of pets is required")
+    @Min(value = 0, message = "Number of pets cannot be negative")
+    @Max(value = 2, message = "Maximum 2 pets allowed")
+    private int numberOfPets;
 
     @Size(max = 511, message = "Message must be under 511 characters")
     private String guestMessage;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    @NotNull(message = "Response is required")
+    private String response;
 
 }

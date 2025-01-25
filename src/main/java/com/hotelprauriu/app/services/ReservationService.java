@@ -29,6 +29,10 @@ public class ReservationService {
     }
 
     public void addReservation(Reservation reservation) {
+
+        if (reservation.getResponse() == null)
+            reservation.setResponse("");
+
         reservationRepository.save(reservation);
     }
 

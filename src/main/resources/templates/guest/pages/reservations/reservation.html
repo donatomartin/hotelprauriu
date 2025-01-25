@@ -6,15 +6,14 @@
     <main layout:fragment="content">
         <section id="reservation" class="py-3 mb-5">
             <div class="container text-center">
-                <h2 class="mb-4" th:text="#{reservation.title}">Make a Reservation placeholder</h2>
-                <p th:text="#{reservation.description}">Book your stay with us for an unforgettable experience!
-                    placeholder</p>
+                <h2 class="mb-4" th:text="#{reservation.title}"></h2>
+                <p th:text="#{reservation.description}"></p>
                 <form class="col-md-8 mx-auto mt-5" th:action="@{/reservation}" method="post"
                     th:object="${reservation}">
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             <input type="text" name="guestFullName" class="form-control"
-                                th:placeholder="#{reservation.fullname}" placeholder="Full Name" required>
+                                th:placeholder="#{reservation.fullname}" required>
                         </div>
                     </div>
                     <div class="row">
@@ -24,38 +23,38 @@
                                     style="flex: 0 0 auto; width: auto; max-width: 20vh;" required>
                                 </select>
                                 <input type="tel" name="guestPhoneNumber" class="form-control"
-                                    th:placeholder="#{reservation.phone}" placeholder="Phone Number" required>
+                                    th:placeholder="#{reservation.phone}" required>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <input type="email" name="guestEmail" class="form-control"
-                                th:placeholder="#{reservation.email}" placeholder="Email Address" required>
+                                th:placeholder="#{reservation.email}" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6 col-sm-6 col-md-6 mb-3">
                             <input type="date" name="checkIn" class="form-control"
-                                th:placeholder="#{reservation.check-in}" placeholder="Check-in Date" required>
+                                th:placeholder="#{reservation.check-in}" required>
                         </div>
                         <div class="col-6 col-sm-6 col-md-6 mb-3">
                             <input type="date" name="checkOut" class="form-control"
-                                th:placeholder="#{reservation.check-out}" placeholder="Check-out Date" required>
+                                th:placeholder="#{reservation.check-out}" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <select name="numberOfGuests" class="form-control" required>
-                                <option value="1" th:text="#{reservation.one-guest}">1 Guest</option>
-                                <option value="2" th:text="#{reservation.two-guests}">2 Guests</option>
-                                <option value="3" th:text="#{reservation.three-guests}">3 Guests</option>
-                                <option value="4" th:text="#{reservation.four-guests}">4 Guests</option>
+                                <option value="1" th:text="#{reservation.one-guest}"></option>
+                                <option value="2" th:text="#{reservation.two-guests}"></option>
+                                <option value="3" th:text="#{reservation.three-guests}"></option>
+                                <option value="4" th:text="#{reservation.four-guests}"></option>
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <select name="numberOfDogs" class="form-control" required>
-                                <option value="0" th:text="#{reservation.no-dogs}">0 Dogs</option>
-                                <option value="1" th:text="#{reservation.one-dog}">1 Dog</option>
-                                <option value="2" th:text="#{reservation.two-dogs}">2 Dogs</option>
+                            <select name="numberOfPets" class="form-control" required>
+                                <option value="0" th:text="#{reservation.no-pets}"></option>
+                                <option value="1" th:text="#{reservation.one-pet}"></option>
+                                <option value="2" th:text="#{reservation.two-pets}"></option>
                             </select>
                         </div>
                     </div>
@@ -64,7 +63,7 @@
                             th:placeholder="#{reservation.special-requests}"
                             placeholder="Special Requests (Optional)"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg" th:text="#{consultar}">Consultar</button>
+                    <button type="submit" class="btn btn-primary btn-lg" th:text="#{consultar}"></button>
                 </form>
             </div>
         </section>

@@ -95,9 +95,9 @@ public class MailService {
         Map<String, Object> params = Map.of(
             "name", reservation.getGuestFullName(),
             "email", reservation.getGuestEmail(),
-            "phone", reservation.getGuestPhoneNumber(),
+            "phone", reservation.getGuestFullPhoneNumber(),
             "nguests", reservation.getNumberOfGuests(),
-            "npets", reservation.getNumberOfDogs(),
+            "npets", reservation.getNumberOfPets(),
             "checkin", reservation.getCheckIn(),
             "checkout", reservation.getCheckOut(),
             "message", reservation.getGuestMessage()

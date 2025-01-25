@@ -32,9 +32,16 @@
         </div>
 
 
-        <div>
-            <p th:if="${loginerror}" class="alert alert-danger" th:text="#{login.error}">Error message placeholder</p>
-            <p th:if="${logout}" class="alert alert-success" th:text="#{login.logout}">Success message placeholder</p>
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div>
+                <p th:if="${loginerror}" class="alert alert-danger" th:text="#{login.error}">Error message placeholder</p>
+                <p th:if="${logout}" class="alert alert-success" th:text="#{login.logout}">Success message placeholder</p>
+                </div>
+            </div>
+            </div>
         </div>
 
     </main>

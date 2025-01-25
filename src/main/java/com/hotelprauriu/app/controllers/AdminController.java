@@ -37,7 +37,7 @@ public class AdminController {
     }
 
     // Full Admin Panel Page
-    @RequestMapping(value = { "/admin", "/admin/*" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/admin" }, method = RequestMethod.GET)
     public String getAdminPanel() {
         return "admin/pages/home/dashboard";
     }
@@ -108,7 +108,7 @@ public class AdminController {
             loggerService.deleteLogs();
         }
 
-        return "redirect:/log/list";
+        return "redirect:/admin/logs";
     }
 
     @RequestMapping("/admin/templates")
