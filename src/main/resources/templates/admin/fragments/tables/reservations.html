@@ -46,8 +46,8 @@
                 <a class="page-link" th:attr="data-page=${pageNumber}" href="#" th:text="${pageNumber + 1}"></a>
             </li>
             <li class="page-item" th:classappend="${reservationList.last ? 'disabled' : ''}">
-                <a class="page-link" th:attr="data-page=${reservationList.number + 1}" href="#">»</a>
-            </li>
-        </ul>
+                    <a class="page-link text-dark" style="background-color: #f5f5f5;" th:attr="data-page=${reservationList.number + 1}" href="#"><i class="bi bi-caret-right-fill"></i></a>
+                </li>
+            </ul>
     </div>
 </div>
