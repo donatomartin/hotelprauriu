@@ -3,6 +3,12 @@ package com.hotelprauriu.app.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,16 +19,22 @@ import lombok.Setter;
 public class Reservation {
 
     public enum Status {
-        PET,
-        SIGNUP,
-        LOGIN_SUCCESS,
-        LOGIN_ERROR,
-        LOGOUT
+        PENDING,
+        ACCEPTED,
+        REFUSED,
+        DISCARDED,
+        PAYED
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    private UUID id;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime lastUpdated;
 
     @NotNull(message = "Check-in date is required")
     @Future(message = "Check-in date must be in the future")

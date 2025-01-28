@@ -46,7 +46,7 @@ public class MessageController {
     public String getmessages(
             Model model,
             @RequestParam(defaultValue = "0") int page,
-            @PageableDefault(size = 4) Pageable pageable) {
+            @PageableDefault(size = 2) Pageable pageable) {
 
         Pageable paging = PageRequest.of(page, pageable.getPageSize());
         Page<Message> messageList = messageService.findAll(paging);

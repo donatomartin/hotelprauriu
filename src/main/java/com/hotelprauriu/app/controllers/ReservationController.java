@@ -1,8 +1,11 @@
 package com.hotelprauriu.app.controllers;
 
+import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,17 +52,51 @@ public class ReservationController {
 
     @RequestMapping(value = "/admin/partial/reservations", method = RequestMethod.GET)
     public String getReservations(
+
             Model model,
             @RequestParam(defaultValue = "0") int page,
-            @PageableDefault(size = 4) Pageable pageable) {
+            @PageableDefault(size = 4) Pageable pageable,
+            @RequestParam(defaultValue = "PENDING") String status
 
-        Pageable paging = PageRequest.of(page, pageable.getPageSize());
-        Page<Reservation> reservationList = reservationService.findAll(paging);
+    ) {
+
+        Pageable paging = PageRequest.of(page, pageable.getPageSize(), Sort.by("lastUpdated").descending());
+        
+        Page<Reservation> reservationList;
+        reservationList = reservationService.findByStatus(paging, Reservation.Status.valueOf(status));
 
         model.addAttribute("reservationList", reservationList);
+        model.addAttribute("status", status);
 
         // Return the Thymeleaf fragment
         return "admin/fragments/tables/reservations";
+    }
+
+    @RequestMapping(value = "/admin/reservation/accept", method = RequestMethod.GET)
+    public String acceptReservation(
+            @RequestParam UUID id) {
+
+        reservationService.acceptReservation(id);
+
+        return "redirect:/admin/inbox";
+    }
+
+    @RequestMapping(value = "/admin/reservation/decline", method = RequestMethod.GET)
+    public String declineReservation(
+            @RequestParam UUID id) {
+
+        reservationService.refuseReservation(id);
+
+        return "redirect:/admin/inbox";
+    }
+
+    @RequestMapping(value = "/admin/reservation/discard", method = RequestMethod.GET)
+    public String discardReservation(
+            @RequestParam UUID id) {
+
+        reservationService.discardReservation(id);
+
+        return "redirect:/admin/inbox";
     }
 
 }

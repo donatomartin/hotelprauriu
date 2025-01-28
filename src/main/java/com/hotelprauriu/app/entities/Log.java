@@ -6,9 +6,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.UUID;
+
+import org.hibernate.annotations.UuidGenerator;
 
 @Entity
-@Table(name = "Logs")
 @Getter
 @Setter
 public class Log {
@@ -22,8 +24,8 @@ public class Log {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @UuidGenerator
+    private UUID id;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;

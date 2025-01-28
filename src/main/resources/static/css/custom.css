@@ -129,3 +129,9 @@ table {
         font-size: 0.875rem;
     }
 }
+
+.id-col {
+    max-width: 4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -1,8 +1,10 @@
 package com.hotelprauriu.app.entities;
 
+import java.util.UUID;
+
+import org.hibernate.annotations.UuidGenerator;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
@@ -16,8 +18,8 @@ import lombok.Setter;
 public class Message {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @UuidGenerator
+    private UUID id;
 
     @NotBlank(message = "Guest name is required")
     @Size(min = 2, max = 100, message = "Guest full name must be between 2 and 100 characters")

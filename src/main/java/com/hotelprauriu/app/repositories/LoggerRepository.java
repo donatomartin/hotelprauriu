@@ -1,5 +1,7 @@
 package com.hotelprauriu.app.repositories;
 
+import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hotelprauriu.app.entities.Log;
 
 @Repository
-public interface LoggerRepository extends CrudRepository<Log, Long> {
+public interface LoggerRepository extends CrudRepository<Log, UUID> {
 
     @Query("SELECT l from Log l ORDER BY l.date DESC")
     Page<Log> findAllOrdered(Pageable pageable);

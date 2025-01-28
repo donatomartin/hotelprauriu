@@ -3,6 +3,7 @@
         <table class="table table-hover table-bordered" id="messageTable">
             <thead class="table-light">
                 <tr>
+                    <th scope="col">ID <i class="bi bi-hash"></i></th>
                     <th scope="col">Nombre <i class="bi bi-person"></i></th>
                     <th scope="col">Email <i class="bi bi-envelope"></i></th>
                     <th scope="col">Message <i class="bi bi-chat-text"></i></th>
@@ -12,6 +13,7 @@
                 <tr th:each="message : ${messageList.content}" data-bs-toggle="modal"
                     data-bs-target="#messageModalMessage" th:data-bs-message="${message.guestMessage}"
                     th:data-bs-name="${message.guestFullName}" th:data-bs-email="${message.guestEmail}">
+                    <td class="id-col" th:text="${message.id}"></td>
                     <td th:text="${message.guestFullName}"></td>
                     <td th:text="${message.guestEmail}"></td>
                     <td th:text="${message.guestMessage}"></td>

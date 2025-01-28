@@ -1,5 +1,7 @@
 package com.hotelprauriu.app.services;
 
+import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,16 +26,52 @@ public class ReservationService {
         return reservationRepository.findAll(pageable);
     }
 
+    public Page<Reservation> findByStatus(Pageable pageable, Reservation.Status status) {
+        return reservationRepository.findByStatus(pageable, status);
+
+    }
+
     public Iterable<Reservation> findAll() {
         return reservationRepository.findAll();
     }
 
     public void addReservation(Reservation reservation) {
 
-        if (reservation.getResponse() == null)
+        if (reservation.getResponse() == null) {
             reservation.setResponse("");
+        }
+
+        if (reservation.getGuestMessage() == null) {
+            reservation.setGuestMessage("");
+        }
+
+        reservation.setStatus(Reservation.Status.PENDING);
 
         reservationRepository.save(reservation);
+    }
+    
+    public void acceptReservation(UUID id) {
+
+        Reservation reservation = reservationRepository.findById(id).get();
+        reservation.setStatus(Reservation.Status.ACCEPTED);
+        reservationRepository.save(reservation);
+
+    }
+
+    public void refuseReservation(UUID id) {
+
+        Reservation reservation = reservationRepository.findById(id).get();
+        reservation.setStatus(Reservation.Status.REFUSED);
+        reservationRepository.save(reservation);
+    
+    }
+
+    public void discardReservation(UUID id) {
+
+        Reservation reservation = reservationRepository.findById(id).get();
+        reservation.setStatus(Reservation.Status.DISCARDED);
+        reservationRepository.save(reservation);
+    
     }
 
 }

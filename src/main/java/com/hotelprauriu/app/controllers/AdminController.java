@@ -11,27 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.hotelprauriu.app.entities.Reservation;
 import com.hotelprauriu.app.entities.Log;
-import com.hotelprauriu.app.entities.Message;
 import com.hotelprauriu.app.services.LoggerService;
-import com.hotelprauriu.app.services.MessageService;
-import com.hotelprauriu.app.services.ReservationService;
 
 @Controller
 public class AdminController {
 
-    private final ReservationService reservationService;
-    private final MessageService messageService;
     private final LoggerService loggerService;
 
     public AdminController(
-            ReservationService reservationService,
-            MessageService messageService,
             LoggerService loggerService) {
 
-        this.reservationService = reservationService;
-        this.messageService = messageService;
         this.loggerService = loggerService;
 
     }
@@ -43,28 +33,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin/inbox", method = RequestMethod.GET)
-    public String getInbox(
-
-            Model model,
-            @Qualifier("reservation") @PageableDefault(page = 0, size = 4) Pageable reservationPageable,
-            @Qualifier("message") @PageableDefault(page = 0, size = 4) Pageable messagePageable,
-            @RequestParam(value = "reservation_page", defaultValue = "0") int reservationPage,
-            @RequestParam(value = "message_page", defaultValue = "0") int messagePage
-
-    ) {
-
-        // Create custom pageable for reservations and messages
-        Pageable reservationPaging = PageRequest.of(reservationPage, reservationPageable.getPageSize());
-        Pageable messagePaging = PageRequest.of(messagePage, messagePageable.getPageSize());
-
-        // Fetch the paginated data
-        Page<Reservation> reservationList = reservationService.findAll(reservationPaging);
-        Page<Message> messageList = messageService.findAll(messagePaging);
-
-        // Add data to the model
-        model.addAttribute("reservationList", reservationList);
-        model.addAttribute("messageList", messageList);
-
+    public String getInbox() {
         return "admin/pages/home/inbox";
     }
 
@@ -72,10 +41,10 @@ public class AdminController {
     public String getLogs(
 
             Model model,
-            @Qualifier("logs") @PageableDefault(page=0, size=12) Pageable pageable,
+            @Qualifier("logs") @PageableDefault(page = 0, size = 12) Pageable pageable,
             @RequestParam(required = false) String action,
             @RequestParam(required = false) Integer page
- 
+
     ) {
 
         if (page == null)

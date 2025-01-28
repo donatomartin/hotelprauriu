@@ -9,13 +9,11 @@
             <!-- Reservations Section -->
             <h2 id="reservations">Reservas</h2>
             <div class="table-fragment" id="reservationTableContainer">
-                <table th:replace="admin/fragments/tables/reservations" id="reservationTable"></table>
             </div>
 
             <!-- Messages Section -->
             <h2 id="messages">Mensajes</h2>
             <div class="table-fragment" id="messageTableContainer">
-                <table th:replace="admin/fragments/tables/messages" id="messageTable"></table>
             </div>
         </div>
 
@@ -24,32 +22,36 @@
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="messageModalLabel">Reserva del Cliente</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p><strong>Nombre:</strong> <span id="modalNameReservation"></span></p>
-                        <p><strong>Email:</strong> <span id="modalEmailReservation"></span></p>
-                        <p><strong>Teléfono:</strong> <span id="modalPhoneReservation"></span></p>
-                        <hr>
-                        <p id="modalMessageContentReservation"></p>
-                        <hr>
-                        <h6>Tu respuesta:</h6>
-                        <textarea class="form-control" id="modalResponseReservation" rows="3"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn" style="background-color: #4A6670; color: white" title="Aceptar">
-                            <i class="bi bi-check-square-fill"></i>
-                        </button>
-                        <button type="button" class="btn" style="background-color: #8B4848; color: white" title="Rechazar">
-                            <i class="bi bi-x-square-fill"></i>
-                        </button>
-                        <button type="button" class="btn" style="background-color: #9C8B7B; color: white" title="Borrar">
-                            <i class="bi bi-trash3-fill"></i>
-                        </button>
-                    </div>
+                    <form>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="messageModalLabel">Reserva del Cliente</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="id" id="modalIdReservation">
+                            <p><strong>ID:</strong> <span id="modalNameReservation"></span></p>
+                            <p><strong>Nombre:</strong> <span id="modalNameReservation"></span></p>
+                            <p><strong>Email:</strong> <span id="modalEmailReservation"></span></p>
+                            <p><strong>Teléfono:</strong> <span id="modalPhoneReservation"></span></p>
+                            <hr>
+                            <p id="modalMessageContentReservation"></p>
+                            <hr>
+                            <h6>Tu respuesta:</h6>
+                            <textarea class="form-control" id="modalResponseReservation" rows="3"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" formaction="/admin/reservation/accept" class="btn" style="background-color: #4A6670; color: white" title="Aceptar">
+                                <i class="bi bi-check-square-fill"></i>
+                            </button>
+                            <button type="submit" formaction="/admin/reservation/decline" class="btn" style="background-color: #8B4848; color: white" title="Rechazar">
+                                <i class="bi bi-x-square-fill"></i>
+                            </button>
+                            <button type="submit" formaction="/admin/reservation/discard" class="btn" style="background-color: #9C8B7B; color: white" title="Borrar">
+                                <i class="bi bi-trash3-fill"></i>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -93,11 +95,14 @@
             messageModalReservation.addEventListener('show.bs.modal', function (event) {
                 const button = event.relatedTarget;
                 const messageContent = button.getAttribute('data-bs-message');
+
+                const id = button.getAttribute('data-bs-id');
                 const name = button.getAttribute('data-bs-name');
                 const email = button.getAttribute('data-bs-email');
                 const phone = button.getAttribute('data-bs-phone');
 
                 document.getElementById('modalMessageContentReservation').textContent = messageContent;
+                document.getElementById('modalIdReservation').value = id;
                 document.getElementById('modalNameReservation').textContent = name;
                 document.getElementById('modalEmailReservation').textContent = email;
                 document.getElementById('modalPhoneReservation').textContent = phone;
@@ -123,6 +128,8 @@
                 const queryParams = new URLSearchParams(params).toString();
                 const fullUrl = `${endpoint}?${queryParams}`;
 
+                console.log(fullUrl);
+
                 fetch(fullUrl, {
                     method: 'GET',
                     headers: { 'X-Requested-With': 'XMLHttpRequest' }
@@ -139,8 +146,23 @@
                     .catch(error => console.error('Error fetching table content:', error));
             }
 
+            // Add event listener to the status filter select
+            document.addEventListener('change', function (e) {
+                if (e.target.id === 'reservationStatusFilter' || e.target.id === 'messageStatusFilter') {
+                    const containerId = e.target.id === 'reservationStatusFilter'
+                        ? 'reservationTableContainer'
+                        : 'messageTableContainer';
 
-            // 
+                    const endpoint = containerId === 'reservationTableContainer'
+                        ? '/admin/partial/reservations'
+                        : '/admin/partial/messages';
+
+                    const status = e.target.value;
+                    loadTableContent(containerId, endpoint, { page: 0, status: status });
+                }
+            });
+
+            // Add event listener to the pagination controllers
             document.addEventListener('click', function (e) {
                 if (e.target.classList.contains('page-link')) {
                     e.preventDefault();
@@ -156,15 +178,25 @@
                         ? '/admin/partial/reservations'
                         : '/admin/partial/messages';
 
+                    const statusFilterSelectId = containerId === 'reservationTableContainer'
+                        ? 'reservationStatusFilter'
+                        : 'messageStatusFilter'
+                        
+                    status = document.getElementById(statusFilterSelectId).value;
+
                     const pageNumber = e.target.getAttribute('data-page');
                     if (pageNumber === null) {
                         console.error('No data-page attribute found on the clicked element.');
                         return;
                     }
 
-                    loadTableContent(containerId, endpoint, { page: pageNumber });
+                    loadTableContent(containerId, endpoint, { page: pageNumber, status: status });
                 }
             });
+            
+            // Load initial table content
+            loadTableContent('reservationTableContainer', '/admin/partial/reservations', { page: 0 });
+            loadTableContent('messageTableContainer', '/admin/partial/messages', { page: 0 });
 
         </script>
     </main>
