@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light position-fixed top-0 start-0 w-100 bg-white shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="/#">
-            <img src="/images/hotel/logo.png" alt="Hotel Prauriu Logo" height="30"
+            <img src="/images/hotel/logo.webp" alt="Hotel Prauriu Logo" height="30"
                 class="d-inline-block align-text-top me-2">
             <span th:remove="tag" th:text="#{nav.title}"></span>
         </a>
@@ -81,24 +81,24 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="btnLanguage" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <img th:if="${ param[0] != null && param.lang[0] == 'ES' }" src="/images/flags/spain.png" class="translation-icon" />
-                        <img th:if="${ param[0] != null && aram.lang[0] == 'EN' }" src="/images/flags/uk.png" class="translation-icon" />
+                        <img th:if="${ param[0] != null && param.lang[0] == 'ES' }" src="/images/flags/spain.webp" class="translation-icon" />
+                        <img th:if="${ param[0] != null && aram.lang[0] == 'EN' }" src="/images/flags/uk.webp" class="translation-icon" />
                     </a>
                     <div id="languageDropdownMenuButton" class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" id="btnEnglish" value="EN">
-                            <img th:src="@{/images/flags/uk.png}" class="translation-icon" />
+                            <img th:src="@{/images/flags/uk.webp}" class="translation-icon" />
                             <span th:text="#{language.en}"></span>
                         </a>
                         <a class="dropdown-item" id="btnSpanish" value="ES">
-                            <img th:src="@{/images/flags/spain.png}" class="translation-icon" />
+                            <img th:src="@{/images/flags/spain.webp}" class="translation-icon" />
                             <span th:text="#{language.es}"></span>
                         </a>
                         <a class="dropdown-item" id="btnSpanish" value="ES">
-                            <img th:src="@{/images/flags/france.png}" class="translation-icon" />
+                            <img th:src="@{/images/flags/france.webp}" class="translation-icon" />
                             <span th:text="#{language.fr}"></span>
                         </a>
                         <a class="dropdown-item" id="btnSpanish" value="ES">
-                            <img th:src="@{/images/flags/germany.png}" class="translation-icon" />
+                            <img th:src="@{/images/flags/germany.webp}" class="translation-icon" />
                             <span th:text="#{language.de}"></span>
                         </a>
                     </div>

@@ -53,7 +53,7 @@ public class ReservationController {
     @RequestMapping("/admin/reservations")
     public String getReservations(
         Model model,
-        @PageableDefault(size = 4) Pageable pageable,
+        @PageableDefault(size = 5) Pageable pageable,
         @RequestParam(defaultValue = "0") int page,
         @RequestParam(defaultValue = "PENDING") String filter
     ) {

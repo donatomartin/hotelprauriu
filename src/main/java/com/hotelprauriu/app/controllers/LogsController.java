@@ -29,7 +29,7 @@ public class LogsController {
     public String getLogs(
 
             Model model,
-            @Qualifier("logs") @PageableDefault(page = 0, size = 12) Pageable pageable,
+            @Qualifier("logs") @PageableDefault(page = 0, size = 6) Pageable pageable,
             @RequestParam(required = false) String filter,
             @RequestParam(required = false) Integer page
 
