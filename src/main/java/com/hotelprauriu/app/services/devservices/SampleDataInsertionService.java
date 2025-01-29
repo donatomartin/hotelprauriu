@@ -5,9 +5,7 @@ import java.time.LocalDate;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import com.hotelprauriu.app.entities.Message;
 import com.hotelprauriu.app.entities.Reservation;
-import com.hotelprauriu.app.services.MessageService;
 import com.hotelprauriu.app.services.ReservationService;
 import com.hotelprauriu.app.services.RolesService;
 import com.hotelprauriu.app.services.UserService;
@@ -20,18 +18,15 @@ public class SampleDataInsertionService {
 
     public UserService userService;
     public ReservationService reservationService;
-    public MessageService messageService;
     public RolesService rolesService;
 
     public SampleDataInsertionService(
         UserService userService,
         ReservationService reservationService,
-        MessageService messageService,
         RolesService rolesService
     ) {
         this.userService = userService;
         this.reservationService = reservationService;
-        this.messageService = messageService;
         this.rolesService = rolesService;
     }
 
@@ -42,7 +37,6 @@ public class SampleDataInsertionService {
 
         userService.deleteAll();
         reservationService.deleteAll();
-        messageService.deleteAll();
 
         userService.ensureAdminExists();
 
@@ -111,37 +105,6 @@ public class SampleDataInsertionService {
         reservation5.setCheckOut(LocalDate.now().plusDays(3));
 
         reservationService.addReservation(reservation5);
-
-        // Messages
-
-        Message message1 = new Message();
-        message1.setGuestFullName("Alice Johnson");
-        message1.setGuestEmail("alice@example.com");
-        message1.setGuestMessage("Do you have parking available?");
-
-        messageService.addMessage(message1);
-
-        Message message2 = new Message();
-        message2.setGuestFullName("Carlos Rodriguez");
-        message2.setGuestEmail("carlos@example.com");
-        message2.setGuestMessage("What time is check-in?");
-        
-        messageService.addMessage(message2);
-
-        Message message3 = new Message();
-        message3.setGuestFullName("Maria Garcia");
-        message3.setGuestEmail("maria@example.com");
-        message3.setGuestMessage("Are pets allowed in all rooms?");
-        
-        messageService.addMessage(message3);
-
-        Message message4 = new Message();
-        
-        message4.setGuestFullName("Carlos Rodriguez");
-        message4.setGuestEmail("carlos@example.com");
-        message4.setGuestMessage("What time is check-in?");
-
-        messageService.addMessage(message4);
 
     }
 

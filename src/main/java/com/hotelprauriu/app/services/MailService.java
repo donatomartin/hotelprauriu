@@ -5,7 +5,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.hotelprauriu.app.entities.Message;
 import com.hotelprauriu.app.entities.Reservation;
 
 import java.util.Map;
@@ -63,24 +62,6 @@ public class MailService {
 
             """;
 
-    private String templateMessageClient = """
-            Hola {name} 👋🏻
-            ¡Hemos recibido tu mensaje! Nos pondremos en contacto contigo lo antes posible.
-
-            Saludos,
-            Prau Ríu Hotel
-
-            Mensaje enviado:
-            {message}
-            """;
-    private String templateMessageHotel = """
-            Has recibido un mensaje de {name} ({email})
-            Revísalo en hotelprauriu.com/admin/inbox
-
-            Mensaje enviado:
-            {message}
-            """;
-
     @Value("${hotelprauriu.admin.email}")
     private String adminEmail;
 
@@ -113,31 +94,6 @@ public class MailService {
         String hotelText = formatWithNamedParameters(templateReservationHotel, params);
         sendMail(adminEmail, hotelSubject, hotelText);
         
-    }
-
-    public void sendMailsAboutMessage(Message message) {
-
-        Map<String, Object> params = Map.of(
-            "name", message.getGuestFullName(),
-            "email", message.getGuestEmail(),
-            "message", message.getGuestMessage()
-        );
-
-        // Send email to client
-
-        String clientSubject = "[HotelPrauRiu] Mensaje Enviado";
-        String clientText = formatWithNamedParameters(templateMessageClient, params);
-        sendMail(message.getGuestEmail(), clientSubject, clientText);
-
-        // Send email to hotel
-
-        String hotelSubject = "[Prau Ríu Hotel] Mensaje Recibido";
-        String hotelText = formatWithNamedParameters(templateMessageHotel, params);
-        hotelText = String.format(hotelText, message.getGuestFullName(), message.getGuestEmail(),
-                message.getGuestMessage());
-
-        sendMail(adminEmail, hotelSubject, hotelText);
-
     }
 
     private void sendMail(String to, String subject, String text) {

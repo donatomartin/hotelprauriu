@@ -50,53 +50,50 @@ public class ReservationController {
         return "guest/pages/home/index";
     }
 
-    @RequestMapping(value = "/admin/partial/reservations", method = RequestMethod.GET)
+    @RequestMapping("/admin/reservations")
     public String getReservations(
-
-            Model model,
-            @RequestParam(defaultValue = "0") int page,
-            @PageableDefault(size = 4) Pageable pageable,
-            @RequestParam(defaultValue = "PENDING") String status
-
+        Model model,
+        @PageableDefault(size = 4) Pageable pageable,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "PENDING") String filter
     ) {
 
         Pageable paging = PageRequest.of(page, pageable.getPageSize(), Sort.by("lastUpdated").descending());
         
         Page<Reservation> reservationList;
-        reservationList = reservationService.findByStatus(paging, Reservation.Status.valueOf(status));
+        reservationList = reservationService.findByStatus(paging, Reservation.Status.valueOf(filter));
 
-        model.addAttribute("reservationList", reservationList);
-        model.addAttribute("status", status);
+        model.addAttribute("filter", filter);
+        model.addAttribute("page", reservationList);
 
-        // Return the Thymeleaf fragment
-        return "admin/fragments/tables/reservations";
+        return "admin/pages/home/reservations";
     }
 
-    @RequestMapping(value = "/admin/reservation/accept", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/reservation/accept", method = RequestMethod.POST)
     public String acceptReservation(
             @RequestParam UUID id) {
 
         reservationService.acceptReservation(id);
 
-        return "redirect:/admin/inbox";
+        return "redirect:/admin/reservations";
     }
 
-    @RequestMapping(value = "/admin/reservation/decline", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/reservation/decline", method = RequestMethod.POST)
     public String declineReservation(
             @RequestParam UUID id) {
 
         reservationService.refuseReservation(id);
 
-        return "redirect:/admin/inbox";
+        return "redirect:/admin/reservations";
     }
 
-    @RequestMapping(value = "/admin/reservation/discard", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/reservation/discard", method = RequestMethod.POST)
     public String discardReservation(
             @RequestParam UUID id) {
 
         reservationService.discardReservation(id);
 
-        return "redirect:/admin/inbox";
+        return "redirect:/admin/reservations";
     }
 
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class GuestController {
 
-    @RequestMapping(value = { "*", "/home" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/" }, method = RequestMethod.GET)
     public String getIndex() {
         return "guest/pages/home/index";
     }

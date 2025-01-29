@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{shared/layouts/main}">
+
+<body>
+    <main layout:fragment="content">
+
+        <div class="reservations-container">
+
+            <!-- Pagination Controller -->
+            <div th:replace="~{admin/fragments/components/pagination}"></div>
+
+            <!-- Status Filter -->
+            <form action="/admin/reservations">
+
+                <div class="mb-3">
+                    <select class="form-select" name="filter" id="filter">
+                        <option value="PENDING" th:selected="${filter == 'PENDING'}">Pendientes</option>
+                        <option value="ACCEPTED" th:selected="${filter == 'ACCEPTED'}">Aceptadas</option>
+                        <option value="REFUSED" th:selected="${filter == 'REFUSED'}">Rechazadas</option>
+                        <option value="DISCARDED" th:selected="${filter == 'DISCARDED'}">Descartadas</option>
+                        <option value="PAYED" th:selected="${filter == 'PAYED'}">Pagadas</option>
+                    </select>
+                </div>
+
+                <script>
+                    document.getElementById('filter').onchange = function update() {
+                        this.form.submit();
+                    }
+                </script>
+            </form>
+
+            <!-- Table -->
+            <table class="table table-hover table-bordered" id="reservationTable">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">ID <i class="bi bi-hash"></i></th>
+                        <th scope="col">Check In <i class="bi bi-calendar"></i></th>
+                        <th scope="col">Check Out <i class="bi bi-calendar"></i></th>
+                        <th scope="col">Nombre <i class="bi bi-person"></i></th>
+                        <th scope="col">Email <i class="bi bi-envelope"></i></th>
+                        <th scope="col">Teléfono <i class="bi bi-telephone"></i></th>
+                        <th scope="col"><i class="bi bi-people-fill"></i></th>
+                        <th scope="col"><i class="fa fa-paw" aria-hidden="true"></i></th>
+                        <th scope="col">Extra <i class="bi bi-chat-text"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="reservation : ${page.content}" data-bs-toggle="modal"
+                        data-bs-target="#messageModalReservation" th:data-bs-message="${reservation.guestMessage}"
+                        th:data-bs-id="${reservation.id}" th:data-bs-name="${reservation.guestFullName}"
+                        th:data-bs-email="${reservation.guestEmail}" th:data-bs-phone="${reservation.guestPhoneNumber}">
+                        <td class="id-col" th:text="${reservation.id}"></td>
+                        <td th:text="${reservation.checkIn}"></td>
+                        <td th:text="${reservation.checkOut}"></td>
+                        <td th:text="${reservation.guestFullName}"></td>
+                        <td th:text="${reservation.guestEmail}"></td>
+                        <td th:text="${reservation.guestFullPhoneNumber}"></td>
+                        <td th:text="${reservation.numberOfGuests}"></td>
+                        <td th:text="${reservation.numberOfPets}"></td>
+                        <td>
+                            <span class="badge bg-opacity text-white py-1 px-2 d-inline-flex align-items-center gap-1"
+                                style="font-size: 0.8rem; background-color: #8B4848;"
+                                th:if="${reservation.status.toString() == 'REFUSED'}">
+                                <i class="bi bi-x-square-fill"></i>
+                            </span>
+                            <span class="badge bg-opacity text-white py-1 px-2 d-inline-flex align-items-center gap-1"
+                                style="font-size: 0.8rem; background-color: #4A6670;"
+                                th:if="${reservation.status.toString() == 'ACCEPTED'}">
+                                <i class="bi bi-check-square-fill"></i>
+                            </span>
+                            <span class="badge bg-opacity text-white py-1 px-2 d-inline-flex align-items-center gap-1"
+                                style="font-size: 0.8rem; background-color: rgb(105, 180, 118);"
+                                th:if="${reservation.status.toString() == 'PAYED'}">
+                                <i class="bi bi-cash-coin"></i>
+                            </span>
+                            <span class="badge bg-opacity text-white py-1 px-2 d-inline-flex align-items-center gap-1"
+                                style="font-size: 0.8rem; background-color: #9C8B7B;"
+                                th:if="${reservation.status.toString() == 'DISCARDED'}">
+                                <i class="bi bi-trash-fill"></i>
+                            </span>
+
+                            <span class="badge bg-opacity text-white py-1 px-2 d-inline-flex align-items-center gap-1"
+                                style="font-size: 0.8rem; background-color: rgb(105, 180, 118);"
+                                th:if="${reservation.guestMessage != null && !reservation.guestMessage.isBlank()}">
+                                <i class="bi bi-chat-quote-fill"></i>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Pagination Controller -->
+            <div th:replace="~{admin/fragments/components/pagination}"></div>
+
+
+        </div>
+
+        <!-- Modal Reservation -->
+        <div class="modal fade" id="messageModalReservation" tabindex="-1" aria-labelledby="messageModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" action="/admin/reservation/accept">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="messageModalLabel">Reserva del Cliente</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="id" id="modalIdReservation">
+                            <p><strong>Nombre:</strong> <span id="modalNameReservation"></span></p>
+                            <p><strong>Email:</strong> <span id="modalEmailReservation"></span></p>
+                            <p><strong>Teléfono:</strong> <span id="modalPhoneReservation"></span></p>
+                            <hr>
+                            <p id="modalMessageContentReservation"></p>
+                            <hr>
+                            <h6>Tu respuesta:</h6>
+                            <textarea class="form-control" id="modalResponseReservation" rows="3"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" formaction="/admin/reservation/accept" class="btn"
+                                style="background-color: #4A6670; color: white" title="Aceptar">
+                                <i class="bi bi-check-square-fill"></i>
+                            </button>
+                            <button type="submit" formaction="/admin/reservation/decline" class="btn"
+                                style="background-color: #8B4848; color: white" title="Rechazar">
+                                <i class="bi bi-x-square-fill"></i>
+                            </button>
+                            <button type="submit" formaction="/admin/reservation/discard" class="btn"
+                                style="background-color: #9C8B7B; color: white" title="Borrar">
+                                <i class="bi bi-trash3-fill"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- JavaScript -->
+        <script>
+
+            // Modal for displaying client reservations
+            const messageModalReservation = document.getElementById('messageModalReservation');
+            messageModalReservation.addEventListener('show.bs.modal', function (event) {
+
+                const button = event.relatedTarget;
+
+                const messageContent = button.getAttribute('data-bs-message');
+                const id = button.getAttribute('data-bs-id');
+                const name = button.getAttribute('data-bs-name');
+                const email = button.getAttribute('data-bs-email');
+                const phone = button.getAttribute('data-bs-phone');
+
+                document.getElementById('modalMessageContentReservation').textContent = messageContent;
+                document.getElementById('modalIdReservation').value = "" + id;
+                document.getElementById('modalNameReservation').textContent = name;
+                document.getElementById('modalEmailReservation').textContent = email;
+                document.getElementById('modalPhoneReservation').textContent = phone;
+            });
+
+        </script>
+
+    </main>
+</body>
+
+</html>

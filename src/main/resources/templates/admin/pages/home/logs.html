@@ -23,14 +23,17 @@
             background-color: #4A6670;
             border-color: #4A6670;
         }
+
         a.page-link.semi-active {
             background-color: #b7ccd3;
             border-color: #4A6670;
         }
+
         .pagination>li>a {
             color: #4A6670;
             border-color: #4A6670;
         }
+
         li.page-item.disabled {
             border-color: #4A6670;
         }
@@ -59,10 +62,10 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin">Dashboard</a>
+                            <a class="nav-link" href="/admin">Admin</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/inbox">Inbox</a>
+                            <a class="nav-link" href="/admin/reservations">Reservation</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/templates">Templates</a>
@@ -82,7 +85,7 @@
         </nav>
 
         <div class="d-flex justify-content-between align-items-center py-4 mx-4 mt-5">
-            <a href="/admin/dashboard" class="btn btn-secondary">
+            <a href="/admin" class="btn btn-secondary">
                 <i class="bi bi-arrow-left"></i> Volver
             </a>
             <h2>Logs</h2>
@@ -94,15 +97,15 @@
 
             <div class="form-group d-flex justify-content-center">
                 <div style="width: 300px;">
-                    <select class="form-select mb-2" name="action" id="action">
-                        <option value="ALL" th:selected="${action == 'ALL'}">Todos los logs</option>
-                        <option value="PET" th:selected="${action == 'PET'}">Peticiones</option>
-                        <option value="SIGNUP" th:selected="${action == 'SIGNUP'}">Registros</option>
-                        <option value="LOGIN_SUCCESS" th:selected="${action == 'LOGIN_SUCCESS'}">Inicios de Sesión
+                    <select class="form-select mb-2" name="filter" id="filter">
+                        <option value="ALL" th:selected="${filter == 'ALL'}">Todos los logs</option>
+                        <option value="PET" th:selected="${filter == 'PET'}">Peticiones</option>
+                        <option value="SIGNUP" th:selected="${filter == 'SIGNUP'}">Registros</option>
+                        <option value="LOGIN_SUCCESS" th:selected="${filter == 'LOGIN_SUCCESS'}">Inicios de Sesión
                         </option>
-                        <option value="LOGIN_ERROR" th:selected="${action == 'LOGIN_ERROR'}">Inicios de Sesión Fallidos
+                        <option value="LOGIN_ERROR" th:selected="${filter == 'LOGIN_ERROR'}">Inicios de Sesión Fallidos
                         </option>
-                        <option value="LOGOUT" th:selected="${action == 'LOGOUT'}">Sesiones cerradas</option>
+                        <option value="LOGOUT" th:selected="${filter == 'LOGOUT'}">Sesiones cerradas</option>
                     </select>
                     <button onclick="deleteLogs()" id="deleteButton" class="btn btn-danger w-100" type="button">
                         <i class="bi bi-trash-fill"></i> Borrar
@@ -110,58 +113,22 @@
                 </div>
             </div>
 
+            <div th:replace="~{admin/fragments/components/pagination}"></div>
+
             <script>
-                document.getElementById('action').onchange = function update() {
+                document.getElementById('filter').onchange = function update() {
                     this.form.submit();
                 };
 
                 function deleteLogs() {
-                    let selectedOption = document.getElementById('action').value;
-                    window.location.href = '/admin/logs/delete?action=' + selectedOption;
+                    let selectedOption = document.getElementById('filter').value;
+                    window.location.href = '/admin/logs/delete?filter=' + selectedOption;
                 }
 
             </script>
 
         </form>
 
-
-        <div class="text-center">
-            <ul class="pagination justify-content-center">
-
-                <!-- Primera -->
-                <li class="page-item" th:classappend="${page.getNumber() == 0} ? 'disabled'">
-                    <a class="page-link" th:href="@{'?action=' + ${action} + '&page=0'}" th:text="0"
-                        id="first_page"></a>
-                </li>
-
-                <!-- Siguiente -->
-                <li class="page-item" th:classappend="${1 > page.getNumber()} ? 'disabled'">
-                    <a class="page-link semi-active" th:href="@{'?action=' + ${action} + '&page=' + ${page.getNumber() - 1}}"
-                        th:text="${'-'}"></a>
-                </li>
-
-                <!-- Actual -->
-                <li class="page-item">
-                    <a class="page-link active" th:href="@{'?action=' + ${action} + '&page=' + ${page.getNumber()} }"
-                        th:text=${page.getNumber()}></a>
-                </li>
-
-                <!-- Siguiente -->
-                <li class="page-item" th:classappend="${page.getNumber() > page.getTotalPages() - 2} ? 'disabled'">
-                    <a class="page-link semi-active" th:href="@{'?action=' + ${action} + '&page=' + ${page.getNumber() + 1}}"
-                        th:text="${'+'}"></a>
-
-                </li>
-
-                <!-- Última -->
-                <li class="page-item" th:classappend="${page.getNumber() >= page.getTotalPages() - 1} ? 'disabled'">
-                    <a class="page-link" th:href="@{'?action=' + ${action} + '&page=' + ${page.getTotalPages() - 1}}"
-                        th:text="${page.getTotalPages() - 1}"></a>
-                </li>
-
-
-            </ul>
-        </div>
 
         <!-- Table -->
         <div class=" table-responsive">
