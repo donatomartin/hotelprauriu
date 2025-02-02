@@ -1,34 +1,28 @@
 package com.hotelprauriu.app.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class AdminController {
 
     // Full Admin Panel Page
-    @RequestMapping(value = { "/admin" }, method = RequestMethod.GET)
+    @GetMapping("/admin")
     public String getAdminPanel() {
         return "admin/pages/home/admin";
     }
 
-    @RequestMapping(value = "/admin/inbox", method = RequestMethod.GET)
-    public String getInbox() {
-        return "admin/pages/home/inbox";
-    }
-
-    @RequestMapping("/admin/templates")
+    @GetMapping("/admin/templates")
     public String getTemplates() {
         return "admin/pages/home/templates";
     }
 
-    @RequestMapping("/admin/settings")
+    @GetMapping("/admin/settings")
     public String getSettings() {
         return "admin/pages/home/settings";
     }
 
-    @RequestMapping("/admin/users")
+    @GetMapping("/admin/users")
     public String getUsers() {
         return "admin/pages/home/users";
     }

@@ -10,8 +10,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hotelprauriu.app.entities.Reservation;
@@ -36,12 +36,12 @@ public class ReservationController {
 
     }
 
-    @RequestMapping(value = { "/reservation" }, method = RequestMethod.GET)
+    @GetMapping("/reservation")
     public String getReservation() {
         return "guest/pages/reservations/reservation";
     }
 
-    @RequestMapping(value = { "/reservation" }, method = RequestMethod.POST)
+    @PostMapping("/reservation")
     public String postReservation(@Validated Reservation reservation) {
 
         mailService.sendMailsAboutReservation(reservation);
@@ -50,7 +50,7 @@ public class ReservationController {
         return "guest/pages/home/index";
     }
 
-    @RequestMapping("/admin/reservations")
+    @GetMapping("/admin/reservations")
     public String getReservations(
         Model model,
         @PageableDefault(size = 5) Pageable pageable,
@@ -69,7 +69,7 @@ public class ReservationController {
         return "admin/pages/home/reservations";
     }
 
-    @RequestMapping(value = "/admin/reservation/accept", method = RequestMethod.POST)
+    @PostMapping("/admin/reservation/accept")
     public String acceptReservation(
             @RequestParam UUID id) {
 
@@ -78,7 +78,7 @@ public class ReservationController {
         return "redirect:/admin/reservations";
     }
 
-    @RequestMapping(value = "/admin/reservation/decline", method = RequestMethod.POST)
+    @PostMapping("/admin/reservation/decline")
     public String declineReservation(
             @RequestParam UUID id) {
 
@@ -87,7 +87,7 @@ public class ReservationController {
         return "redirect:/admin/reservations";
     }
 
-    @RequestMapping(value = "/admin/reservation/discard", method = RequestMethod.POST)
+    @PostMapping("/admin/reservation/discard")
     public String discardReservation(
             @RequestParam UUID id) {
 

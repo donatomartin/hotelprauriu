@@ -50,6 +50,10 @@ footer {
     margin-top: 12vh;
 }
 
+#about > div > div > div {
+    margin-top: 1rem;
+}
+
 main {
     margin-top: 12vh;
 }

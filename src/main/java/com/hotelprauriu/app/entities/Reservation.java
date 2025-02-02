@@ -36,26 +36,26 @@ public class Reservation {
     @UpdateTimestamp
     private LocalDateTime lastUpdated;
 
-    @NotNull(message = "Check-in date is required")
-    @Future(message = "Check-in date must be in the future")
+    @NotNull(message = "{error.checkin.date.required}")
+    @Future(message = "{error.checkin.date.future}")
     private LocalDate checkIn;
 
-    @NotNull(message = "Check-out date is required")
-    @Future(message = "Check-out date must be in the future")
+    @NotNull(message = "{error.checkout.date.required}")
+    @Future(message = "{error.checkout.date.future}")
     private LocalDate checkOut;
 
-    @NotBlank(message = "Guest name is required")
-    @Size(min = 2, max = 100, message = "Guest name must be between 2 and 100 characters")
+    @NotBlank(message = "{error.guest.name.required}")
+    @Size(min = 2, max = 100, message = "{error.guest.name.size}")
     private String guestFullName;
 
-    @NotBlank(message = "Guest email is required")
-    @Email(message = "Please provide a valid email address")
+    @NotBlank(message = "{error.guest.email.required}")
+    @Email(message = "{error.guest.email.invalid}")
     private String guestEmail;
 
-    @NotBlank(message = "Guest phone prefix is required")
+    @NotBlank(message = "{error.guest.phone.prefix.required}")
     private String guestPhonePrefix;
     
-    @NotBlank(message = "Guest phone number is required")
+    @NotBlank(message = "{error.guest.phone.number.required}")
     private String guestPhoneNumber;
 
     public void setGuestPhoneNumber(String guestPhoneNumber) {
@@ -69,23 +69,21 @@ public class Reservation {
         return guestPhonePrefix + " " + guestPhoneNumber;
     }
 
-    @NotNull(message = "Number of guests is required")
-    @Min(value = 1, message = "At least 1 guest is required")
-    @Max(value = 4, message = "Maximum 4 guests allowed")
+    @NotNull(message = "{error.guests.count.required}")
+    @Min(value = 1, message = "{error.guests.count.min}")
+    @Max(value = 4, message = "{error.guests.count.max}")
     private int numberOfGuests;
 
-    @NotNull(message = "Number of pets is required")
-    @Min(value = 0, message = "Number of pets cannot be negative")
-    @Max(value = 2, message = "Maximum 2 pets allowed")
+    @NotNull(message = "{error.pets.count.required}")
+    @Min(value = 0, message = "{error.pets.count.min}")
+    @Max(value = 2, message = "{error.pets.count.max}")
     private int numberOfPets;
 
-    @Size(max = 511, message = "Message must be under 511 characters")
+    @Size(max = 511, message = "{error.guest.message.size}")
     private String guestMessage;
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @NotNull(message = "Response is required")
     private String response;
-
 }

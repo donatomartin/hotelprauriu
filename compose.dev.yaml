@@ -11,6 +11,7 @@ services:
 
     hotelprauriu:
         build: .
+        image: ghcr.io/dononitram/hotelprauriu/app:latest
         container_name: app-hotelprauriu            
         env_file: .env
         depends_on:
@@ -18,7 +19,6 @@ services:
         ports:
             - "8080:8080"
         volumes:
-            - .:/app
             - ~/.m2:/root/.m2  # Cache Maven dependencies
 
 volumes:

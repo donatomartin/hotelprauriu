@@ -5,4 +5,4 @@ for /f "tokens=* delims=" %%i in (.env) do (
 )
 
 :: Ejecutar la aplicación
-java -jar target/hotelprauriu-1.0.0.jar
+./mvnw.cmd spring-boot:run

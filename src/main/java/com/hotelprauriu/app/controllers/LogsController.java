@@ -7,7 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hotelprauriu.app.entities.Log;
@@ -25,7 +25,7 @@ public class LogsController {
 
     }
 
-    @RequestMapping("/admin/logs")
+    @GetMapping("/admin/logs")
     public String getLogs(
 
             Model model,
@@ -56,7 +56,7 @@ public class LogsController {
         return "admin/pages/home/logs";
     }
 
-    @RequestMapping("/admin/logs/delete")
+    @GetMapping("/admin/logs/delete")
     public String deleteLogs(Model model, @RequestParam(required = false) String action) {
         // Si no hay ningún filtro
         if (action != null && !action.isEmpty() && !action.equals("ALL")) {
