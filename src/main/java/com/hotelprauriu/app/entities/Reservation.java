@@ -44,6 +44,15 @@ public class Reservation {
     @Future(message = "{error.checkout.date.future}")
     private LocalDate checkOut;
 
+    @AssertTrue(message = "The check-in date must be before the check-out date")
+    private boolean isCheckInBeforeCheckOut() {
+        // If either date is null, we let the other @NotNull validations handle it.
+        if (checkIn == null || checkOut == null) {
+            return true;
+        }
+        return checkIn.isBefore(checkOut);
+    }
+
     @NotBlank(message = "{error.guest.name.required}")
     @Size(min = 2, max = 100, message = "{error.guest.name.size}")
     private String guestFullName;

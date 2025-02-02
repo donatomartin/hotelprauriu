@@ -1,6 +1,8 @@
 package com.hotelprauriu.app.controllers;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,6 +11,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,14 +41,25 @@ public class ReservationController {
     }
 
     @GetMapping("/reservation")
-    public String getReservation() {
+    public String getReservation(Model model) {
+        model.addAttribute("reservation", new Reservation());
         return "guest/pages/reservations/reservation";
     }
 
     @PostMapping("/reservation")
-    public String postReservation(@Validated Reservation reservation) {
+    public String postReservation(Model model, @Validated Reservation reservation, BindingResult result) {
 
-        mailService.sendMailsAboutReservation(reservation);
+        if (result.hasErrors()) {
+
+            List<String> errors = result.getAllErrors().stream().map(ObjectError::getDefaultMessage)
+                    .collect(Collectors.toList());
+
+            model.addAttribute("errors", errors);
+            model.addAttribute("reservation", reservation);
+            return "guest/pages/reservations/reservation";
+        }
+
+        // mailService.sendMailsAboutReservation(reservation);
         reservationService.addReservation(reservation);
 
         return "guest/pages/home/index";
@@ -52,14 +67,13 @@ public class ReservationController {
 
     @GetMapping("/admin/reservations")
     public String getReservations(
-        Model model,
-        @PageableDefault(size = 5) Pageable pageable,
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "PENDING") String filter
-    ) {
+            Model model,
+            @PageableDefault(size = 5) Pageable pageable,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "PENDING") String filter) {
 
         Pageable paging = PageRequest.of(page, pageable.getPageSize(), Sort.by("lastUpdated").descending());
-        
+
         Page<Reservation> reservationList;
         reservationList = reservationService.findByStatus(paging, Reservation.Status.valueOf(filter));
 
