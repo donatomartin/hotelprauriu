@@ -81,8 +81,10 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="btnLanguage" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <img th:if="${ param[0] != null && param.lang[0] == 'ES' }" src="/images/flags/spain.webp" class="translation-icon" />
-                        <img th:if="${ param[0] != null && aram.lang[0] == 'EN' }" src="/images/flags/uk.webp" class="translation-icon" />
+                        <img th:if="${ param.lang[0] == 'ES' }" src="/images/flags/spain.webp" class="translation-icon" />
+                        <img th:if="${ param.lang[0] == 'EN' }" src="/images/flags/uk.webp" class="translation-icon" />
+                        <img th:if="${ param.lang[0] == 'FR' }" src="/images/flags/france.webp" class="translation-icon" />
+                        <img th:if="${ param.lang[0] == 'DE' }" src="/images/flags/germany.webp" class="translation-icon" />
                     </a>
                     <div id="languageDropdownMenuButton" class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" id="btnEnglish" value="EN">
