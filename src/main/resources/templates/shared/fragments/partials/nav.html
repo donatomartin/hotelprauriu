@@ -81,10 +81,10 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="btnLanguage" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <img th:if="${ param.lang[0] == 'ES' }" src="/images/flags/spain.webp" class="translation-icon" />
-                        <img th:if="${ param.lang[0] == 'EN' }" src="/images/flags/uk.webp" class="translation-icon" />
-                        <img th:if="${ param.lang[0] == 'FR' }" src="/images/flags/france.webp" class="translation-icon" />
-                        <img th:if="${ param.lang[0] == 'DE' }" src="/images/flags/germany.webp" class="translation-icon" />
+                        <img th:if="${ param.lang == null or param.lang[0] == 'ES' }" src="/images/flags/spain.webp" class="translation-icon" />
+                        <img th:if="${ param.lang != null and param.lang[0] == 'EN' }" src="/images/flags/uk.webp" class="translation-icon" />
+                        <img th:if="${ param.lang != null and param.lang[0] == 'FR' }" src="/images/flags/france.webp" class="translation-icon" />
+                        <img th:if="${ param.lang != null and param.lang[0] == 'DE' }" src="/images/flags/germany.webp" class="translation-icon" />
                     </a>
                     <div id="languageDropdownMenuButton" class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" id="btnEnglish" value="EN">
@@ -95,11 +95,11 @@
                             <img th:src="@{/images/flags/spain.webp}" class="translation-icon" />
                             <span th:text="#{language.es}"></span>
                         </a>
-                        <a class="dropdown-item" id="btnSpanish" value="ES">
+                        <a class="dropdown-item" id="btnSpanish" value="FR">
                             <img th:src="@{/images/flags/france.webp}" class="translation-icon" />
                             <span th:text="#{language.fr}"></span>
                         </a>
-                        <a class="dropdown-item" id="btnSpanish" value="ES">
+                        <a class="dropdown-item" id="btnSpanish" value="DE">
                             <img th:src="@{/images/flags/germany.webp}" class="translation-icon" />
                             <span th:text="#{language.de}"></span>
                         </a>
