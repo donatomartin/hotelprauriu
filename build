@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -e  # Detiene el script ante cualquier error
+
+echo "Running Maven clean package..."
+./mvnw clean package
+
+echo "Ensuring Docker buildx builder is set up..."
+
+# Crea y usa un builder si no existe
+if ! docker buildx inspect mybuilder &>/dev/null; then
+    echo "Creating buildx builder 'mybuilder'..."
+    docker buildx create --name mybuilder --driver docker-container --use
+    docker buildx inspect --bootstrap
+else
+    docker buildx use mybuilder
+fi
+
+echo "Running Docker buildx build..."
+docker buildx build --platform linux/amd64,linux/arm64 \
+  -t ghcr.io/donatomartin/hotelprauriu/app:latest \
+  --push .
+
+echo "Build and push completed successfully."
