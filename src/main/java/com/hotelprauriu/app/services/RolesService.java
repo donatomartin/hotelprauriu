@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 public class RolesService {
 
     public String[] getRoles() {
-        return new String[] { "ROLE_ADMIN", "ROLE_USER" };
+        return new String[] { "ROLE_ADMIN", "ROLE_USER", "ROLE_EMPLOYEE" };
     }
     
 }

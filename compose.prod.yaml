@@ -48,12 +48,12 @@ services:
             - hotelprauriu-network
 
     hotelprauriu:
-        image: ghcr.io/dononitram/hotelprauriu/app:latest
+        image: ghcr.io/donatomartin/hotelprauriu/app:latest
         restart: unless-stopped
         container_name: app-hotelprauriu            
         labels:
             - "traefik.enable=true"
-            - "traefik.http.routers.hotelprauriu.rule=Host(`${DOMAIN}`)"
+            - "traefik.http.routers.hotelprauriu.rule=Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`)"
             - "traefik.http.routers.hotelprauriu.entrypoints=websecure"
             - "traefik.http.routers.hotelprauriu.tls.certresolver=myresolver"
             - "traefik.http.services.hotelprauriu.loadbalancer.server.port=8080"
@@ -71,3 +71,4 @@ networks:
 volumes:
     postgres-data:
     letsencrypt:
+

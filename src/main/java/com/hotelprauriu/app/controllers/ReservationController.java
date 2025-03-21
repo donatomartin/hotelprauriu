@@ -59,7 +59,7 @@ public class ReservationController {
             return "guest/pages/reservations/reservation";
         }
 
-        // mailService.sendMailsAboutReservation(reservation);
+         mailService.sendMailsAboutReservation(reservation);
         reservationService.addReservation(reservation);
 
         return "guest/pages/home/index";
