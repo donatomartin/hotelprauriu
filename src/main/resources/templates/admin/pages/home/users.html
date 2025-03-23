@@ -1,11 +1,40 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{shared/layouts/main}">
-
-<body>
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{shared/layouts/main}"
+>
+  <body>
     <main layout:fragment="content">
-
+      <h1>Users</h1>
+      <!-- Table -->
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered" id="userTable">
+          <thead class="table-light">
+            <tr>
+              <th scope="col" class="d-none">ID <i class="bi bi-hash"></i></th>
+              <th scope="col">Username <i class="bi bi-person"></i></th>
+              <th scope="col">Email <i class="bi bi-envelope"></i></th>
+              <th scope="col">Roles <i class="bi bi-people-fill"></i></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              th:each="user : ${page.content}"
+              data-bs-toggle="modal"
+              data-bs-target="#messageModalUser"
+              th:data-bs-id="${user.id}"
+              th:data-bs-username="${user.username}"
+              th:data-bs-email="${user.email}"
+            >
+              <td class="id-col d-none" th:text="${user.id}"></td>
+              <td th:text="${user.username}"></td>
+              <td th:text="${user.email}"></td>
+              <td th:text="${user.role}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </main>
-</body>
-
+  </body>
 </html>
