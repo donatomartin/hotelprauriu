@@ -1,77 +1,75 @@
 package com.hotelprauriu.app.services;
 
+import com.hotelprauriu.app.entities.Reservation;
+import com.hotelprauriu.app.repositories.ReservationRepository;
+import java.util.Optional;
 import java.util.UUID;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.hotelprauriu.app.entities.Reservation;
-import com.hotelprauriu.app.repositories.ReservationRepository;
-
 @Service
 public class ReservationService {
 
-    private final ReservationRepository reservationRepository;
+  private final ReservationRepository reservationRepository;
 
-    public ReservationService(ReservationRepository reservationRepository) {
-        this.reservationRepository = reservationRepository;
+  public ReservationService(ReservationRepository reservationRepository) {
+    this.reservationRepository = reservationRepository;
+  }
+
+  public void deleteAll() {
+    reservationRepository.deleteAll();
+  }
+
+  public Page<Reservation> findAll(Pageable pageable) {
+    return reservationRepository.findAll(pageable);
+  }
+
+  public Page<Reservation> findByStatus(Pageable pageable, Reservation.Status status) {
+    return reservationRepository.findByStatus(pageable, status);
+  }
+
+  public Optional<Reservation> findById(UUID id) {
+    return reservationRepository.findById(id);
+  }
+
+  public Iterable<Reservation> findAll() {
+    return reservationRepository.findAll();
+  }
+
+  public void addReservation(Reservation reservation) {
+
+    if (reservation.getResponse() == null) {
+      reservation.setResponse("");
     }
 
-    public void deleteAll() {
-        reservationRepository.deleteAll();
+    if (reservation.getGuestMessage() == null) {
+      reservation.setGuestMessage("");
     }
 
-    public Page<Reservation> findAll(Pageable pageable) {
-        return reservationRepository.findAll(pageable);
-    }
+    reservation.setStatus(Reservation.Status.PENDING);
 
-    public Page<Reservation> findByStatus(Pageable pageable, Reservation.Status status) {
-        return reservationRepository.findByStatus(pageable, status);
+    reservationRepository.save(reservation);
+  }
 
-    }
+  public void acceptReservation(UUID id) {
 
-    public Iterable<Reservation> findAll() {
-        return reservationRepository.findAll();
-    }
+    Reservation reservation = reservationRepository.findById(id).get();
+    reservation.setStatus(Reservation.Status.ACCEPTED);
+    reservationRepository.save(reservation);
+  }
 
-    public void addReservation(Reservation reservation) {
+  public void refuseReservation(UUID id) {
 
-        if (reservation.getResponse() == null) {
-            reservation.setResponse("");
-        }
+    Reservation reservation = reservationRepository.findById(id).get();
+    reservation.setStatus(Reservation.Status.REFUSED);
+    reservationRepository.save(reservation);
+  }
 
-        if (reservation.getGuestMessage() == null) {
-            reservation.setGuestMessage("");
-        }
+  public void discardReservation(UUID id) {
 
-        reservation.setStatus(Reservation.Status.PENDING);
-
-        reservationRepository.save(reservation);
-    }
-    
-    public void acceptReservation(UUID id) {
-
-        Reservation reservation = reservationRepository.findById(id).get();
-        reservation.setStatus(Reservation.Status.ACCEPTED);
-        reservationRepository.save(reservation);
-
-    }
-
-    public void refuseReservation(UUID id) {
-
-        Reservation reservation = reservationRepository.findById(id).get();
-        reservation.setStatus(Reservation.Status.REFUSED);
-        reservationRepository.save(reservation);
-    
-    }
-
-    public void discardReservation(UUID id) {
-
-        Reservation reservation = reservationRepository.findById(id).get();
-        reservation.setStatus(Reservation.Status.DISCARDED);
-        reservationRepository.save(reservation);
-    
-    }
-
+    Reservation reservation = reservationRepository.findById(id).get();
+    reservation.setStatus(Reservation.Status.DISCARDED);
+    reservationRepository.save(reservation);
+  }
 }

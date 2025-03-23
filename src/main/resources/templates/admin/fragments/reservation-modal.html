@@ -1,0 +1,69 @@
+<!-- reservation-modal.html -->
+<div th:fragment="modalContent">
+  <form method="post" action="/admin/reservation/accept">
+    <div class="modal-header">
+      <h5 class="modal-title" id="messageModalLabel">Reserva del Cliente XD</h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" name="id" th:value="${reservation.id}" />
+      <p>
+        <strong>NombreJeje:</strong>
+        <span th:text="${reservation.guestFullName}"></span>
+      </p>
+      <p>
+        <strong>Email:</strong>
+        <span th:text="${reservation.guestEmail}"></span>
+      </p>
+      <p>
+        <strong>Teléfono:</strong>
+        <span th:text="${reservation.guestPhoneNumber}"></span>
+      </p>
+      <p th:text="${reservation.guestMessage}"></p>
+      <hr />
+      <h6>Tu respuesta:</h6>
+      <textarea
+        class="form-control"
+        id="modalResponseReservation"
+        rows="3"
+      ></textarea>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        Cerrar
+      </button>
+      <button
+        type="submit"
+        formaction="/admin/reservation/accept"
+        class="btn"
+        style="background-color: #4a6670; color: white"
+        title="Aceptar"
+      >
+        <i class="bi bi-check-square-fill"></i>
+      </button>
+      <button
+        type="submit"
+        formaction="/admin/reservation/decline"
+        class="btn"
+        style="background-color: #8b4848; color: white"
+        title="Rechazar"
+      >
+        <i class="bi bi-x-square-fill"></i>
+      </button>
+      <button
+        type="submit"
+        formaction="/admin/reservation/discard"
+        class="btn"
+        style="background-color: #9c8b7b; color: white"
+        title="Borrar"
+      >
+        <i class="bi bi-trash3-fill"></i>
+      </button>
+    </div>
+  </form>
+</div>
