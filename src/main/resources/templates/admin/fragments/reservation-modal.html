@@ -2,7 +2,7 @@
 <div th:fragment="modalContent">
   <form method="post" action="/admin/reservation/accept">
     <div class="modal-header">
-      <h5 class="modal-title" id="messageModalLabel">Reserva del Cliente XD</h5>
+      <h5 class="modal-title" id="messageModalLabel">Reserva del Cliente</h5>
       <button
         type="button"
         class="btn-close"
@@ -12,18 +12,43 @@
     </div>
     <div class="modal-body">
       <input type="hidden" name="id" th:value="${reservation.id}" />
-      <p>
-        <strong>NombreJeje:</strong>
-        <span th:text="${reservation.guestFullName}"></span>
-      </p>
-      <p>
-        <strong>Email:</strong>
-        <span th:text="${reservation.guestEmail}"></span>
-      </p>
-      <p>
-        <strong>Teléfono:</strong>
-        <span th:text="${reservation.guestPhoneNumber}"></span>
-      </p>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <p>
+              <strong>Nombre:</strong>
+              <span th:text="${reservation.guestFullName}"></span>
+            </p>
+            <p>
+              <strong><i class="bi bi-people-fill"></i>:</strong>
+              <span th:text="${reservation.numberOfGuests}"></span>
+            </p>
+            <p>
+              <strong><i class="fa fa-paw" aria-hidden="true"></i>:</strong>
+              <span th:text="${reservation.numberOfPets}"></span>
+            </p>
+            <p>
+              <strong><i class="bi bi-envelope"></i> : </strong>
+              <span th:text="${reservation.guestEmail}"></span>
+            </p>
+            <p>
+              <strong><i class="bi bi-telephone"></i> : </strong>
+              <span th:text="${reservation.guestFullPhoneNumber}"></span>
+            </p>
+          </div>
+          <div class="col-md-6">
+            <p>
+              <strong>Check-In:</strong>
+              <span th:text="${reservation.checkIn}"></span>
+            </p>
+            <p>
+              <strong>Check-Out:</strong>
+              <span th:text="${reservation.checkOut}"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <hr th:if="${!reservation.guestMessage.isBlank()}" />
       <p th:text="${reservation.guestMessage}"></p>
       <hr />
       <h6>Tu respuesta:</h6>

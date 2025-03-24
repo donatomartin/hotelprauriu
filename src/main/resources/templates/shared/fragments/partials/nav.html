@@ -1,114 +1,157 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light position-fixed top-0 start-0 w-100 bg-white shadow-sm">
-    <div class="container">
-        <a class="navbar-brand" href="/#">
-            <img src="/images/hotel/logo.webp" alt="Hotel Prauriu Logo" height="30"
-                class="d-inline-block align-text-top me-2">
-            <span th:remove="tag" th:text="#{nav.title}"></span>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+<nav
+  class="navbar navbar-expand-lg navbar-light bg-light position-fixed top-0 start-0 w-100 bg-white shadow-sm"
+>
+  <div class="container">
+    <a class="navbar-brand" href="/#">
+      <img
+        src="/images/hotel/logo.webp"
+        alt="Hotel Prauriu Logo"
+        height="30"
+        class="d-inline-block align-text-top me-2"
+      />
+      <span th:remove="tag" th:text="#{nav.title}"></span>
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Guest -->
 
-            <!-- Guest -->
+      <div sec:authorize="isAnonymous()" class="ms-auto">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="/#" th:text="#{nav.home}"></a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="/reservation"
+              th:text="#{nav.reservation}"
+            ></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/#about" th:text="#{nav.about}"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/#services" th:text="#{nav.services}"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/colabs" th:text="#{nav.colabs}"></a>
+          </li>
+        </ul>
+      </div>
 
-            <div sec:authorize="isAnonymous()" class="ms-auto">
+      <!-- Admin-->
 
-                <ul class="navbar-nav ">
+      <div sec:authorize="hasRole('ROLE_ADMIN')" class="ms-auto">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="/admin">Admin</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/reservations">Reservations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/templates">Templates</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/users">Users</a>
+          </li>
+        </ul>
+      </div>
 
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/#" th:text="#{nav.home}"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/reservation" th:text="#{nav.reservation}"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/#about" th:text="#{nav.about}"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/#services" th:text="#{nav.services}"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/colabs" th:text="#{nav.colabs}"></a>
-                    </li>
-                </ul>
+      <!-- User -->
+      <div sec:authorize="isAuthenticated()">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
 
-            </div>
+      <!-- Not User -->
+      <div sec:authorize="isAnonymous()">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+        </ul>
+      </div>
 
-            <!-- Admin-->
-
-            <div sec:authorize="hasRole('ROLE_ADMIN')" class="ms-auto">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/admin">Admin</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/reservations">Reservations</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/templates">Templates</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/logs">Logs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/users">Users</a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- User -->
-            <div sec:authorize="isAuthenticated()">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Not User -->
-            <div sec:authorize="isAnonymous()">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Language -->
-            <ul class="navbar-nav" sec:authorize="isAnonymous()">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="btnLanguage" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <img th:if="${ param.lang == null or param.lang[0] == 'ES' }" src="/images/flags/spain.webp" class="translation-icon" />
-                        <img th:if="${ param.lang != null and param.lang[0] == 'EN' }" src="/images/flags/uk.webp" class="translation-icon" />
-                        <img th:if="${ param.lang != null and param.lang[0] == 'FR' }" src="/images/flags/france.webp" class="translation-icon" />
-                        <img th:if="${ param.lang != null and param.lang[0] == 'DE' }" src="/images/flags/germany.webp" class="translation-icon" />
-                    </a>
-                    <div id="languageDropdownMenuButton" class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" id="btnEnglish" value="EN">
-                            <img th:src="@{/images/flags/uk.webp}" class="translation-icon" />
-                            <span th:text="#{language.en}"></span>
-                        </a>
-                        <a class="dropdown-item" id="btnSpanish" value="ES">
-                            <img th:src="@{/images/flags/spain.webp}" class="translation-icon" />
-                            <span th:text="#{language.es}"></span>
-                        </a>
-                        <a class="dropdown-item" id="btnSpanish" value="FR">
-                            <img th:src="@{/images/flags/france.webp}" class="translation-icon" />
-                            <span th:text="#{language.fr}"></span>
-                        </a>
-                        <a class="dropdown-item" id="btnSpanish" value="DE">
-                            <img th:src="@{/images/flags/germany.webp}" class="translation-icon" />
-                            <span th:text="#{language.de}"></span>
-                        </a>
-                    </div>
-                </li>
-            </ul>
-
-
-
-        </div>
+      <!-- Language -->
+      <ul class="navbar-nav" sec:authorize="isAnonymous()">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="btnLanguage"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <img
+              th:if="${ param.lang == nul or param.lang[0] == 'ES' }"
+              src="/images/flags/spain.webp"
+              class="translation-icon"
+            />
+            <img
+              th:if="${ param.lang != null and param.lang[0] == 'EN' }"
+              src="/images/flags/uk.webp"
+              class="translation-icon"
+            />
+            <img
+              th:if="${ param.lang != null and param.lang[0] == 'FR' }"
+              src="/images/flags/france.webp"
+              class="translation-icon"
+            />
+            <img
+              th:if="${ param.lang != null and param.lang[0] == 'DE' }"
+              src="/images/flags/germany.webp"
+              class="translation-icon"
+            />
+          </a>
+          <div
+            id="languageDropdownMenuButton"
+            class="dropdown-menu"
+            aria-labelledby="navbarDropdown"
+          >
+            <a class="dropdown-item" id="btnEnglish" value="EN">
+              <img th:src="@{/images/flags/uk.webp}" class="translation-icon" />
+              <span th:text="#{language.en}"></span>
+            </a>
+            <a class="dropdown-item" id="btnSpanish" value="ES">
+              <img
+                th:src="@{/images/flags/spain.webp}"
+                class="translation-icon"
+              />
+              <span th:text="#{language.es}"></span>
+            </a>
+            <a class="dropdown-item" id="btnSpanish" value="FR">
+              <img
+                th:src="@{/images/flags/france.webp}"
+                class="translation-icon"
+              />
+              <span th:text="#{language.fr}"></span>
+            </a>
+            <a class="dropdown-item" id="btnSpanish" value="DE">
+              <img
+                th:src="@{/images/flags/germany.webp}"
+                class="translation-icon"
+              />
+              <span th:text="#{language.de}"></span>
+            </a>
+          </div>
+        </li>
+      </ul>
     </div>
+  </div>
 </nav>

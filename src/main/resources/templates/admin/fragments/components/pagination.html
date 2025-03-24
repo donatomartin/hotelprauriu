@@ -1,36 +1,59 @@
 <div class="text-center">
-    <ul class="pagination justify-content-center">
+  <ul class="pagination justify-content-center">
+    <!-- Primera -->
+    <li
+      class="page-item"
+      th:classappend="${page.getNumber() == 0} ? 'disabled'"
+    >
+      <a
+        class="page-link"
+        th:href="@{'?filter=' + ${filter} + '&page=0'}"
+        th:text="1"
+        id="first_page"
+      ></a>
+    </li>
 
-        <!-- Primera -->
-        <li class="page-item" th:classappend="${page.getNumber() == 0} ? 'disabled'">
-            <a class="page-link" th:href="@{'?filter=' + ${filter} + '&page=0'}" th:text="0" id="first_page"></a>
-        </li>
+    <!-- Siguiente -->
+    <li class="page-item" th:classappend="${1 > page.getNumber()} ? 'disabled'">
+      <a
+        class="page-link semi-active"
+        th:href="@{'?filter=' + ${filter} + '&page=' + ${page.getNumber() - 1}}"
+        th:text="${'-'}"
+      ></a>
+    </li>
 
-        <!-- Siguiente -->
-        <li class="page-item" th:classappend="${1 > page.getNumber()} ? 'disabled'">
-            <a class="page-link semi-active" th:href="@{'?filter=' + ${filter} + '&page=' + ${page.getNumber() - 1}}"
-                th:text="${'-'}"></a>
-        </li>
+    <!-- Actual -->
+    <li class="page-item">
+      <a
+        class="page-link active"
+        th:href="@{'?filter=' + ${filter} + '&page=' + ${page.getNumber()} }"
+        th:text="${page.getNumber()+1}"
+      ></a>
+    </li>
 
-        <!-- Actual -->
-        <li class="page-item">
-            <a class="page-link active" th:href="@{'?filter=' + ${filter} + '&page=' + ${page.getNumber()} }"
-                th:text=${page.getNumber()}></a>
-        </li>
+    <!-- Siguiente -->
+    <li
+      class="page-item"
+      th:classappend="${page.getNumber() > page.getTotalPages() - 2} ? 'disabled'"
+    >
+      <a
+        class="page-link semi-active"
+        th:href="@{'?filter=' + ${filter} + '&page=' + ${page.getNumber() + 1}}"
+        th:text="${'+'}"
+      ></a>
+    </li>
 
-        <!-- Siguiente -->
-        <li class="page-item" th:classappend="${page.getNumber() > page.getTotalPages() - 2} ? 'disabled'">
-            <a class="page-link semi-active" th:href="@{'?filter=' + ${filter} + '&page=' + ${page.getNumber() + 1}}"
-                th:text="${'+'}"></a>
-
-        </li>
-
-        <!-- Última -->
-        <li class="page-item" th:classappend="${page.getNumber() >= page.getTotalPages() - 1} ? 'disabled'">
-            <a class="page-link" th:href="@{'?filter=' + ${filter} + '&page=' + ${page.getTotalPages() - 1}}"
-                th:text="${page.getTotalPages() - 1}"></a>
-        </li>
-
-
-    </ul>
+    <!-- Última -->
+    <li
+      class="page-item"
+      th:classappend="${page.getNumber() >= page.getTotalPages() - 1} ? 'disabled'"
+    >
+      <a
+        class="page-link"
+        th:href="@{'?filter=' + ${filter} + '&page=' + ${page.getTotalPages() - 1}}"
+        th:text="${page.getTotalPages()}"
+      ></a>
+    </li>
+  </ul>
 </div>
+
