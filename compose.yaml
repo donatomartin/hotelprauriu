@@ -46,6 +46,8 @@ services:
             - postgres-data:/var/lib/postgresql/data
         networks:
             - hotelprauriu-network
+        ports:
+            - "${POSTGRES_PORT}:5432"
 
     hotelprauriu:
         image: ghcr.io/donatomartin/hotelprauriu/app:latest

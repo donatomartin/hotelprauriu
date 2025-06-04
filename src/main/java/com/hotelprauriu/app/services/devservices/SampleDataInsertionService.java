@@ -52,7 +52,6 @@ public class SampleDataInsertionService {
         reservation1.setGuestMessage("La cama sin chinches por favor");
         reservation1.setCheckIn(LocalDate.now().plusDays(1));
         reservation1.setCheckOut(LocalDate.now().plusDays(3));
-        reservation1.setTermsAccepted(true);
         
         reservationService.addReservation(reservation1);
 
@@ -66,7 +65,6 @@ public class SampleDataInsertionService {
         reservation2.setGuestMessage("Would like a room with a view");
         reservation2.setCheckIn(LocalDate.now().plusDays(1));
         reservation2.setCheckOut(LocalDate.now().plusDays(3));
-        reservation2.setTermsAccepted(true);
 
         reservationService.addReservation(reservation2);
 
@@ -80,7 +78,6 @@ public class SampleDataInsertionService {
         reservation3.setGuestMessage("La cama sin chinches por favor");
         reservation3.setCheckIn(LocalDate.now().plusDays(1));
         reservation3.setCheckOut(LocalDate.now().plusDays(3));
-        reservation3.setTermsAccepted(true);
 
         reservationService.addReservation(reservation3);
 
@@ -93,7 +90,6 @@ public class SampleDataInsertionService {
         reservation4.setNumberOfPets(0);
         reservation4.setCheckIn(LocalDate.now().plusDays(1));
         reservation4.setCheckOut(LocalDate.now().plusDays(3));
-        reservation4.setTermsAccepted(true);
 
         reservationService.addReservation(reservation4);
 
@@ -107,7 +103,6 @@ public class SampleDataInsertionService {
         reservation5.setGuestMessage("La cama sin chinches por favor");
         reservation5.setCheckIn(LocalDate.now().plusDays(1));
         reservation5.setCheckOut(LocalDate.now().plusDays(3));
-        reservation5.setTermsAccepted(true);
 
         reservationService.addReservation(reservation5);
 
