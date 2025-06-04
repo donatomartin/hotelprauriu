@@ -4,6 +4,9 @@
 
 <body>
     <main layout:fragment="content">
+        <div class="container mt-3" th:if="${reservationSuccess}">
+            <p class="alert alert-success" th:text="#{reservation.success}"></p>
+        </div>
         <section th:replace="~{guest/fragments/sections/highlight}"></section>
         <section th:replace="~{guest/fragments/sections/about}"></section>
         <section th:replace="~{guest/fragments/sections/services}"></section>

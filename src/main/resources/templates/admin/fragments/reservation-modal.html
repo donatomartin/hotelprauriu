@@ -55,37 +55,59 @@
       <textarea
         class="form-control"
         id="modalResponseReservation"
+        name="response"
         rows="3"
       ></textarea>
+      <select id="templateSelect" class="form-select mt-2">
+        <option value="" selected disabled>Elegir plantilla</option>
+        <option th:each="t : ${templates}" th:value="${t.content}" th:text="${t.name}"></option>
+      </select>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
         Cerrar
       </button>
       <button
+        th:if="${reservation.status.toString() != 'ACCEPTED'}"
         type="submit"
         formaction="/admin/reservation/accept"
         class="btn"
         style="background-color: #4a6670; color: white"
         title="Aceptar"
+        onclick="return confirm('¿Confirmar acción?');"
       >
         <i class="bi bi-check-square-fill"></i>
       </button>
       <button
+        th:if="${reservation.status.toString() != 'REFUSED'}"
         type="submit"
         formaction="/admin/reservation/decline"
         class="btn"
         style="background-color: #8b4848; color: white"
         title="Rechazar"
+        onclick="return confirm('¿Confirmar acción?');"
       >
         <i class="bi bi-x-square-fill"></i>
       </button>
       <button
+        th:if="${reservation.status.toString() != 'DISCARDED'}"
         type="submit"
         formaction="/admin/reservation/discard"
         class="btn"
         style="background-color: #9c8b7b; color: white"
         title="Borrar"
+        onclick="return confirm('¿Confirmar acción?');"
+      >
+        <i class="bi bi-trash3-fill"></i>
+      </button>
+      <button
+        th:if="${reservation.status.toString() == 'DISCARDED'}"
+        type="submit"
+        formaction="/admin/reservation/delete"
+        class="btn"
+        style="background-color: #9c8b7b; color: white"
+        title="Eliminar"
+        onclick="return confirm('¿Eliminar definitivamente?');"
       >
         <i class="bi bi-trash3-fill"></i>
       </button>

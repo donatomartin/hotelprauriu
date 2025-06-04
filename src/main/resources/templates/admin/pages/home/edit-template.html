@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{shared/layouts/main}">
+<body>
+    <main layout:fragment="content">
+        <div class="container mt-4">
+            <h2 class="mb-3">Editar Plantilla</h2>
+            <form th:action="@{'/admin/templates/edit/' + ${template.id}}" method="post" th:object="${template}" class="mb-4">
+                <div class="mb-3">
+                    <input type="text" th:field="*{name}" class="form-control" placeholder="Nombre" required />
+                </div>
+                <div class="mb-3">
+                    <textarea th:field="*{content}" class="form-control" rows="3" placeholder="Contenido" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a class="btn btn-secondary" href="/admin/templates">Cancelar</a>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

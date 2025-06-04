@@ -3,6 +3,7 @@ package com.hotelprauriu.app.controllers;
 import com.hotelprauriu.app.entities.Reservation;
 import com.hotelprauriu.app.services.MailService;
 import com.hotelprauriu.app.services.ReservationService;
+import com.hotelprauriu.app.services.TemplateService;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -26,11 +27,16 @@ public class ReservationController {
 
   public ReservationService reservationService;
   public MailService mailService;
+  public TemplateService templateService;
 
-  public ReservationController(ReservationService reservationService, MailService mailService) {
+  public ReservationController(
+      ReservationService reservationService,
+      MailService mailService,
+      TemplateService templateService) {
 
     this.reservationService = reservationService;
     this.mailService = mailService;
+    this.templateService = templateService;
   }
 
   @GetMapping("/reservation")
@@ -58,7 +64,7 @@ public class ReservationController {
     mailService.sendMailsAboutReservation(reservation);
     reservationService.addReservation(reservation);
 
-    return "guest/pages/home/index";
+    return "redirect:/?reservationSuccess=true";
   }
 
   @GetMapping("/admin/reservations")
@@ -85,22 +91,29 @@ public class ReservationController {
     Reservation reservation = reservationService.findById(id).orElse(null);
     // TODO: validate not null
     model.addAttribute("reservation", reservation);
+    model.addAttribute("templates", templateService.findAll());
     return "admin/fragments/reservation-modal :: modalContent";
   }
 
   @PostMapping("/admin/reservation/accept")
-  public String acceptReservation(@RequestParam UUID id) {
-
-    reservationService.acceptReservation(id);
-
+  public String acceptReservation(@RequestParam UUID id, @RequestParam(required = false) String response) {
+    Reservation r = reservationService.findById(id).orElse(null);
+    if (r != null) {
+      r.setResponse(response == null ? "" : response);
+      reservationService.acceptReservation(id);
+      mailService.sendResponseMail(r);
+    }
     return "redirect:/admin/reservations";
   }
 
   @PostMapping("/admin/reservation/decline")
-  public String declineReservation(@RequestParam UUID id) {
-
-    reservationService.refuseReservation(id);
-
+  public String declineReservation(@RequestParam UUID id, @RequestParam(required = false) String response) {
+    Reservation r = reservationService.findById(id).orElse(null);
+    if (r != null) {
+      r.setResponse(response == null ? "" : response);
+      reservationService.refuseReservation(id);
+      mailService.sendResponseMail(r);
+    }
     return "redirect:/admin/reservations";
   }
 
@@ -108,6 +121,14 @@ public class ReservationController {
   public String discardReservation(@RequestParam UUID id) {
 
     reservationService.discardReservation(id);
+
+    return "redirect:/admin/reservations";
+  }
+
+  @PostMapping("/admin/reservation/delete")
+  public String deleteReservation(@RequestParam UUID id) {
+
+    reservationService.deleteReservation(id);
 
     return "redirect:/admin/reservations";
   }

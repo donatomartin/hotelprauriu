@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{shared/layouts/main}">
+<body>
+  <main layout:fragment="content">
+    <div class="container mt-4">
+      <h2 class="mb-3">Logs</h2>
+      <ul class="list-group">
+        <li class="list-group-item" th:each="log: ${logs}">
+          <span th:text="${#temporals.format(log.timestamp, 'yyyy-MM-dd HH:mm')}"></span>
+          - <strong th:text="${log.type}"></strong>: <span th:text="${log.message}"></span>
+        </li>
+      </ul>
+    </div>
+  </main>
+</body>
+</html>

@@ -34,12 +34,10 @@
                     </div>
                     <div class="row">
                         <div class="col-6 col-sm-6 col-md-6 mb-3">
-                            <input type="date" th:field="*{checkIn}" class="form-control"
-                                th:placeholder="#{reservation.check-in}" required>
+                            <input type="date" th:field="*{checkIn}" class="form-control" th:placeholder="#{reservation.check-in}" required>
                         </div>
                         <div class="col-6 col-sm-6 col-md-6 mb-3">
-                            <input type="date" th:field="*{checkOut}" class="form-control"
-                                th:placeholder="#{reservation.check-out}" required>
+                            <input type="date" th:field="*{checkOut}" class="form-control" th:placeholder="#{reservation.check-out}" required>
                         </div>
                     </div>
                     <div class="row">
@@ -64,8 +62,19 @@
                             th:placeholder="#{reservation.special-requests}"
                             placeholder="Special Requests (Optional)"></textarea>
                     </div>
+                    <div class="form-check form-check-inline mb-3 d-flex align-items-center">
+                        <input class="form-check-input me-2" type="checkbox" th:field="*{termsAccepted}" id="termsCheck" required>
+                        <label class="form-check-label" for="termsCheck" th:utext="#{reservation.accept-terms}"></label>
+                    </div>
                     <button type="submit" class="btn btn-primary btn-lg" th:text="#{consultar}"></button>
                 </form>
+                <div id="loadingOverlay" class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-none" style="z-index: 1050;">
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="spinner-border text-light" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -78,6 +87,7 @@
         </section>
 
         <script src="/scripts/public/prefix.js"></script>
+        <script src="/scripts/public/reservation.js"></script>
 
     </main>
 </body>

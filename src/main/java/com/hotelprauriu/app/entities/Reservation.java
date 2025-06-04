@@ -88,6 +88,9 @@ public class Reservation {
     @Max(value = 2, message = "{error.pets.count.max}")
     private int numberOfPets;
 
+    @AssertTrue(message = "{error.terms.accept.required}")
+    private boolean termsAccepted;
+
     @Size(max = 511, message = "{error.guest.message.size}")
     private String guestMessage;
 

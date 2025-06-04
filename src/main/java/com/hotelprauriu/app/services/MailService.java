@@ -67,6 +67,23 @@ Mensaje:
     this.asyncEmailSender = new AsyncEmailSender(mailSender);
   }
 
+  public void sendResponseMail(Reservation reservation) {
+    if (reservation.getResponse() == null || reservation.getResponse().isBlank()) {
+      return;
+    }
+    String subject;
+    if (reservation.getStatus() == Reservation.Status.ACCEPTED) {
+      subject = "[HotelPrauRiu] Reserva aceptada";
+    } else if (reservation.getStatus() == Reservation.Status.REFUSED) {
+      subject = "[HotelPrauRiu] Reserva rechazada";
+    } else {
+      return;
+    }
+    String text = reservation.getResponse();
+    asyncEmailSender.sendMail(reservation.getGuestEmail(), subject, text);
+    asyncEmailSender.sendMail(adminEmail, subject + " (copia)", text);
+  }
+
   public void sendMailsAboutReservation(Reservation reservation) {
 
     // Send email to client

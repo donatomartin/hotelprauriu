@@ -203,9 +203,20 @@
                   document.querySelector(
                     "#messageModalReservation .modal-content",
                   ).innerHTML = html;
+                  initTemplateSelect();
                 });
             });
           });
+
+        function initTemplateSelect() {
+          const select = document.getElementById("templateSelect");
+          if (select) {
+            select.addEventListener("change", function () {
+              const area = document.getElementById("modalResponseReservation");
+              if (area) area.value = this.value;
+            });
+          }
+        }
       </script>
     </main>
   </body>

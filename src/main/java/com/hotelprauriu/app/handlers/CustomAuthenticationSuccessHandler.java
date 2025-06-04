@@ -4,6 +4,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
+import com.hotelprauriu.app.services.LogService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Component;
 /** Clase para manejar el éxito de la autenticación. */
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+
+  @Autowired private LogService logService;
 
   /**
    * Maneja el éxito de la autenticación.
@@ -41,6 +45,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     }
 
     try {
+      logService.log("LOGIN", authentication.getName() + " inició sesión");
       response.sendRedirect(path);
     } catch (Exception e) {
       e.printStackTrace();

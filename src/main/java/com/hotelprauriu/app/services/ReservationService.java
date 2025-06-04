@@ -2,6 +2,7 @@ package com.hotelprauriu.app.services;
 
 import com.hotelprauriu.app.entities.Reservation;
 import com.hotelprauriu.app.repositories.ReservationRepository;
+import com.hotelprauriu.app.services.LogService;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
@@ -12,9 +13,11 @@ import org.springframework.stereotype.Service;
 public class ReservationService {
 
   private final ReservationRepository reservationRepository;
+  private final LogService logService;
 
-  public ReservationService(ReservationRepository reservationRepository) {
+  public ReservationService(ReservationRepository reservationRepository, LogService logService) {
     this.reservationRepository = reservationRepository;
+    this.logService = logService;
   }
 
   public void deleteAll() {
@@ -50,6 +53,7 @@ public class ReservationService {
     reservation.setStatus(Reservation.Status.PENDING);
 
     reservationRepository.save(reservation);
+    logService.log("RESERVATION", "Nueva reserva de " + reservation.getGuestFullName());
   }
 
   public void acceptReservation(UUID id) {
@@ -57,6 +61,7 @@ public class ReservationService {
     Reservation reservation = reservationRepository.findById(id).get();
     reservation.setStatus(Reservation.Status.ACCEPTED);
     reservationRepository.save(reservation);
+    logService.log("RESERVATION", "Reserva aceptada " + id);
   }
 
   public void refuseReservation(UUID id) {
@@ -64,6 +69,7 @@ public class ReservationService {
     Reservation reservation = reservationRepository.findById(id).get();
     reservation.setStatus(Reservation.Status.REFUSED);
     reservationRepository.save(reservation);
+    logService.log("RESERVATION", "Reserva rechazada " + id);
   }
 
   public void discardReservation(UUID id) {
@@ -71,5 +77,11 @@ public class ReservationService {
     Reservation reservation = reservationRepository.findById(id).get();
     reservation.setStatus(Reservation.Status.DISCARDED);
     reservationRepository.save(reservation);
+    logService.log("RESERVATION", "Reserva descartada " + id);
+  }
+
+  public void deleteReservation(UUID id) {
+    reservationRepository.deleteById(id);
+    logService.log("RESERVATION", "Reserva eliminada " + id);
   }
 }

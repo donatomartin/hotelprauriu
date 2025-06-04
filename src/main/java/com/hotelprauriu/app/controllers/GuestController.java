@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class GuestController {
 
     @GetMapping("/")
-    public String getIndex() {
+    public String getIndex(@org.springframework.web.bind.annotation.RequestParam(required = false) boolean reservationSuccess, org.springframework.ui.Model model) {
+        model.addAttribute("reservationSuccess", reservationSuccess);
         return "guest/pages/home/index";
     }
 
@@ -29,6 +30,11 @@ public class GuestController {
     @GetMapping("/sustainability")
     public String getSustainability() {
         return "guest/pages/info/sustainability";
+    }
+
+    @GetMapping("/terms")
+    public String getTerms() {
+        return "guest/pages/info/terms";
     }
 
 }
