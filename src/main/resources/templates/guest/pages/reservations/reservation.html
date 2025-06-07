@@ -1,95 +1,174 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{shared/layouts/main}">
-
-<body>
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{shared/layouts/main}"
+>
+  <body>
     <main layout:fragment="content">
-        <section id="reservation" class="py-3">
-            <div class="container text-center">
-                <h2 class="mb-4" th:text="#{reservation.title}"></h2>
-                <p th:text="#{reservation.description}"></p>
-                <form class="col-md-8 mx-auto mt-5" th:action="@{/reservation}" method="post"
-                    th:object="${reservation}">
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <input type="text" th:field="*{guestFullName}" class="form-control"
-                                th:placeholder="#{reservation.fullname}" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <div class="input-group">
-                                <select id="countryCodeSelect" th:field="*{guestPhonePrefix}"
-                                    class="form-control w-auto" style="flex: 0 0 auto; width: auto; max-width: 20vh;"
-                                    required>
-                                </select>
-                                <input type="tel" th:field="*{guestPhoneNumber}" class="form-control"
-                                    th:placeholder="#{reservation.phone}" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <input type="email" th:field="*{guestEmail}" class="form-control"
-                                th:placeholder="#{reservation.email}" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6 col-sm-6 col-md-6 mb-3">
-                            <input type="date" th:field="*{checkIn}" class="form-control" th:placeholder="#{reservation.check-in}" required>
-                        </div>
-                        <div class="col-6 col-sm-6 col-md-6 mb-3">
-                            <input type="date" th:field="*{checkOut}" class="form-control" th:placeholder="#{reservation.check-out}" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <select th:field="*{numberOfGuests}" class="form-control" required>
-                                <option value="1" th:text="#{reservation.one-guest}"></option>
-                                <option value="2" th:text="#{reservation.two-guests}"></option>
-                                <option value="3" th:text="#{reservation.three-guests}"></option>
-                                <option value="4" th:text="#{reservation.four-guests}"></option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <select th:field="*{numberOfPets}" class="form-control" required>
-                                <option value="0" th:text="#{reservation.no-pets}"></option>
-                                <option value="1" th:text="#{reservation.one-pet}"></option>
-                                <option value="2" th:text="#{reservation.two-pets}"></option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <textarea th:field="*{guestMessage}" class="form-control" rows="3"
-                            th:placeholder="#{reservation.special-requests}"
-                            placeholder="Special Requests (Optional)"></textarea>
-                    </div>
-                    <div class="form-check form-check-inline mb-3 d-flex align-items-center">
-                        <input class="form-check-input me-2" type="checkbox" th:field="*{termsAccepted}" id="termsCheck" required>
-                        <label class="form-check-label" for="termsCheck" th:utext="#{reservation.accept-terms}"></label>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-lg" th:text="#{consultar}"></button>
-                </form>
-                <div id="loadingOverlay" class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-none" style="z-index: 1050;">
-                    <div class="d-flex justify-content-center align-items-center h-100">
-                        <div class="spinner-border text-light" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </div>
-                </div>
+      <section id="reservation" class="py-3">
+        <div class="container text-center">
+          <h2 class="mb-4" th:text="#{reservation.title}"></h2>
+          <p th:text="#{reservation.description}"></p>
+          <form
+            class="col-md-8 mx-auto mt-5"
+            th:action="@{/reservation}"
+            method="post"
+            th:object="${reservation}"
+          >
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <input
+                  type="text"
+                  th:field="*{guestFullName}"
+                  class="form-control"
+                  th:placeholder="#{reservation.fullname}"
+                  required
+                />
+              </div>
             </div>
-        </section>
-
-        <section class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8" th:each="error: ${errors}">
-                    <p th:if="${error}" th:text="${error}" class="alert alert-danger"></p>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <div class="input-group">
+                  <select
+                    id="countryCodeSelect"
+                    th:field="*{guestPhonePrefix}"
+                    class="form-control w-auto"
+                    style="flex: 0 0 auto; width: auto; max-width: 20vh"
+                    required
+                  ></select>
+                  <input
+                    type="tel"
+                    th:field="*{guestPhoneNumber}"
+                    class="form-control"
+                    th:placeholder="#{reservation.phone}"
+                    required
+                  />
                 </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <input
+                  type="email"
+                  th:field="*{guestEmail}"
+                  class="form-control"
+                  th:placeholder="#{reservation.email}"
+                  required
+                />
+              </div>
             </div>
-        </section>
+            <div class="row">
+              <div class="col-6 col-sm-6 col-md-6 mb-3">
+                <input
+                  type="date"
+                  th:field="*{checkIn}"
+                  class="form-control"
+                  th:placeholder="#{reservation.check-in}"
+                  required
+                />
+              </div>
+              <div class="col-6 col-sm-6 col-md-6 mb-3">
+                <input
+                  type="date"
+                  th:field="*{checkOut}"
+                  class="form-control"
+                  th:placeholder="#{reservation.check-out}"
+                  required
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <select
+                  th:field="*{numberOfGuests}"
+                  class="form-control"
+                  required
+                >
+                  <option value="1" th:text="#{reservation.one-guest}"></option>
+                  <option
+                    value="2"
+                    th:text="#{reservation.two-guests}"
+                  ></option>
+                  <option
+                    value="3"
+                    th:text="#{reservation.three-guests}"
+                  ></option>
+                  <option
+                    value="4"
+                    th:text="#{reservation.four-guests}"
+                  ></option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <select
+                  th:field="*{numberOfPets}"
+                  class="form-control"
+                  required
+                >
+                  <option value="0" th:text="#{reservation.no-pets}"></option>
+                  <option value="1" th:text="#{reservation.one-pet}"></option>
+                  <option value="2" th:text="#{reservation.two-pets}"></option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-3">
+              <textarea
+                th:field="*{guestMessage}"
+                class="form-control"
+                rows="3"
+                th:placeholder="#{reservation.special-requests}"
+                placeholder="Special Requests (Optional)"
+              ></textarea>
+            </div>
+            <div
+              class="form-check form-check-inline mb-3 d-flex align-items-center"
+            >
+              <input
+                class="form-check-input me-2"
+                type="checkbox"
+                th:field="*{termsAccepted}"
+                id="termsCheck"
+                required
+              />
+              <label
+                class="form-check-label"
+                for="termsCheck"
+                th:utext="#{reservation.accept-terms}"
+              ></label>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary btn-lg"
+              th:text="#{consultar}"
+            ></button>
+          </form>
+          <div
+            id="loadingOverlay"
+            class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-none"
+            style="z-index: 1050"
+          >
+            <div class="d-flex justify-content-center align-items-center h-100">
+              <div class="spinner-border text-light" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <script src="/scripts/public/prefix.js"></script>
-        <script src="/scripts/public/reservation.js"></script>
+      <section class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8" th:each="error: ${errors}">
+            <p
+              th:if="${error}"
+              th:text="${error}"
+              class="alert alert-danger"
+            ></p>
+          </div>
+        </div>
+      </section>
 
+      <script src="/scripts/public/prefix.js"></script>
+      <script src="/scripts/public/reservation.js"></script>
     </main>
-</body>
-
+  </body>
 </html>

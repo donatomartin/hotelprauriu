@@ -96,7 +96,8 @@ public class ReservationController {
   }
 
   @PostMapping("/admin/reservation/accept")
-  public String acceptReservation(@RequestParam UUID id, @RequestParam(required = false) String response) {
+  public String acceptReservation(
+      @RequestParam UUID id, @RequestParam(required = false) String response) {
     Reservation r = reservationService.findById(id).orElse(null);
     if (r != null) {
       r.setResponse(response == null ? "" : response);
@@ -107,7 +108,8 @@ public class ReservationController {
   }
 
   @PostMapping("/admin/reservation/decline")
-  public String declineReservation(@RequestParam UUID id, @RequestParam(required = false) String response) {
+  public String declineReservation(
+      @RequestParam UUID id, @RequestParam(required = false) String response) {
     Reservation r = reservationService.findById(id).orElse(null);
     if (r != null) {
       r.setResponse(response == null ? "" : response);
