@@ -1,17 +1,5 @@
 services:
 
-    watchtower:
-        container_name: watchtower-hotelprauriu
-        image: containrrr/watchtower
-        restart: unless-stopped
-        command:
-            - "--label-enable"
-            - "--interval"
-            - "30"
-            - "--rolling-restart"
-        volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
-
     traefik:
         container_name: traefik-hotelprauriu
         image: traefik:v3.3
@@ -36,6 +24,8 @@ services:
             - "letsencrypt:/letsencrypt"
         networks:
             - hotelprauriu-network
+        profiles:
+            - prod
 
     database:
         container_name: postgres-hotelprauriu
@@ -46,8 +36,8 @@ services:
             - postgres-data:/var/lib/postgresql/data
         networks:
             - hotelprauriu-network
-        ports:
-            - "${POSTGRES_PORT}:5432"
+        profiles:
+            - prod
 
     hotelprauriu:
         image: ghcr.io/donatomartin/hotelprauriu/app:latest
@@ -58,13 +48,40 @@ services:
             - "traefik.http.routers.hotelprauriu.rule=Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`)"
             - "traefik.http.routers.hotelprauriu.entrypoints=websecure"
             - "traefik.http.routers.hotelprauriu.tls.certresolver=myresolver"
-            - "traefik.http.services.hotelprauriu.loadbalancer.server.port=8080"
-            - "com.centurylinklabs.watchtower.enable=true"
+            - "traefik.http.services.hotelprauriu.loadbalancer.server.port=${APP_PORT}"
         env_file: .env
         depends_on:
             - database
         networks:
             - hotelprauriu-network
+        profiles:
+            - prod
+
+    dev-database:
+        container_name: postgres-hotelprauriu
+        image: postgres:latest
+        restart: unless-stopped
+        env_file: .env
+        volumes:
+            - postgres-data:/var/lib/postgresql/data
+        networks:
+            - hotelprauriu-network
+        ports:
+            - "${POSTGRES_PORT}:5432"
+        profiles:
+            - dev
+
+    dev-hotelprauriu:
+        image: ghcr.io/donatomartin/hotelprauriu/app:latest
+        restart: unless-stopped
+        container_name: app-hotelprauriu            
+        env_file: .env
+        depends_on:
+            - dev-database
+        networks:
+            - hotelprauriu-network
+        profiles:
+            - dev
 
 networks:
     hotelprauriu-network:
