@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  APP_IMAGE: ${{ github.repository_owner }}/hotelprauriu-spring-app
+  APP_IMAGE: ${{ github.repository_owner }}/hotelprauriu/hotelprauriu-spring-app
 
 jobs:
   build:
