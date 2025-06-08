@@ -40,7 +40,7 @@ services:
             - prod
 
     hotelprauriu:
-        image: ghcr.io/donatomartin/hotelprauriu/app:latest
+        image: ghcr.io/donatomartin/hotelprauriu-spring-app:latest
         restart: unless-stopped
         container_name: app-hotelprauriu            
         labels:
@@ -72,7 +72,9 @@ services:
             - dev
 
     dev-hotelprauriu:
-        image: ghcr.io/donatomartin/hotelprauriu/app:latest
+        image: ghcr.io/donatomartin/hotelprauriu-spring-app:latest
+        build:
+            context: .
         restart: unless-stopped
         container_name: app-hotelprauriu            
         env_file: .env
