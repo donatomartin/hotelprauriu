@@ -1,0 +1,55 @@
+
+name: Build and Deploy
+
+on:
+  release:
+    types: [published]
+
+env:
+  REGISTRY: ghcr.io
+  APP_IMAGE: ${{ github.repository_owner }}/hotelprauriu-spring-app
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build and push backend image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.APP_IMAGE }}:${{ github.ref_name }}
+            ${{ env.REGISTRY }}/${{ env.APP_IMAGE }}:latest
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Write environment file
+        run: echo "${{ secrets.ENV_FILE }}" > .env
+
+      - name: Pull and deploy containers
+        run: |
+          docker compose pull
+          docker compose up -d
