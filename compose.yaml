@@ -67,7 +67,7 @@ services:
         networks:
             - hotelprauriu-network
         ports:
-            - "${POSTGRES_PORT}:5432"
+            - "${EXPOSED_POSTGRES_CONTAINER_PORT}:5432"
         profiles:
             - dev
 
