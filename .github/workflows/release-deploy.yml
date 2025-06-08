@@ -51,5 +51,5 @@ jobs:
 
       - name: Pull and deploy containers
         run: |
-          docker compose pull
-          docker compose up -d
+          docker compose --profile prod pull
+          docker compose --profile prod up -d
