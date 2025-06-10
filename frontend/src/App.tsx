@@ -1,22 +1,21 @@
-import { useEffect, useState } from 'react'
-
-interface Message { page: string }
+import React from 'react'
+import Nav from './components/Nav'
+import Highlight from './components/Highlight'
+import About from './components/About'
+import Services from './components/Services'
+import Footer from './components/Footer'
 
 function App() {
-  const [message, setMessage] = useState<Message | null>(null)
-
-  useEffect(() => {
-    fetch('/api')
-      .then(res => res.json())
-      .then(setMessage)
-      .catch(() => setMessage({ page: 'failed to load' }))
-  }, [])
-
   return (
-    <div>
-      <h1>Prau Riu Hotel</h1>
-      <pre>{JSON.stringify(message)}</pre>
-    </div>
+    <>
+      <Nav />
+      <main className="mt-5">
+        <Highlight />
+        <About />
+        <Services />
+      </main>
+      <Footer />
+    </>
   )
 }
 
