@@ -1,14 +1,178 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{shared/layouts/main}">
-<body>
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{shared/layouts/main}"
+>
+  <body>
     <main id="rules" layout:fragment="content">
-        <div class="container mt-5">
-            <h1 class="mb-4">Términos y Condiciones</h1>
-            <p>Estos términos siguen el Reglamento General de Protección de Datos (GDPR) de la Unión Europea.</p>
-            <p>Al enviar una reserva, usted acepta que procesemos sus datos personales de forma lícita, leal y transparente para la gestión de la misma.</p>
-            <p>Sus datos se conservarán únicamente durante el tiempo necesario y nunca se cederán a terceros sin su consentimiento, salvo obligación legal.</p>
-            <p>Puede ejercer sus derechos de acceso, rectificación y cancelación contactando con nosotros a través de la información indicada en esta web.</p>
-        </div>
+      <div class="container mt-5 mb-5">
+        <h1 class="mb-4">Términos y Condiciones</h1>
+        <p>
+          Estos términos siguen el Reglamento General de Protección de Datos
+          (GDPR) de la Unión Europea.
+        </p>
+        <p>
+          Al enviar una reserva, usted acepta que procesemos sus datos
+          personales de forma lícita, leal y transparente para la gestión de la
+          misma.
+        </p>
+        <p>
+          Sus datos se conservarán únicamente durante el tiempo necesario y
+          nunca se cederán a terceros sin su consentimiento, salvo obligación
+          legal.
+        </p>
+        <p>
+          Puede ejercer sus derechos de acceso, rectificación y cancelación
+          contactando con nosotros a través de la información indicada en esta
+          web.
+        </p>
+
+        <h2 class="mt-4">Normas del alojamiento</h2>
+        <ul>
+          <li>Las habitaciones están disponibles a partir de las 15:00h.</li>
+          <li>El check out se realizará antes de las 12:00h.</li>
+          <li>
+            En caso de no abandonar la habitación a las 12:00 se considerará
+            salida sin prisa y se cobrará un suplemento de 25 €. La habitación
+            debe quedar libre como máximo a las 14:00h.
+          </li>
+          <li>
+            Las reservas de tipo Standar se pueden cancelar hasta 7 días antes
+            del día del check in, sin penalización. Si se cancelan fuera de
+            plazo o no se presentan, se cobrará un importe igual al del precio
+            de la primera noche.
+          </li>
+          <li>
+            Las reservas no reembolsables disfrutan de un descuento especial
+            pero no admiten cambios, cancelaciones ni devoluciones.
+          </li>
+          <li>
+            Todas las reservas con ofertas especiales, Last minute, early
+            booker, Bonos regalo, cajas regalo o de empresas de cupones se
+            tratarán como si fuesen de tipo "no reembolsables".
+          </li>
+        </ul>
+
+        <p class="mt-3">
+          Respete el descanso de los huéspedes. Les recordamos que nuestras
+          habitaciones y espacios cerrados comunes son espacios libres de humo.
+          Para garantizar la comodidad y seguridad de todos nuestros huéspedes,
+          queda terminantemente prohibido el consumo de tabaco y el uso de
+          velas, inciensos o quemadores de aceites esenciales. También está
+          prohibido arrojar colillas al suelo en toda la propiedad, parking,
+          jardines, etc. Se establecerá un cargo extra de 100€ a los clientes
+          que incumplan la normativa de espacios libres de humo. Hotel Prau Ríu
+          se reserva el derecho de admisión y permanencia. El incumplimiento de
+          estas normas puede ser objeto de la expulsión del hotel, sin derecho a
+          reembolso de importe alguno.
+        </p>
+
+        <h2 class="mt-4">Información importante</h2>
+        <h3>Check in</h3>
+        <p>
+          El cliente realizará el check in antes de las 23:00. Los check in se
+          realizarán de forma electrónica antes de la llegada al hotel.
+        </p>
+
+        <h3>Desayunos</h3>
+        <p>
+          El horario de desayunos es de 09:30h a 11:00h. El aforo es limitado;
+          reserva tu mesa con 24h de antelación.
+        </p>
+
+        <h3>Limpieza de habitaciones</h3>
+        <p>
+          Se realizará diariamente de 10:00h a 12:00h. Si desea que no se acceda
+          a su habitación, utilice el cartel de “no molestar”; podrá solicitar
+          toallas en recepción o por whatsapp 684605078. Deje la ventana de su
+          habitación abierta para ventilar. Una vez realizada la limpieza la
+          cerraremos.
+        </p>
+        <p>
+          El baño y todos sus elementos han sido desinfectados especialmente
+          para su uso privado. Dispone de gel y champú en los dosificadores y un
+          limpiador desinfectante e insecticida en el armario de la habitación.
+          Si se termina cualquiera de estos productos, puede solicitarlos en
+          recepción. Deje las toallas que deban ser cambiadas en el plato de
+          ducha.
+        </p>
+        <p>
+          En estancias largas, los juegos de cama se cambian cada 4 noches.
+          Puede solicitar tantos cambios extra como desee a un coste de 20€. Se
+          cambiarán diariamente todas las toallas que se depositen en el plato
+          de ducha.
+        </p>
+
+        <h3>
+          La reutilización de toallas: un pequeño paso hacia la sostenibilidad
+        </h3>
+        <p>
+          En la industria hotelera, cada detalle cuenta, y la reutilización de
+          toallas es uno de ellos. Este simple acto tiene un impacto
+          significativo en varios aspectos:
+        </p>
+        <ul>
+          <li>
+            Ahorro de recursos: cada lavado consume agua y energía. Al
+            reutilizar las toallas, se reducen estos consumos, contribuyendo a
+            la conservación de nuestros recursos naturales.
+          </li>
+          <li>
+            Reducción de emisiones: menos lavados significan menos emisiones de
+            CO2, lo que ayuda a combatir el cambio climático.
+          </li>
+          <li>
+            Economía: menos lavados también se traducen en ahorros económicos
+            para el hotel, que puede invertir en mejorar la experiencia del
+            huésped.
+          </li>
+          <li>
+            Conciencia ambiental: fomentar la reutilización de toallas ayuda a
+            crear conciencia entre los huéspedes sobre la importancia de las
+            prácticas sostenibles.
+          </li>
+        </ul>
+        <p>
+          La reutilización de toallas no es solo una práctica beneficiosa para
+          el hotel, sino también para el planeta y para nosotros como sociedad.
+          Es un pequeño paso que todos podemos tomar hacia un futuro más
+          sostenible.
+        </p>
+
+        <h3>Uso de terraza y jardín</h3>
+        <p>
+          La terraza estará abierta de 17:00h a 22:00h. Se atenderá servicio de
+          bebidas. Las mesas disfrutarán de una separación amplia. Queda
+          prohibido modificar la colocación de las mesas. La puerta de acceso a
+          la terraza debe permanecer cerrada así como las portillas de acceso al
+          jardín.
+        </p>
+
+        <h3>Mascotas</h3>
+        <p>
+          Las mascotas son bienvenidas en todas las estancias del hotel y están
+          sujetas a un suplemento de 16€/mascota y noche, que se puede abonar a
+          la llegada. Para proteger el descanso de todos los huéspedes, nunca
+          estarán solas en la habitación. En las zonas comunes se hará uso de
+          correa, excepto en el jardín, donde podrán correr a sus anchas.
+        </p>
+
+        <p>
+          Hotel Prau Ríu se reserva el derecho a cancelar reservas o suspender
+          ofertas debido a errores tipográficos en operadores o en motores de
+          reservas. Cualquier reserva efectuada con disparidad de precio será
+          cancelada y comunicado al cliente en las siguientes 24h sin que se
+          realice ningún tipo de compensación. Lamentamos las molestias que esto
+          pueda ocasionar.
+        </p>
+
+        <p>
+          Email:
+          <a href="mailto:hotelprauriu@gmail.com">hotelprauriu@gmail.com</a> -
+          WhatsApp: <a href="tel:+34684605074">+34 684 605 074</a>
+        </p>
+      </div>
     </main>
-</body>
+  </body>
 </html>
