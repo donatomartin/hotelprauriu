@@ -76,10 +76,25 @@ services:
         build:
             context: .
         restart: unless-stopped
-        container_name: app-hotelprauriu            
+        container_name: app-hotelprauriu
         env_file: .env
         depends_on:
             - dev-database
+        networks:
+            - hotelprauriu-network
+        profiles:
+            - dev
+
+    dev-frontend:
+        build:
+            context: ./frontend
+        container_name: frontend-hotelprauriu
+        working_dir: /app
+        volumes:
+            - ./frontend:/app
+        command: npm run dev -- --host
+        ports:
+            - "5173:5173"
         networks:
             - hotelprauriu-network
         profiles:
