@@ -46,10 +46,28 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Write environment file
-        run: echo "${{ secrets.ENV_FILE }}" > .env
-
       - name: Pull and deploy containers
+
+        env:
+          SPRING_PROFILE: ${{ vars.SPRING_PROFILE }}
+          APP_PORT: ${{ vars.APP_PORT }}
+
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          JDBC_URL: ${{ secrets.JDBC_URL }}
+
+          DDL_AUTO: ${{ vars.DDL_AUTO }}
+
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+
+          ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+
+          DOMAIN: ${{ vars.DOMAIN }}
+          DOMAIN_MAIL: ${{ vars.DOMAIN_MAIL }}
+
         run: |
-          docker compose --profile prod pull
-          docker compose --profile prod up -d
+          docker compose -f compose.yaml down
+          docker compose -f compose.yaml up -d --pull always --remove-orphans

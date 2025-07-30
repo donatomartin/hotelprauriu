@@ -58,7 +58,7 @@ spring:
       mode: never
 
 server:
-  port: ${APP_PORT}
+  port: 8080
 
 hotelprauriu:
   admin:

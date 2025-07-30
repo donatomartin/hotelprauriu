@@ -46,7 +46,7 @@ services:
             - "traefik.http.routers.hotelprauriu.rule=Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`)"
             - "traefik.http.routers.hotelprauriu.entrypoints=websecure"
             - "traefik.http.routers.hotelprauriu.tls.certresolver=myresolver"
-            - "traefik.http.services.hotelprauriu.loadbalancer.server.port=${APP_PORT}"
+            - "traefik.http.services.hotelprauriu.loadbalancer.server.port=8080"
         environment:
             JDBC_URL: ${JDBC_URL}
             DDL_AUTO: ${DDL_AUTO}
@@ -56,7 +56,6 @@ services:
             ADMIN_USERNAME: ${ADMIN_USERNAME}
             ADMIN_PASSWORD: ${ADMIN_PASSWORD}
             ADMIN_EMAIL: ${ADMIN_EMAIL}
-            APP_PORT: ${APP_PORT}
         depends_on:
             - database
         networks:
