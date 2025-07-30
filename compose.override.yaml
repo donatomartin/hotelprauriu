@@ -10,8 +10,7 @@ services:
   hotelprauriu:
     labels: []
     environment:
-      - JDBC_URL=jdbc:postgresql://postgres-contaking:5432/postgres
-      - ALLOWED_ORIGINS=http://localhost:8090
+      - JDBC_URL=jdbc:postgresql://postgres-hotelprauriu:5432/postgres
     ports:
       - "8091:8080"
   

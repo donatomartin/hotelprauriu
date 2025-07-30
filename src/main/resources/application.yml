@@ -51,7 +51,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: ${DDL_AUTO}
-    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
   sql:
     init:

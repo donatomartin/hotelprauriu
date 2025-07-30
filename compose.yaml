@@ -39,6 +39,7 @@ services:
 
     hotelprauriu:
         image: ghcr.io/donatomartin/hotelprauriu/hotelprauriu-spring-app:latest
+        build: .
         restart: unless-stopped
         container_name: app-hotelprauriu            
         labels:
@@ -56,6 +57,8 @@ services:
             ADMIN_USERNAME: ${ADMIN_USERNAME}
             ADMIN_PASSWORD: ${ADMIN_PASSWORD}
             ADMIN_EMAIL: ${ADMIN_EMAIL}
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
         depends_on:
             - database
         networks:
