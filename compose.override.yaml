@@ -1,0 +1,21 @@
+services:
+
+  traefik:
+    image: alpine  # dummy image
+    command: ["/bin/true"]
+    entrypoint: ["/bin/true"]
+    ports: []
+    volumes: [] 
+
+  hotelprauriu:
+    labels: []
+    environment:
+      - JDBC_URL=jdbc:postgresql://postgres-contaking:5432/postgres
+      - ALLOWED_ORIGINS=http://localhost:8090
+    ports:
+      - "8091:8080"
+  
+  database:
+    ports:
+      - "5432:5432"
+
