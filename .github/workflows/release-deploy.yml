@@ -50,7 +50,6 @@ jobs:
 
         env:
           SPRING_PROFILE: ${{ vars.SPRING_PROFILE }}
-          APP_PORT: ${{ vars.APP_PORT }}
 
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
