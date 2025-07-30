@@ -1,23 +1,29 @@
-<section id="highlight" class="
-            position-relative
-            text-center
-            text-white
-            d-flex
-            justify-content-center
-            align-items-center
-            ">
+<section
+  id="highlight"
+  class="position-relative text-center text-white d-flex justify-content-center align-items-center"
+>
+  <!-- Overlay -->
 
-    <!-- Overlay -->
+  <div
+    class="overlay position-absolute top-0 start-0 w-100 h-100 transparent-black-background"
+  ></div>
 
-    <div class="overlay position-absolute top-0 start-0 w-100 h-100 transparent-black-background"></div>
-
-    <div class="container position-relative">
-        <h1 class="display-3 fw-bold highlight-title" th:text="#{index.title}"></h1>
-        <a href="#about" class="btn btn-primary learn-more-button bg-light text-black border-0 px-5 mx-1"
-        th:text="#{index.learn-more}"></a>
-        <a href="/reservation" class="btn btn-primary learn-more-button bg-light text-black border-0 px-5 mx-1"><span th:remove="tag" th:text="#{services.make-reservation}">Haz tu reserva</span></a>
-        <h2 class="highlight-title py-3" th:text="#{index.subtitle}"></h2>
-        <p>+34 684 60 50 74<br>hotelprauriu@hotmail.com</p>
-    </div>
-
+  <div class="container position-relative">
+    <h1 class="display-3 fw-bold highlight-title" th:text="#{index.title}"></h1>
+    <a
+      href="#about"
+      class="btn btn-primary learn-more-button bg-light text-black border-0 px-5 mx-1"
+      th:text="#{index.learn-more}"
+    ></a>
+    <a
+      href="/reservation"
+      class="btn btn-primary learn-more-button bg-light text-black border-0 px-5 mx-1"
+      ><span th:remove="tag" th:text="#{services.make-reservation}"
+        >Haz tu reserva</span
+      ></a
+    >
+    <h2 class="highlight-title py-3" th:text="#{index.subtitle}"></h2>
+    <p>+34 684 60 50 74<br />hotelprauriu@hotmail.com</p>
+  </div>
 </section>
+
