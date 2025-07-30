@@ -3,7 +3,6 @@ package com.hotelprauriu.app.services;
 import com.hotelprauriu.app.entities.Reservation;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,30 +12,32 @@ public class MailService {
 
   private String templateReservationClient =
       """
-Hola {name} 👋🏻
+      Hola {name} 👋🏻
 
-¡Hemos recibido tu consulta! Nos pondremos en contacto contigo lo antes posible para confirmar.
+      ¡Hemos recibido tu consulta! Nos pondremos en contacto contigo lo antes posible para confirmar.
 
-Saludos,
-Prau Ríu Hotel
+      Por favor, no respondas a este correo, ya que es un mensaje automático. Si tienes alguna pregunta, puedes escribirnos a hotelprauriu@hotmail.com
 
-------------------------
- Detalles de la consulta
-------------------------
+      Saludos,
+      Prau Ríu Hotel
 
-Checkin: {checkin}
-Checkout: {checkout}
+      ------------------------
+       Detalles de la consulta
+      ------------------------
 
-Número de huéspedes: {nguests}
-Número de mascotas: {npets}
+      Checkin: {checkin}
+      Checkout: {checkout}
 
-correo: {email}
-teléfono: {phone}
+      Número de huéspedes: {nguests}
+      Número de mascotas: {npets}
 
-Mensaje:
-{message}
+      correo: {email}
+      teléfono: {phone}
 
-""";
+      Mensaje:
+      {message}
+
+      """;
   private String templateReservationHotel =
       """
       ¡Has recibido una consulta de {name}!
@@ -63,8 +64,8 @@ Mensaje:
   @Value("${hotelprauriu.admin.email}")
   private String adminEmail;
 
-  public MailService(JavaMailSender mailSender) {
-    this.asyncEmailSender = new AsyncEmailSender(mailSender);
+  public MailService(AsyncEmailSender asyncEmailSender) {
+    this.asyncEmailSender = asyncEmailSender;
   }
 
   public void sendResponseMail(Reservation reservation) {
