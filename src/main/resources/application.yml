@@ -1,0 +1,77 @@
+spring:
+  profiles:
+    active: ${SPRING_PROFILE}
+
+  application:
+    name: hotelprauriu
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${JDBC_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${GMAIL_ADDRESS}
+    password: ${GMAIL_APP_PASSWORD}
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    default-encoding: UTF-8
+
+  data:
+    web:
+      pageable:
+        page-parameter: 0
+        default-page-size: 4
+
+  devtools:
+    restart:
+      additional-paths:
+        - src/main/resources/templates
+        - src/main/resources/static
+        - src/main/resources/
+
+  output:
+    ansi:
+      enabled: ALWAYS
+
+  messages:
+    encoding: UTF-8
+    basename: messages
+    cache-duration: 3600
+
+  jpa:
+    hibernate:
+      ddl-auto: ${DDL_AUTO}
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: never
+
+server:
+  port: ${APP_PORT}
+
+hotelprauriu:
+  admin:
+    username: ${ADMIN_USERNAME}
+    password: ${ADMIN_PASSWORD}
+    email: ${ADMIN_EMAIL}
+
+debug: false
+
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          servlet:
+            i18n: DEBUG
