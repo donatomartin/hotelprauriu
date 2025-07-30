@@ -47,7 +47,15 @@ services:
             - "traefik.http.routers.hotelprauriu.entrypoints=websecure"
             - "traefik.http.routers.hotelprauriu.tls.certresolver=myresolver"
             - "traefik.http.services.hotelprauriu.loadbalancer.server.port=${APP_PORT}"
-        env_file: .env
+        environment:
+            JDBC_URL: ${JDBC_URL}
+            DDL_AUTO: ${DDL_AUTO}
+            SPRING_PROFILE: ${SPRING_PROFILE}
+            GMAIL_ADDRESS: ${GMAIL_ADDRESS}
+            GMAIL_APP_PASSWORD: ${GMAIL_APP_PASSWORD}
+            ADMIN_USERNAME: ${ADMIN_USERNAME}
+            ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+            ADMIN_EMAIL: ${ADMIN_EMAIL}
         depends_on:
             - database
         networks:
