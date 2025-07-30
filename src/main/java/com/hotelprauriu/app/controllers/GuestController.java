@@ -37,4 +37,9 @@ public class GuestController {
         return "guest/pages/info/terms";
     }
 
+    @GetMapping("/no-tdt")
+    public String getNoTdt() {
+        return "guest/pages/info/comunicado-tdt";
+    }
+
 }
