@@ -58,7 +58,7 @@ jobs:
           DDL_AUTO: ${{ vars.DDL_AUTO }}
 
           GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
-          GMAIL_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
 
           ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
           ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
