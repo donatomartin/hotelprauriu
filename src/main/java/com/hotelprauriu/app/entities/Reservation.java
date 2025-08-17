@@ -5,12 +5,10 @@ import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "Reservations")
@@ -18,84 +16,84 @@ import lombok.Setter;
 @Setter
 public class Reservation {
 
-    public enum Status {
-        PENDING,
-        ACCEPTED,
-        REFUSED,
-        DISCARDED,
-        PAYED
+  public enum Status {
+    PENDING,
+    ACCEPTED,
+    REFUSED,
+    DISCARDED,
+    PAYED
+  }
+
+  @Id
+  @GeneratedValue(generator = "uuid")
+  private UUID id;
+
+  @CreationTimestamp private LocalDateTime createdAt;
+
+  @UpdateTimestamp private LocalDateTime lastUpdated;
+
+  @NotNull(message = "{error.checkin.date.required}")
+  @Future(message = "{error.checkin.date.future}")
+  private LocalDate checkIn;
+
+  @NotNull(message = "{error.checkout.date.required}")
+  @Future(message = "{error.checkout.date.future}")
+  private LocalDate checkOut;
+
+  @AssertTrue(message = "The check-in date must be before the check-out date")
+  private boolean isCheckInBeforeCheckOut() {
+    // If either date is null, we let the other @NotNull validations handle it.
+    if (checkIn == null || checkOut == null) {
+      return true;
     }
+    return checkIn.isBefore(checkOut);
+  }
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    private UUID id;
+  @NotBlank(message = "{error.guest.name.required}")
+  @Size(min = 2, max = 100, message = "{error.guest.name.size}")
+  private String guestFullName;
 
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+  @NotBlank(message = "{error.guest.email.required}")
+  @Email(message = "{error.guest.email.invalid}")
+  private String guestEmail;
 
-    @UpdateTimestamp
-    private LocalDateTime lastUpdated;
+  @NotBlank(message = "{error.guest.phone.prefix.required}")
+  private String guestPhonePrefix;
 
-    @NotNull(message = "{error.checkin.date.required}")
-    @Future(message = "{error.checkin.date.future}")
-    private LocalDate checkIn;
+  @NotBlank(message = "{error.guest.phone.number.required}")
+  private String guestPhoneNumber;
 
-    @NotNull(message = "{error.checkout.date.required}")
-    @Future(message = "{error.checkout.date.future}")
-    private LocalDate checkOut;
+  public void setGuestPhoneNumber(String guestPhoneNumber) {
+    this.guestPhoneNumber = guestPhoneNumber.replace(" ", "");
+  }
 
-    @AssertTrue(message = "The check-in date must be before the check-out date")
-    private boolean isCheckInBeforeCheckOut() {
-        // If either date is null, we let the other @NotNull validations handle it.
-        if (checkIn == null || checkOut == null) {
-            return true;
-        }
-        return checkIn.isBefore(checkOut);
-    }
+  @Transient private String guestFullPhoneNumber;
 
-    @NotBlank(message = "{error.guest.name.required}")
-    @Size(min = 2, max = 100, message = "{error.guest.name.size}")
-    private String guestFullName;
+  public String getGuestFullPhoneNumber() {
+    return guestPhonePrefix + " " + guestPhoneNumber;
+  }
 
-    @NotBlank(message = "{error.guest.email.required}")
-    @Email(message = "{error.guest.email.invalid}")
-    private String guestEmail;
+  @NotNull(message = "{error.guests.count.required}")
+  @Min(value = 1, message = "{error.guests.count.min}")
+  @Max(value = 4, message = "{error.guests.count.max}")
+  private int numberOfGuests;
 
-    @NotBlank(message = "{error.guest.phone.prefix.required}")
-    private String guestPhonePrefix;
-    
-    @NotBlank(message = "{error.guest.phone.number.required}")
-    private String guestPhoneNumber;
+  @NotNull(message = "{error.pets.count.required}")
+  @Min(value = 0, message = "{error.pets.count.min}")
+  @Max(value = 2, message = "{error.pets.count.max}")
+  private int numberOfPets;
 
-    public void setGuestPhoneNumber(String guestPhoneNumber) {
-        this.guestPhoneNumber = guestPhoneNumber.replace(" ", "");
-    }
+  @AssertTrue(message = "{error.terms.accept.required}")
+  private boolean termsAccepted;
 
-    @Transient
-    private String guestFullPhoneNumber;
+  @Size(max = 5000, message = "{error.guest.message.size}")
+  @Column(length = 5000)
+  private String guestMessage;
 
-    public String getGuestFullPhoneNumber() {
-        return guestPhonePrefix + " " + guestPhoneNumber;
-    }
+  @Enumerated(EnumType.STRING)
+  private Status status;
 
-    @NotNull(message = "{error.guests.count.required}")
-    @Min(value = 1, message = "{error.guests.count.min}")
-    @Max(value = 4, message = "{error.guests.count.max}")
-    private int numberOfGuests;
-
-    @NotNull(message = "{error.pets.count.required}")
-    @Min(value = 0, message = "{error.pets.count.min}")
-    @Max(value = 2, message = "{error.pets.count.max}")
-    private int numberOfPets;
-
-    @AssertTrue(message = "{error.terms.accept.required}")
-    private boolean termsAccepted;
-
-    @Size(max = 511, message = "{error.guest.message.size}")
-    private String guestMessage;
-
-    @Enumerated(EnumType.STRING)
-    private Status status;
-
-    private String response;
+  @Size(max = 5000, message = "{error.guest.message.size}")
+  @Column(length = 5000)
+  private String response;
 }

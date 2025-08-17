@@ -12,14 +12,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Template {
-    @Id
-    @GeneratedValue(generator = "uuid")
-    private UUID id;
+  @Id
+  @GeneratedValue(generator = "uuid")
+  private UUID id;
 
-    @NotBlank
-    private String name;
+  @NotBlank private String name;
 
-    @NotBlank
-    @Size(max = 511)
-    private String content;
+  @NotBlank
+  @Size(max = 5000)
+  @Column(length = 5000)
+  private String content;
 }
